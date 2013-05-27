@@ -1,0 +1,226 @@
+% Haskell Workshop
+% Jeff Foster
+% Cambridge Software Craftsmanship
+
+# Who am I?
+- Head of Software Engineering at Red Gate
+- Most definitely NOT a Haskell expert
+- Learning functional programming because it's fun!
+
+# Why Haskell?
+- Purely functional, statically typed, lazy
+- Different is good!
+
+# What are you going to do today?
+>- You'll the basics of Haskell
+>- You'll learn to read Haskell
+>- You'll write a combinator library for analysing Premier League
+football matches
+
+# Hello, World!
+
+~~~~
+   module Main where
+
+   main = putStrLn "Hello, World!"
+~~~~
+
+- Every Haskell program needs a "Main" module
+- `main` is the entry point
+- Run with `runghc HelloWorld.hs` or compile with `ghc`
+
+<!-- Quick stop to let everyone find out that Haskell works for them -->
+
+# GHCI
+- GHCI is the de-facto Haskell interpreter
+- Provides a REPL and a way to explore the code
+- Expressions entered are evaluated and returned, for example:
+
+~~~~
+  > 1
+  => 1
+
+  > "hello"
+  => "hello"
+
+  > 1 + 1
+  => 2
+
+  > [1,2,3,4,5]
+  => [1,2,3,4,5]
+
+  > ("Banana", 345)
+  => ("Banana", 345)
+~~~~
+
+# Let's write some functions and explore some syntax
+
+~~~~
+  add x y = x + y
+
+  -- Guards
+  add2 x y 
+    | x == 0 = y
+    | y == 0 = x
+    | otherwise = 1 + add2 (x - 1) y
+
+  -- Pattern matching
+  add3 0 y = y
+  add3 x 0 = x
+  add3 x y = 1 + add3 (x - 1) y
+~~~~
+
+>- Can you write factorial and fibonacci functions?
+
+# Types 
+
+- We haven't written type signatures yet
+- Haskell has inferred types for s
+- In ghci, `:t <expression>` tells us the type
+- `:t (+)` says `(+) :: Num a => a -> a ->`
+- What does this mean? 
+
+# Types are everything
+
+- Often a type signature says everything about a function.
+- What do these functions do?
+- fooHicky :: (a,b) -> a
+- banana   :: a -> a 
+
+# Type Classes
+- Think of a type class as an interface
+- Common type classes are `Eq` and `Show` which define equality and printability
+- Use `:i <TypeClass>` to inspect a type class in ghci e.g.
+
+~~~~
+  > :i Num
+  class Num a where
+    (+) :: a -> a -> a
+    (*) :: a -> a -> a
+    --etc
+~~~~
+
+- You can automatically derive `Show` and `Eq` to get printable and equality support
+
+
+# Defining new types
+
+- Data types are constructed via type constructors
+- Data types are pattern matched via type constructors
+
+~~~~
+  data Point = PointC Int Int deriving (Show,Eq)
+
+  isOrigin :: Point -> Bool
+  isOrigin (PointC 0 0) = true
+  isOrigin _           = false
+~~~~
+
+# Sum Types
+
+- A sum type can be one of many possibilities
+
+~~~~
+  data Shape = Square Double
+             | Circle Double 
+             | Rectangle Double Double
+~~~~
+
+>- How would you write a function `area :: Shape -> Double`?
+
+# Recursive Types
+
+- A data type can also refer to itself (e.g. a List or a Tree) 
+
+~~~~
+   data List a = Cons a (List a)
+               | Empty
+
+   
+   myLength :: List a -> Int
+   myLength Empty = 0
+   myLength (Cons x xs) = 1 + myLength xs 
+~~~~
+
+# Record syntax
+
+- Allows you to generate names for parts of a type
+
+~~~~
+
+   data Person = PersonC
+      {
+        firstName :: String,
+        lastName  :: String
+      }
+
+   -- Automatically generates accessor methods
+   -- lastName :: Person -> String
+   -- firstName :: Person -> String
+~~~~
+
+# Enough Talking
+- Write some data types for a Premier League football match
+-- e.g. Everton 1 - Man United 0 (first team is the home team)
+
+- Write some simple functions to give information such as: 
+-- homeWin :: Game -> Bool
+-- awayWin :: Game -> Bool
+-- scoreDraw :: Game -> Bool
+
+# Let's look at lists
+- All items in a list have to be the same type (no `[1,"a"]`)
+- Lists have special syntax in Haskell
+- `[]` is the empty list
+- `:` is the type constructor used to create lists `1 : [] => [1]`
+- `[1,2,3]` is syntactic sugar for `1 : (2 : (3 : []) )`
+
+# Let's write some list functions
+- Need to think recursively! 
+- What's the base case?
+- What's the recursive case?
+
+# Length
+
+~~~~
+   -- base case, an empty list
+   length [] = 0
+
+   -- recursive case is a list of at least one element
+   length (_:xs) = 1 + length xs
+~~~~
+
+# Adding one to each element
+
+~~~~
+   addOne :: [Int] -> [Int]
+   addOne [] = []
+   addOne (x:xs) = (x + 1) : (addOne xs)
+~~~~
+
+# Higher Order Functions
+
+> Functions are first class citizens
+> You can pass them to methods
+
+~~~~
+   map :: (a -> b) -> [a] -> [b]
+   map f []     = []
+   map f (x:xs) = f x : map xs 
+
+   -- more succinct definition
+   -- point free (no args), partial application (+ 1)
+   addOne = map (+ 1)
+~~~~
+
+# Putting it all together
+- We're going to work with Premier League Data for this season
+- We're going to write some code to allow us to quiz the data
+- From the REPL, I want to be able to ask questions like:
+    - What game had the most goals?
+    - Which team got most corners?
+    - If away wins scored 5 points, who'd have won the league?
+
+# Getting Started
+
+

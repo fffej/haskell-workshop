@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Jeff Foster" />
+  <title>Haskell Workshop</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Haskell Workshop</h1>
+  <p class="author">
+Jeff Foster
+  </p>
+  <p class="date">Cambridge Software Craftsmanship</p>
+</div>
+<div class="section slide level1" id="who-am-i">
+<h1>Who am I?</h1>
+<ul>
+<li>Head of Software Engineering at Red Gate</li>
+<li>Most definitely NOT a Haskell expert</li>
+<li>Learning functional programming because it's fun!</li>
+</ul>
+</div>
+<div class="section slide level1" id="why-haskell">
+<h1>Why Haskell?</h1>
+<ul>
+<li>Purely functional, statically typed, lazy</li>
+<li>Different is good!</li>
+</ul>
+</div>
+<div class="section slide level1" id="what-are-you-going-to-do-today">
+<h1>What are you going to do today?</h1>
+<ul class="incremental">
+<li>You'll the basics of Haskell</li>
+<li>You'll learn to read Haskell</li>
+<li>You'll write a combinator library for analysing Premier League football matches</li>
+</ul>
+</div>
+<div class="section slide level1" id="hello-world">
+<h1>Hello, World!</h1>
+<pre><code>   module Main where
+
+   main = putStrLn &quot;Hello, World!&quot;</code></pre>
+<ul>
+<li>Every Haskell program needs a &quot;Main&quot; module</li>
+<li><code>main</code> is the entry point</li>
+<li>Run with <code>runghc HelloWorld.hs</code> or compile with <code>ghc</code></li>
+</ul>
+<!-- Quick stop to let everyone find out that Haskell works for them -->
+
+</div>
+<div class="section slide level1" id="ghci">
+<h1>GHCI</h1>
+<ul>
+<li>GHCI is the de-facto Haskell interpreter</li>
+<li>Provides a REPL and a way to explore the code</li>
+<li>Expressions entered are evaluated and returned, for example:</li>
+</ul>
+<pre><code>  &gt; 1
+  =&gt; 1
+
+  &gt; &quot;hello&quot;
+  =&gt; &quot;hello&quot;
+
+  &gt; 1 + 1
+  =&gt; 2
+
+  &gt; [1,2,3,4,5]
+  =&gt; [1,2,3,4,5]
+
+  &gt; (&quot;Banana&quot;, 345)
+  =&gt; (&quot;Banana&quot;, 345)</code></pre>
+</div>
+<div class="section slide level1" id="lets-write-some-functions-and-explore-some-syntax">
+<h1>Let's write some functions and explore some syntax</h1>
+<pre><code>  add x y = x + y
+
+  -- Guards
+  add2 x y 
+    | x == 0 = y
+    | y == 0 = x
+    | otherwise = 1 + add2 (x - 1) y
+
+  -- Pattern matching
+  add3 0 y = y
+  add3 x 0 = x
+  add3 x y = 1 + add3 (x - 1) y</code></pre>
+<ul class="incremental">
+<li>Can you write factorial and fibonacci functions?</li>
+</ul>
+</div>
+<div class="section slide level1" id="types">
+<h1>Types</h1>
+<ul>
+<li>We haven't written type signatures yet</li>
+<li>Haskell has inferred types for s</li>
+<li>In ghci, <code>:t &lt;expression&gt;</code> tells us the type</li>
+<li><code>:t (+)</code> says <code>(+) :: Num a =&gt; a -&gt; a -&gt;</code></li>
+<li>What does this mean?</li>
+</ul>
+</div>
+<div class="section slide level1" id="types-are-everything">
+<h1>Types are everything</h1>
+<ul>
+<li>Often a type signature says everything about a function.</li>
+<li>What do these functions do?</li>
+<li>fooHicky :: (a,b) -&gt; a</li>
+<li>banana :: a -&gt; a</li>
+</ul>
+</div>
+<div class="section slide level1" id="type-classes">
+<h1>Type Classes</h1>
+<ul>
+<li>Think of a type class as an interface</li>
+<li>Common type classes are <code>Eq</code> and <code>Show</code> which define equality and printability</li>
+<li>Use <code>:i &lt;TypeClass&gt;</code> to inspect a type class in ghci e.g.</li>
+</ul>
+<pre><code>  &gt; :i Num
+  class Num a where
+    (+) :: a -&gt; a -&gt; a
+    (*) :: a -&gt; a -&gt; a
+    --etc</code></pre>
+<ul>
+<li>You can automatically derive <code>Show</code> and <code>Eq</code> to get printable and equality support</li>
+</ul>
+</div>
+<div class="section slide level1" id="defining-new-types">
+<h1>Defining new types</h1>
+<ul>
+<li>Data types are constructed via type constructors</li>
+<li>Data types are pattern matched via type constructors</li>
+</ul>
+<pre><code>  data Point = PointC Int Int deriving (Show,Eq)
+
+  isOrigin :: Point -&gt; Bool
+  isOrigin (PointC 0 0) = true
+  isOrigin _           = false</code></pre>
+</div>
+<div class="section slide level1" id="sum-types">
+<h1>Sum Types</h1>
+<ul>
+<li>A sum type can be one of many possibilities</li>
+</ul>
+<pre><code>  data Shape = Square Double
+             | Circle Double 
+             | Rectangle Double Double</code></pre>
+<ul class="incremental">
+<li>How would you write a function <code>area :: Shape -&gt; Double</code>?</li>
+</ul>
+</div>
+<div class="section slide level1" id="recursive-types">
+<h1>Recursive Types</h1>
+<ul>
+<li>A data type can also refer to itself (e.g. a List or a Tree)</li>
+</ul>
+<pre><code>   data List a = Cons a (List a)
+               | Empty
+
+   
+   myLength :: List a -&gt; Int
+   myLength Empty = 0
+   myLength (Cons x xs) = 1 + myLength xs </code></pre>
+</div>
+<div class="section slide level1" id="record-syntax">
+<h1>Record syntax</h1>
+<ul>
+<li>Allows you to generate names for parts of a type</li>
+</ul>
+<pre><code>
+   data Person = PersonC
+      {
+        firstName :: String,
+        lastName  :: String
+      }
+
+   -- Automatically generates accessor methods
+   -- lastName :: Person -&gt; String
+   -- firstName :: Person -&gt; String</code></pre>
+</div>
+<div class="section slide level1" id="enough-talking">
+<h1>Enough Talking</h1>
+<ul>
+<li><p>Write some data types for a Premier League football match -- e.g. Everton 1 - Man United 0 (first team is the home team)</p></li>
+<li><p>Write some simple functions to give information such as: -- homeWin :: Game -&gt; Bool -- awayWin :: Game -&gt; Bool -- scoreDraw :: Game -&gt; Bool</p></li>
+</ul>
+</div>
+<div class="section slide level1" id="lets-look-at-lists">
+<h1>Let's look at lists</h1>
+<ul>
+<li>All items in a list have to be the same type (no <code>[1,&quot;a&quot;]</code>)</li>
+<li>Lists have special syntax in Haskell</li>
+<li><code>[]</code> is the empty list</li>
+<li><code>:</code> is the type constructor used to create lists <code>1 : [] =&gt; [1]</code></li>
+<li><code>[1,2,3]</code> is syntactic sugar for <code>1 : (2 : (3 : []) )</code></li>
+</ul>
+</div>
+<div class="section slide level1" id="lets-write-some-list-functions">
+<h1>Let's write some list functions</h1>
+<ul>
+<li>Need to think recursively!</li>
+<li>What's the base case?</li>
+<li>What's the recursive case?</li>
+</ul>
+</div>
+<div class="section slide level1" id="length">
+<h1>Length</h1>
+<pre><code>   -- base case, an empty list
+   length [] = 0
+
+   -- recursive case is a list of at least one element
+   length (_:xs) = 1 + length xs</code></pre>
+</div>
+<div class="section slide level1" id="adding-one-to-each-element">
+<h1>Adding one to each element</h1>
+<pre><code>   addOne :: [Int] -&gt; [Int]
+   addOne [] = []
+   addOne (x:xs) = (x + 1) : (addOne xs)</code></pre>
+</div>
+<div class="section slide level1" id="higher-order-functions">
+<h1>Higher Order Functions</h1>
+<blockquote>
+<p>Functions are first class citizens You can pass them to methods</p>
+</blockquote>
+<pre><code>   map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+   map f []     = []
+   map f (x:xs) = f x : map xs 
+
+   -- more succinct definition
+   -- point free (no args), partial application (+ 1)
+   addOne = map (+ 1)</code></pre>
+</div>
+<div class="section slide level1" id="putting-it-all-together">
+<h1>Putting it all together</h1>
+<ul>
+<li>We're going to work with Premier League Data for this season</li>
+<li>We're going to write some code to allow us to quiz the data</li>
+<li>From the REPL, I want to be able to ask questions like:
+<ul>
+<li>What game had the most goals?</li>
+<li>Which team got most corners?</li>
+<li>If away wins scored 5 points, who'd have won the league?</li>
+</ul></li>
+</ul>
+</div>
+<div class="section slide level1" id="getting-started">
+<h1>Getting Started</h1>
+</div>
+</body>
+</html>
