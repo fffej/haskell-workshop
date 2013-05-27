@@ -65,19 +65,19 @@ Jeff Foster
 <li>Provides a REPL and a way to explore the code</li>
 <li>Expressions entered are evaluated and returned, for example:</li>
 </ul>
-<pre><code>  &gt; 1
+<pre><code>  &gt; 1 -- Int, Integer, Double, Char
   =&gt; 1
 
-  &gt; &quot;hello&quot;
-  =&gt; &quot;hello&quot;
-
-  &gt; 1 + 1
+  &gt; 1 + 1 -- standard arithmetic operators
   =&gt; 2
 
-  &gt; [1,2,3,4,5]
-  =&gt; [1,2,3,4,5]
+  &gt; &quot;hello&quot; -- strings are lists of characters
+  =&gt; &quot;hello&quot;
 
-  &gt; (&quot;Banana&quot;, 345)
+  &gt; [&#39;h&#39;,e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;] -- lists are homogenous collections
+  =&gt; &quot;hello&quot;
+
+  &gt; (&quot;Banana&quot;, 345) -- tuples provide hetereogenous collections
   =&gt; (&quot;Banana&quot;, 345)</code></pre>
 </div>
 <div class="section slide level1" id="lets-write-some-functions-and-explore-some-syntax">
@@ -139,11 +139,13 @@ Jeff Foster
 <li>Data types are constructed via type constructors</li>
 <li>Data types are pattern matched via type constructors</li>
 </ul>
-<pre><code>  data Point = PointC Int Int deriving (Show,Eq)
+<pre><code>  -- Point is the type
+  -- PointC is the type constructor
+  data Point = PointC Int Int deriving (Show,Eq)
 
   isOrigin :: Point -&gt; Bool
-  isOrigin (PointC 0 0) = true
-  isOrigin _           = false</code></pre>
+  isOrigin (PointC 0 0) = True
+  isOrigin _            = False</code></pre>
 </div>
 <div class="section slide level1" id="sum-types">
 <h1>Sum Types</h1>
@@ -152,7 +154,8 @@ Jeff Foster
 </ul>
 <pre><code>  data Shape = Square Double
              | Circle Double 
-             | Rectangle Double Double</code></pre>
+             | Rectangle Double Double
+             deriving (Show, Eq)</code></pre>
 <ul class="incremental">
 <li>How would you write a function <code>area :: Shape -&gt; Double</code>?</li>
 </ul>
@@ -189,8 +192,16 @@ Jeff Foster
 <div class="section slide level1" id="enough-talking">
 <h1>Enough Talking</h1>
 <ul>
-<li><p>Write some data types for a Premier League football match -- e.g. Everton 1 - Man United 0 (first team is the home team)</p></li>
-<li><p>Write some simple functions to give information such as: -- homeWin :: Game -&gt; Bool -- awayWin :: Game -&gt; Bool -- scoreDraw :: Game -&gt; Bool</p></li>
+<li>Write some data types for a Premier League football match
+<ul>
+<li>e.g. Everton 1 - Man United 0 (first team is the home team)</li>
+</ul></li>
+<li>Write some simple functions to give information such as:
+<ul>
+<li>homeWin :: Game -&gt; Bool</li>
+<li>awayWin :: Game -&gt; Bool</li>
+<li>scoreDraw :: Game -&gt; Bool</li>
+</ul></li>
 </ul>
 </div>
 <div class="section slide level1" id="lets-look-at-lists">
@@ -227,9 +238,10 @@ Jeff Foster
 </div>
 <div class="section slide level1" id="higher-order-functions">
 <h1>Higher Order Functions</h1>
-<blockquote>
-<p>Functions are first class citizens You can pass them to methods</p>
-</blockquote>
+<ul>
+<li>As you might expect functions are first class citizens</li>
+<li>You can pass them to methods, partially apply them</li>
+</ul>
 <pre><code>   map :: (a -&gt; b) -&gt; [a] -&gt; [b]
    map f []     = []
    map f (x:xs) = f x : map xs 
@@ -251,8 +263,53 @@ Jeff Foster
 </ul></li>
 </ul>
 </div>
-<div class="section slide level1" id="getting-started">
-<h1>Getting Started</h1>
+<div class="section slide level1" id="property-based-testing">
+<h1>Property Based Testing</h1>
+<ul>
+<li>The type system can encode lots of properties about your data</li>
+<li>Property based tested can help you assert more about your data</li>
+<li>Instead of existential tests (<code>assert 1 + 1 == 2</code>) write universal tests (<code>a + b == b + a</code>)</li>
+</ul>
+</div>
+<div class="section slide level1" id="asserting-invariants">
+<h1>Asserting Invariants</h1>
+<pre><code>  reverse :: [a] -&gt; [a]
+  
+  prop_LenPreserving :: [a] -&gt; Bool
+  prop_LenPreserving xs = length xs == length (reverse xs)
+
+  &gt; quickCheck prop_LenPreserving
+  +++ OK, passed 100 tests
+</code></pre>
+</div>
+<div class="section slide level1" id="finding-errors">
+<h1>Finding errors</h1>
+<pre><code>  badSort :: Ord a =&gt; [a] -&gt; [a]
+  badSort [] = []
+  badSort xs = minimum xs : tail xs
+
+  &gt; badSort [1,2,3,4] 
+  [1,2,3,4]
+
+  model_test :: [Int] -&gt; Bool
+  model_test xs = sort xs == badSort xs
+
+  &gt; quickCheck model_test
+  *** Failed! Falsifiable (after 4 tests):
+  [0, -1]</code></pre>
+</div>
+<div class="section slide level1" id="whered-null-go">
+<h1>Where'd <code>null</code> go?</h1>
+<ul>
+<li>How do you write <code>lookup :: Eq a =&gt; a -&gt; [(a,b)] -&gt; b</code></li>
+<li>What happens when <code>a</code> is not in the list?</li>
+</ul>
+<pre><code>
+  data Maybe a = Nothing 
+               | Just a
+
+  lookup :: Eq a =&gt; a -&gt; [(a,b)] -&gt; Maybe b
+</code></pre>
 </div>
 </body>
 </html>

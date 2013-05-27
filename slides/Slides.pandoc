@@ -37,19 +37,19 @@ football matches
 - Expressions entered are evaluated and returned, for example:
 
 ~~~~
-  > 1
+  > 1 -- Int, Integer, Double, Char
   => 1
 
-  > "hello"
-  => "hello"
-
-  > 1 + 1
+  > 1 + 1 -- standard arithmetic operators
   => 2
 
-  > [1,2,3,4,5]
-  => [1,2,3,4,5]
+  > "hello" -- strings are lists of characters
+  => "hello"
 
-  > ("Banana", 345)
+  > ['h',e','l','l','o'] -- lists are homogenous collections
+  => "hello"
+
+  > ("Banana", 345) -- tuples provide hetereogenous collections
   => ("Banana", 345)
 ~~~~
 
@@ -102,18 +102,19 @@ football matches
 
 - You can automatically derive `Show` and `Eq` to get printable and equality support
 
-
 # Defining new types
 
 - Data types are constructed via type constructors
 - Data types are pattern matched via type constructors
 
 ~~~~
+  -- Point is the type
+  -- PointC is the type constructor
   data Point = PointC Int Int deriving (Show,Eq)
 
   isOrigin :: Point -> Bool
-  isOrigin (PointC 0 0) = true
-  isOrigin _           = false
+  isOrigin (PointC 0 0) = True
+  isOrigin _            = False
 ~~~~
 
 # Sum Types
@@ -124,6 +125,7 @@ football matches
   data Shape = Square Double
              | Circle Double 
              | Rectangle Double Double
+             deriving (Show, Eq)
 ~~~~
 
 >- How would you write a function `area :: Shape -> Double`?
@@ -161,12 +163,12 @@ football matches
 
 # Enough Talking
 - Write some data types for a Premier League football match
--- e.g. Everton 1 - Man United 0 (first team is the home team)
+    - e.g. Everton 1 - Man United 0 (first team is the home team)
 
 - Write some simple functions to give information such as: 
--- homeWin :: Game -> Bool
--- awayWin :: Game -> Bool
--- scoreDraw :: Game -> Bool
+    - homeWin :: Game -> Bool
+    - awayWin :: Game -> Bool
+    - scoreDraw :: Game -> Bool
 
 # Let's look at lists
 - All items in a list have to be the same type (no `[1,"a"]`)
@@ -200,8 +202,8 @@ football matches
 
 # Higher Order Functions
 
-> Functions are first class citizens
-> You can pass them to methods
+- As you might expect functions are first class citizens
+- You can pass them to methods, partially apply them
 
 ~~~~
    map :: (a -> b) -> [a] -> [b]
@@ -221,6 +223,40 @@ football matches
     - Which team got most corners?
     - If away wins scored 5 points, who'd have won the league?
 
-# Getting Started
+# Property Based Testing
+- The type system can encode lots of properties about your data
+- Property based tested can help you assert more about your data
+- Instead of existential tests (`assert 1 + 1 == 2`) write universal tests (`a + b == b + a`)
+
+# Asserting Invariants
+
+~~~~
+  reverse :: [a] -> [a]
+  
+  prop_LenPreserving :: [a] -> Bool
+  prop_LenPreserving xs = length xs == length (reverse xs)
+
+  > quickCheck prop_LenPreserving
+  +++ OK, passed 100 tests
+
+~~~~ 
+
+# Finding errors
+
+~~~~
+  badSort :: Ord a => [a] -> [a]
+  badSort [] = []
+  badSort xs = minimum xs : tail xs
+
+  > badSort [1,2,3,4] 
+  [1,2,3,4]
+
+  model_test :: [Int] -> Bool
+  model_test xs = sort xs == badSort xs
+
+  > quickCheck model_test
+  *** Failed! Falsifiable (after 4 tests):
+  [0, -1]
+~~~~
 
 
