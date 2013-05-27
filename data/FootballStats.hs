@@ -1,7 +1,7 @@
 module FootballStats where
 
-import System.IO
-import Control.Monad (liftM)
+import HistoricalStats
+
 import Data.Maybe (fromJust)
 import Data.List.Split (splitOn)
 
@@ -16,22 +16,9 @@ data FootballResult = FootballResult
   , awayGoals :: Int
   } deriving (Show,Eq)
 
-season2013 :: FilePath
-season2013 = "2013Season.csv"
-
-season2012 :: FilePath
-season2012 = "2012Season.csv"
-
-season2011 :: FilePath
-season2011 = "2011Season.csv"
-
--- Read the given file, turn it into a list of football results
-parseFile :: FilePath -> IO [FootballResult]
-parseFile fp = liftM parseFileContents (readFile fp) 
-
 -- Take the entire content, strip the header and turn into a list of football results
-parseFileContents :: String -> [FootballResult]
-parseFileContents xs = map toResult (tail $ lines xs)
+parseFile :: String -> [FootballResult]
+parseFile xs = map toResult (tail $ lines xs)
 
 -- take an individual line and turn it into a football result
 toResult :: String -> FootballResult
