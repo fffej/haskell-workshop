@@ -15,9 +15,10 @@ data Shape = Circle Double
 area :: Shape -> Double
 area (Circle r) = pi * r * r
 area (Rectangle w h) = w * h
-arae (Square s) = s * s
+area (Square s) = s * s
 
--- Recursive polymorphic types
+-- Recursive (refers to self) types
+-- Polymorphic types (contains an `a`)
 data MyList a = Empty
               | Cons a (MyList a)
 
@@ -26,9 +27,11 @@ myLength Empty = 0
 myLength (Cons x xs) = 1 + myLength xs
 
 -- Record syntax
-
 data Person = PersonC 
             {
               firstName :: String,
               lastName :: String
-            }
+            } deriving (Show, Eq)
+
+joeBloggs :: Person
+joeBloggs = PersonC { firstName = "Joe", lastName = "Bloggs" }
