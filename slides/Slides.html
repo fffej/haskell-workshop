@@ -274,7 +274,7 @@ Jeff Foster
 <div class="section slide level1" id="writing-list-functions">
 <h1>Writing List functions</h1>
 <ul>
-<li>Can you write the following functions
+<li>Can you write the following functions?
 <ul>
 <li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 <li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
@@ -299,6 +299,15 @@ Jeff Foster
     reverseSort = reverse . sort
 </code></pre>
 </div>
+<div class="section slide level1" id="returning-functions-with-partial-application">
+<h1>Returning functions with partial application</h1>
+<pre><code>
+  moreThanNGoals :: Int -&gt; Match -&gt; Bool
+  moreThanNGoals n match = totalGoals match &gt; n
+
+  excitingGame :: Match -&gt; Bool
+  excitingGame = moreThanNGoals 10</code></pre>
+</div>
 <div class="section slide level1" id="putting-it-all-together">
 <h1>Putting it all together</h1>
 <ul>
@@ -307,8 +316,10 @@ Jeff Foster
 <li>From the REPL, I want to be able to ask questions like:
 <ul>
 <li>What game had the most goals?</li>
+<li>What was the total number of goals scored?</li>
 <li>Which team got most corners?</li>
-<li>If away wins scored 5 points, who'd have won the league?</li>
+<li>Which team was most entertaining?</li>
+<li>If all games finished at half-time, who'd have won the league?</li>
 </ul></li>
 </ul>
 </div>

@@ -238,7 +238,7 @@ football matches
 ~~~~
 
 # Writing List functions
-- Can you write the following functions
+- Can you write the following functions?
     - `myContains :: Eq a => a -> [a] -> Bool`
     - `myFilter :: (a -> Bool) -> [a] -> [a]`
     - `myAppend :: [a] -> [a] -> [a]`
@@ -261,13 +261,26 @@ football matches
 
 ~~~~ 
 
+# Returning functions with partial application
+
+~~~~
+
+  moreThanNGoals :: Int -> Match -> Bool
+  moreThanNGoals n match = totalGoals match > n
+
+  excitingGame :: Match -> Bool
+  excitingGame = moreThanNGoals 10
+~~~~
+
 # Putting it all together
 - We're going to work with Premier League Data for this season
 - We're going to write some code to allow us to quiz the data
 - From the REPL, I want to be able to ask questions like:
     - What game had the most goals?
+    - What was the total number of goals scored?
     - Which team got most corners?
-    - If away wins scored 5 points, who'd have won the league?
+    - Which team was most entertaining?
+    - If all games finished at half-time, who'd have won the league?
 
 # Property Based Testing
 - The type system can encode lots of properties about your data
