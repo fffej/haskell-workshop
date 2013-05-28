@@ -41,7 +41,7 @@ Jeff Foster
 <ul class="incremental">
 <li>You'll the basics of Haskell</li>
 <li>You'll learn to read Haskell</li>
-<li>You'll write a combinator library for analysing Premier League football matches</li>
+<li>You'll write a library for analysing Premier League football matches</li>
 </ul>
 </div>
 <div class="section slide level1" id="hello-world">
@@ -112,8 +112,13 @@ Jeff Foster
 <ul>
 <li>Often a type signature says everything about a function.</li>
 <li>What do these functions do? (hint, remember they must work for all types)</li>
-<li>fooHicky :: (a,b) -&gt; a</li>
-<li>banana :: a -&gt; a</li>
+<li><code>fooHicky :: (a,b) -&gt; a</code></li>
+<li><code>banana   :: a -&gt; a</code>
+<ul>
+<li>In C#, these might look like this:</li>
+<li><code>public static A FooHickey&lt;A,B&gt;(A a, B b)</code></li>
+<li><code>public static A banana&lt;A&gt;(A a)</code></li>
+</ul></li>
 </ul>
 </div>
 <div class="section slide level1" id="type-classes">
@@ -141,6 +146,10 @@ Jeff Foster
 <pre><code>  -- Point is the type
   -- PointC is the type constructor
   data Point = PointC Int Int deriving (Show,Eq)
+
+  -- creating points
+  let origin = PointC 0 0 
+  let point = PointC 123 123
 
   -- Use the type constructor to take things apart
   isOrigin :: Point -&gt; Bool
@@ -171,11 +180,9 @@ Jeff Foster
 <li>A data type can also refer to itself (e.g. a List or a Tree)</li>
 </ul>
 <pre><code>   -- imagine Haskell didn&#39;t have lists, how would you write it?
-
    data List a = Cons a (List a)
                | Empty
 
-  
    list123 = Cons 1 (Cons 2 (Cons 3 Empty))
    
    myLength :: List a -&gt; Int
@@ -289,7 +296,8 @@ Jeff Foster
 <ul>
 <li>Function composition f . g =&gt; f g (x)</li>
 </ul>
-<pre><code>    sort :: Ord a =&gt; [a] -&gt; [a]
+<pre><code>
+    sort :: Ord a =&gt; [a] -&gt; [a]
     reverse :: [a] -&gt; [a]
 
     -- writing a definition
@@ -301,12 +309,18 @@ Jeff Foster
 </div>
 <div class="section slide level1" id="returning-functions-with-partial-application">
 <h1>Returning functions with partial application</h1>
-<pre><code>
-  moreThanNGoals :: Int -&gt; Match -&gt; Bool
+<ul>
+<li>By combining functions together you can succinctly</li>
+</ul>
+<pre><code>  moreThanNGoals :: Int -&gt; Match -&gt; Bool
   moreThanNGoals n match = totalGoals match &gt; n
 
   excitingGame :: Match -&gt; Bool
-  excitingGame = moreThanNGoals 10</code></pre>
+  excitingGame = moreThanNGoals 10
+
+  -- Find all exciting games
+  excitingGames :: [Match] -&gt; [Match]
+  excitingGames = filter excitingGame</code></pre>
 </div>
 <div class="section slide level1" id="putting-it-all-together">
 <h1>Putting it all together</h1>

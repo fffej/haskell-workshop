@@ -14,7 +14,7 @@
 # What are you going to do today?
 >- You'll the basics of Haskell
 >- You'll learn to read Haskell
->- You'll write a combinator library for analysing Premier League
+>- You'll write a library for analysing Premier League
 football matches
 
 # Hello, World!
@@ -84,8 +84,12 @@ football matches
 
 - Often a type signature says everything about a function.
 - What do these functions do? (hint, remember they must work for all types)
-- fooHicky :: (a,b) -> a
-- banana   :: a -> a 
+- `fooHicky :: (a,b) -> a`
+- `banana   :: a -> a`
+    - In C#, these might look like this:
+    - `public static A FooHickey<A,B>(A a, B b)`
+    - `public static A banana<A>(A a)`
+
 
 # Type Classes
 - Think of a type class as an interface
@@ -111,6 +115,10 @@ football matches
   -- Point is the type
   -- PointC is the type constructor
   data Point = PointC Int Int deriving (Show,Eq)
+
+  -- creating points
+  let origin = PointC 0 0 
+  let point = PointC 123 123
 
   -- Use the type constructor to take things apart
   isOrigin :: Point -> Bool
@@ -142,11 +150,9 @@ football matches
 
 ~~~~
    -- imagine Haskell didn't have lists, how would you write it?
-
    data List a = Cons a (List a)
                | Empty
 
-  
    list123 = Cons 1 (Cons 2 (Cons 3 Empty))
    
    myLength :: List a -> Int
@@ -250,6 +256,7 @@ football matches
 - Function composition f . g => f g (x)
     
 ~~~~
+
     sort :: Ord a => [a] -> [a]
     reverse :: [a] -> [a]
 
@@ -263,13 +270,18 @@ football matches
 
 # Returning functions with partial application
 
-~~~~
+- By combining functions together you can succinctly
 
+~~~~
   moreThanNGoals :: Int -> Match -> Bool
   moreThanNGoals n match = totalGoals match > n
 
   excitingGame :: Match -> Bool
   excitingGame = moreThanNGoals 10
+
+  -- Find all exciting games
+  excitingGames :: [Match] -> [Match]
+  excitingGames = filter excitingGame
 ~~~~
 
 # Putting it all together
