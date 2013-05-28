@@ -21,6 +21,14 @@ Jeff Foster
   </p>
   <p class="date">Cambridge Software Craftsmanship</p>
 </div>
+<div class="section slide level1" id="about-me">
+<h1>About me!</h1>
+<ul>
+<li>I'm head of software engineering at Red Gate</li>
+<li>I'm most definitely NOT a Haskell expert</li>
+<li>Love learning new languages, tools and techniques</li>
+</ul>
+</div>
 <div class="section slide level1" id="why-haskell">
 <h1>Why Haskell?</h1>
 <ul>
@@ -56,16 +64,16 @@ Jeff Foster
 <li>Provides a REPL and a way to explore the code</li>
 <li>Expressions entered are evaluated and returned, for example:</li>
 </ul>
-<pre><code>  &gt; 1 -- Int, Integer, Double, Char
+<pre><code>  &gt; 1 -- Int, Integer, Double, Char, Float
   =&gt; 1
 
-  &gt; 1 + 1 -- standard arithmetic operators
+  &gt; 1 + 1 -- standard arithmetic operators (*, /, +, -, ==, /=)
   =&gt; 2
 
   &gt; &quot;hello&quot; -- strings are lists of characters
   =&gt; &quot;hello&quot;
 
-  &gt; [&#39;h&#39;,e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;] -- lists are homogenous collections
+  &gt; [&#39;h&#39;,&#39;e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;] -- lists are homogenous collections
   =&gt; &quot;hello&quot;
 
   &gt; (&quot;Banana&quot;, 345) -- tuples provide hetereogenous collections
@@ -93,9 +101,9 @@ Jeff Foster
 <h1>Types</h1>
 <ul>
 <li>We haven't written type signatures yet</li>
-<li>Haskell has inferred types for s</li>
+<li>Haskell has inferred types for us</li>
 <li>In ghci, <code>:t &lt;expression&gt;</code> tells us the type</li>
-<li><code>:t (+)</code> says <code>(+) :: Num a =&gt; a -&gt; a -&gt;</code></li>
+<li><code>:t (+)</code> says <code>(+) :: Num a =&gt; a -&gt; a -&gt; a</code></li>
 <li>What does this mean?</li>
 </ul>
 </div>
@@ -103,7 +111,7 @@ Jeff Foster
 <h1>Types are everything</h1>
 <ul>
 <li>Often a type signature says everything about a function.</li>
-<li>What do these functions do?</li>
+<li>What do these functions do? (hint, remember they must work for all types)</li>
 <li>fooHicky :: (a,b) -&gt; a</li>
 <li>banana :: a -&gt; a</li>
 </ul>
@@ -134,9 +142,14 @@ Jeff Foster
   -- PointC is the type constructor
   data Point = PointC Int Int deriving (Show,Eq)
 
+  -- Use the type constructor to take things apart
   isOrigin :: Point -&gt; Bool
   isOrigin (PointC 0 0) = True
-  isOrigin _            = False</code></pre>
+  isOrigin _            = False
+
+  -- Use the type constructor to take things apart
+  manhattanDistance :: Point -&gt; Int
+  manhattanDistance (PointC x y) = x + y</code></pre>
 </div>
 <div class="section slide level1" id="sum-types">
 <h1>Sum Types</h1>
@@ -149,6 +162,7 @@ Jeff Foster
              deriving (Show, Eq)</code></pre>
 <ul class="incremental">
 <li>How would you write a function <code>area :: Shape -&gt; Double</code>?</li>
+<li>Remember, use the type constructor to take things apart!</li>
 </ul>
 </div>
 <div class="section slide level1" id="recursive-types">
@@ -156,13 +170,24 @@ Jeff Foster
 <ul>
 <li>A data type can also refer to itself (e.g. a List or a Tree)</li>
 </ul>
-<pre><code>   data List a = Cons a (List a)
+<pre><code>   -- imagine Haskell didn&#39;t have lists, how would you write it?
+
+   data List a = Cons a (List a)
                | Empty
 
+  
+   list123 = Cons 1 (Cons 2 (Cons 3 Empty))
    
    myLength :: List a -&gt; Int
    myLength Empty = 0
-   myLength (Cons x xs) = 1 + myLength xs </code></pre>
+   myLength (Cons x xs) = 1 + myLength xs 
+
+   myLength list123
+   &gt; 1 + myLength (Cons 2 (Cons 3 Empty))
+   &gt; 1 + 1 + myLength (Cons 3 Empty)
+   &gt; 1 + 1 + 1 + myLength Empty
+   &gt; 1 + 1 + 1 + 0
+   =&gt; 3</code></pre>
 </div>
 <div class="section slide level1" id="record-syntax">
 <h1>Record syntax</h1>
@@ -178,7 +203,11 @@ Jeff Foster
 
    -- Automatically generates accessor methods
    -- lastName :: Person -&gt; String
-   -- firstName :: Person -&gt; String</code></pre>
+   -- firstName :: Person -&gt; String
+   aPerson = PersonC { firstName = &quot;Joe&quot;, lastName = &quot;Bloggs&quot; }
+
+   &gt; lastName aPerson
+   =&gt; &quot;Bloggs&quot; </code></pre>
 </div>
 <div class="section slide level1" id="enough-talking">
 <h1>Enough Talking</h1>
@@ -192,11 +221,12 @@ Jeff Foster
 <li>homeWin :: Game -&gt; Bool</li>
 <li>awayWin :: Game -&gt; Bool</li>
 <li>scoreDraw :: Game -&gt; Bool</li>
+<li>totalGoals :: Game -&gt; Int</li>
 </ul></li>
 </ul>
 </div>
-<div class="section slide level1" id="lets-look-at-lists">
-<h1>Let's look at lists</h1>
+<div class="section slide level1" id="lists-in-a-bit-more-detail">
+<h1>Lists in a bit more detail</h1>
 <ul>
 <li>All items in a list have to be the same type (no <code>[1,&quot;a&quot;]</code>)</li>
 <li>Lists have special syntax in Haskell</li>
@@ -240,6 +270,34 @@ Jeff Foster
    -- more succinct definition
    -- point free (no args), partial application (+ 1)
    addOne = map (+ 1)</code></pre>
+</div>
+<div class="section slide level1" id="writing-list-functions">
+<h1>Writing List functions</h1>
+<ul>
+<li>Can you write the following functions
+<ul>
+<li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
+<li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
+<li><code>myAppend :: [a] -&gt; [a] -&gt; [a]</code></li>
+<li><code>myReduce :: (a -&gt; b -&gt; a) -&gt; a -&gt; [b] -&gt; a</code></li>
+<li><code>myReverse :: [a] -&gt; [a]</code></li>
+</ul></li>
+</ul>
+</div>
+<div class="section slide level1" id="making-the-most-of-higher-order-functions">
+<h1>Making the most of higher order functions</h1>
+<ul>
+<li>Function composition f . g =&gt; f g (x)</li>
+</ul>
+<pre><code>    sort :: Ord a =&gt; [a] -&gt; [a]
+    reverse :: [a] -&gt; [a]
+
+    -- writing a definition
+    reverseSort xs = reverse (sort xs)
+
+    -- using function composition
+    reverseSort = reverse . sort
+</code></pre>
 </div>
 <div class="section slide level1" id="putting-it-all-together">
 <h1>Putting it all together</h1>

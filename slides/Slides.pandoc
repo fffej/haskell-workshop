@@ -2,6 +2,11 @@
 % Jeff Foster
 % Cambridge Software Craftsmanship
 
+# About me!
+- I'm head of software engineering at Red Gate
+- I'm most definitely NOT a Haskell expert
+- Love learning new languages, tools and techniques
+
 # Why Haskell?
 - Purely functional, statically typed, lazy
 - Different is good!
@@ -32,16 +37,16 @@ football matches
 - Expressions entered are evaluated and returned, for example:
 
 ~~~~
-  > 1 -- Int, Integer, Double, Char
+  > 1 -- Int, Integer, Double, Char, Float
   => 1
 
-  > 1 + 1 -- standard arithmetic operators
+  > 1 + 1 -- standard arithmetic operators (*, /, +, -, ==, /=)
   => 2
 
   > "hello" -- strings are lists of characters
   => "hello"
 
-  > ['h',e','l','l','o'] -- lists are homogenous collections
+  > ['h','e','l','l','o'] -- lists are homogenous collections
   => "hello"
 
   > ("Banana", 345) -- tuples provide hetereogenous collections
@@ -70,15 +75,15 @@ football matches
 # Types 
 
 - We haven't written type signatures yet
-- Haskell has inferred types for s
+- Haskell has inferred types for us
 - In ghci, `:t <expression>` tells us the type
-- `:t (+)` says `(+) :: Num a => a -> a ->`
+- `:t (+)` says `(+) :: Num a => a -> a -> a`
 - What does this mean? 
 
 # Types are everything
 
 - Often a type signature says everything about a function.
-- What do these functions do?
+- What do these functions do? (hint, remember they must work for all types)
 - fooHicky :: (a,b) -> a
 - banana   :: a -> a 
 
@@ -107,9 +112,14 @@ football matches
   -- PointC is the type constructor
   data Point = PointC Int Int deriving (Show,Eq)
 
+  -- Use the type constructor to take things apart
   isOrigin :: Point -> Bool
   isOrigin (PointC 0 0) = True
   isOrigin _            = False
+
+  -- Use the type constructor to take things apart
+  manhattanDistance :: Point -> Int
+  manhattanDistance (PointC x y) = x + y
 ~~~~
 
 # Sum Types
@@ -124,19 +134,31 @@ football matches
 ~~~~
 
 >- How would you write a function `area :: Shape -> Double`?
+>- Remember, use the type constructor to take things apart!
 
 # Recursive Types
 
 - A data type can also refer to itself (e.g. a List or a Tree) 
 
 ~~~~
+   -- imagine Haskell didn't have lists, how would you write it?
+
    data List a = Cons a (List a)
                | Empty
 
+  
+   list123 = Cons 1 (Cons 2 (Cons 3 Empty))
    
    myLength :: List a -> Int
    myLength Empty = 0
    myLength (Cons x xs) = 1 + myLength xs 
+
+   myLength list123
+   > 1 + myLength (Cons 2 (Cons 3 Empty))
+   > 1 + 1 + myLength (Cons 3 Empty)
+   > 1 + 1 + 1 + myLength Empty
+   > 1 + 1 + 1 + 0
+   => 3
 ~~~~
 
 # Record syntax
@@ -154,6 +176,10 @@ football matches
    -- Automatically generates accessor methods
    -- lastName :: Person -> String
    -- firstName :: Person -> String
+   aPerson = PersonC { firstName = "Joe", lastName = "Bloggs" }
+
+   > lastName aPerson
+   => "Bloggs" 
 ~~~~
 
 # Enough Talking
@@ -164,8 +190,9 @@ football matches
     - homeWin :: Game -> Bool
     - awayWin :: Game -> Bool
     - scoreDraw :: Game -> Bool
+    - totalGoals :: Game -> Int
 
-# Let's look at lists
+# Lists in a bit more detail
 - All items in a list have to be the same type (no `[1,"a"]`)
 - Lists have special syntax in Haskell
 - `[]` is the empty list
@@ -209,6 +236,30 @@ football matches
    -- point free (no args), partial application (+ 1)
    addOne = map (+ 1)
 ~~~~
+
+# Writing List functions
+- Can you write the following functions
+    - `myContains :: Eq a => a -> [a] -> Bool`
+    - `myFilter :: (a -> Bool) -> [a] -> [a]`
+    - `myAppend :: [a] -> [a] -> [a]`
+    - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
+    - `myReverse :: [a] -> [a]`
+
+# Making the most of higher order functions
+
+- Function composition f . g => f g (x)
+    
+~~~~
+    sort :: Ord a => [a] -> [a]
+    reverse :: [a] -> [a]
+
+    -- writing a definition
+    reverseSort xs = reverse (sort xs)
+
+    -- using function composition
+    reverseSort = reverse . sort
+
+~~~~ 
 
 # Putting it all together
 - We're going to work with Premier League Data for this season
