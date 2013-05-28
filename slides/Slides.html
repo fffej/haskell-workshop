@@ -111,6 +111,8 @@ Jeff Foster
 <h1>Types are everything</h1>
 <ul>
 <li>Often a type signature says everything about a function.</li>
+<li>Types are denoted with an initial Capital letter</li>
+<li>Type parameters are written with a lower case parameter</li>
 <li>What do these functions do? (hint, remember they must work for all types)</li>
 <li><code>fooHicky :: (a,b) -&gt; a</code></li>
 <li><code>banana   :: a -&gt; a</code>
@@ -337,6 +339,16 @@ Jeff Foster
 </ul></li>
 </ul>
 </div>
+<div class="section slide level1" id="what-next">
+<h1>What next?</h1>
+<ul>
+<li>Real World Haskell is an excellent book</li>
+<li>Use &quot;Hoogle&quot; to search for functionality based on type signatures</li>
+<li>fpcomplete.com provides some great introductions</li>
+</ul>
+<!-- Supplemental material, won't get here? -->
+
+</div>
 <div class="section slide level1" id="property-based-testing">
 <h1>Property Based Testing</h1>
 <ul>
@@ -358,19 +370,14 @@ Jeff Foster
 </div>
 <div class="section slide level1" id="finding-errors">
 <h1>Finding errors</h1>
-<pre><code>  badSort :: Ord a =&gt; [a] -&gt; [a]
-  badSort [] = []
-  badSort xs = minimum xs : tail xs
-
-  &gt; badSort [1,2,3,4] 
-  [1,2,3,4]
-
-  model_test :: [Int] -&gt; Bool
-  model_test xs = sort xs == badSort xs
-
-  &gt; quickCheck model_test
-  *** Failed! Falsifiable (after 4 tests):
-  [0, -1]</code></pre>
+<p>~~~~ badSort :: Ord a =&gt; [a] -&gt; [a] badSort [] = [] badSort xs = minimum xs : tail xs</p>
+<blockquote>
+<p>badSort [1,2,3,4] [1,2,3,4]</p>
+</blockquote>
+<p>model_test :: [Int] -&gt; Bool model_test xs = sort xs == badSort xs</p>
+<blockquote>
+<p>quickCheck model_test <em>*</em> Failed! Falsifiable (after 4 tests): [0, -1] ~~~~</p>
+</blockquote>
 </div>
 </body>
 </html>

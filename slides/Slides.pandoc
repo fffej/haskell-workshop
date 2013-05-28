@@ -83,6 +83,8 @@ football matches
 # Types are everything
 
 - Often a type signature says everything about a function.
+- Types are denoted with an initial Capital letter
+- Type parameters are written with a lower case parameter
 - What do these functions do? (hint, remember they must work for all types)
 - `fooHicky :: (a,b) -> a`
 - `banana   :: a -> a`
@@ -249,7 +251,7 @@ football matches
     - `myFilter :: (a -> Bool) -> [a] -> [a]`
     - `myAppend :: [a] -> [a] -> [a]`
     - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
-    - `myReverse :: [a] -> [a]`
+    - `myReverse :: [a] -> [a]` 
 
 # Making the most of higher order functions
 
@@ -294,6 +296,13 @@ football matches
     - Which team was most entertaining?
     - If all games finished at half-time, who'd have won the league?
 
+# What next?
+- Real World Haskell is an excellent book
+- Use "Hoogle" to search for functionality based on type signatures
+- fpcomplete.com provides some great introductions
+
+<!-- Supplemental material, won't get here? -->
+
 # Property Based Testing
 - The type system can encode lots of properties about your data
 - Property based tested can help you assert more about your data
@@ -329,5 +338,3 @@ football matches
   *** Failed! Falsifiable (after 4 tests):
   [0, -1]
 ~~~~
-
-
