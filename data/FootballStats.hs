@@ -17,8 +17,8 @@ data FootballResult = FootballResult
   } deriving (Show,Eq)
 
 -- Take the entire content, strip the header and turn into a list of football results
-parseFile :: String -> [FootballResult]
-parseFile xs = map toResult (tail $ lines xs)
+parse :: String -> [FootballResult]
+parse xs = map toResult (tail $ lines xs)
 
 -- take an individual line and turn it into a football result
 toResult :: String -> FootballResult
