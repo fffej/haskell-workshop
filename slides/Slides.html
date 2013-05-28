@@ -8,7 +8,6 @@
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Jeff Foster" />
   <title>Haskell Workshop</title>
-  <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" type="text/css" media="screen, projection, print"
     href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
   <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js.gz"
@@ -21,14 +20,6 @@
 Jeff Foster
   </p>
   <p class="date">Cambridge Software Craftsmanship</p>
-</div>
-<div class="section slide level1" id="who-am-i">
-<h1>Who am I?</h1>
-<ul>
-<li>Head of Software Engineering at Red Gate</li>
-<li>Most definitely NOT a Haskell expert</li>
-<li>Learning functional programming because it's fun!</li>
-</ul>
 </div>
 <div class="section slide level1" id="why-haskell">
 <h1>Why Haskell?</h1>
@@ -297,19 +288,6 @@ Jeff Foster
   &gt; quickCheck model_test
   *** Failed! Falsifiable (after 4 tests):
   [0, -1]</code></pre>
-</div>
-<div class="section slide level1" id="whered-null-go">
-<h1>Where'd <code>null</code> go?</h1>
-<ul>
-<li>How do you write <code>lookup :: Eq a =&gt; a -&gt; [(a,b)] -&gt; b</code></li>
-<li>What happens when <code>a</code> is not in the list?</li>
-</ul>
-<pre><code>
-  data Maybe a = Nothing 
-               | Just a
-
-  lookup :: Eq a =&gt; a -&gt; [(a,b)] -&gt; Maybe b
-</code></pre>
 </div>
 </body>
 </html>
