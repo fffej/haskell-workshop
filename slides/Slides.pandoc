@@ -71,6 +71,8 @@
 
 >- Can you write factorial and fibonacci functions?
 
+<!-- TODO define Factorial and Fibonacci functions -->
+
 # Types 
 
 - We haven't written type signatures yet
@@ -90,6 +92,12 @@
     - In C#, these might look like this:
     - `public static A FooHickey<A,B>(A a, B b)`
     - `public static A banana<A>(A a)`
+
+# Types or type variables?
+
+- What does the type `Int -> Int -> Int` tell you?
+- What does the type `a -> a -> a` tell you?
+- The more general the type signature, the *more* it tells you!
 
 
 # Type Classes
