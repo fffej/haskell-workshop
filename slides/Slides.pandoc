@@ -10,11 +10,34 @@
 # Why Haskell?
 - Purely functional, statically typed, lazy
 - Different is good!
+- A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)
 
 # What are you going to do today?
 >- You'll the basics of Haskell
 >- You'll learn to read Haskell
 >- You'll write a library for analysing Premier League football matches
+
+# Java/C#/C++ Types
+>- Given the type signature below, what happens?
+
+~~~~
+   int add(int x,int y);
+~~~~
+
+>- Add two integers?  Maybe.  Or maybe
+
+~~~~
+   int add(int x,int y) { launchNukes(); return x + y; };
+~~~~
+
+# Haskell types
+>- Given the type signature below, what happens?
+
+~~~~
+   add :: Int -> Int -> Int
+~~~~
+
+>- Exactly what you expect.
 
 # Hello, World!
 
@@ -28,7 +51,10 @@
 - `main` is the entry point
 - Run with `runghc HelloWorld.hs` or compile with `ghc`
 
-<!-- Quick stop to let everyone find out that Haskell works for them -->
+<!-- 
+     Quick stop to let everyone find out that Haskell works for them 
+     5 minutes?
+-->
 
 # GHCI
 - GHCI is the de-facto Haskell interpreter
@@ -57,21 +83,25 @@
 ~~~~
   add x y = x + y
 
-  -- Guards
-  add2 x y 
-    | x == 0 = y
-    | y == 0 = x
-    | otherwise = 1 + add2 (x - 1) y
-
   -- Pattern matching
   add3 0 y = y
   add3 x 0 = x
   add3 x y = 1 + add3 (x - 1) y
+
+  -- Guards 
+  add2 x y 
+    | x == 0    = y
+    | y == 0    = x
+    | otherwise = 1 + add2 (x - 1) y
+
 ~~~~
 
 >- Can you write factorial and fibonacci functions?
 
-<!-- TODO define Factorial and Fibonacci functions -->
+<!-- 
+     TODO define Factorial and Fibonacci functions 
+     10 minutes??
+-->
 
 # Types 
 
