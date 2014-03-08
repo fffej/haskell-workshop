@@ -169,6 +169,59 @@
 - Fill in the blanks
 - Bottom up programming
 
+# Lists in a bit more detail
+- All items in a list have to be the same type (no `[1,"a"]`)
+- Lists have special syntax in Haskell
+- `[]` is the empty list
+- `:` is the type constructor used to create lists `1 : [] => [1]`
+- `[1,2,3]` is syntactic sugar for `1 : (2 : (3 : []) )`
+
+# Let's write some list functions
+- Need to think recursively! 
+- What's the base case?
+- What's the recursive case?
+
+# Length
+
+~~~~
+   -- base case, an empty list
+   length [] = 0
+
+   -- recursive case is a list of at least one element
+   length (_:xs) = 1 + length xs
+~~~~
+
+# Adding one to each element
+
+~~~~
+   addOne :: [Int] -> [Int]
+   addOne [] = []
+   addOne (x:xs) = (x + 1) : (addOne xs)
+~~~~
+
+# Higher Order Functions
+
+- As you might expect functions are first class citizens
+- You can pass them to methods, partially apply them
+
+~~~~
+   map :: (a -> b) -> [a] -> [b]
+   map f []     = []
+   map f (x:xs) = f x : map xs 
+
+   -- more succinct definition
+   -- point free (no args), partial application (+ 1)
+   addOne = map (+ 1)
+~~~~
+
+# Writing List functions
+- Can you write the following functions?
+    - `myContains :: Eq a => a -> [a] -> Bool`
+    - `myFilter :: (a -> Bool) -> [a] -> [a]`
+    - `myAppend :: [a] -> [a] -> [a]`
+    - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
+    - `myReverse :: [a] -> [a]` 
+
 # Sum Types
 
 - A sum type can be one of many possibilities
@@ -237,59 +290,6 @@
     - awayWin :: Game -> Bool
     - scoreDraw :: Game -> Bool
     - totalGoals :: Game -> Int
-
-# Lists in a bit more detail
-- All items in a list have to be the same type (no `[1,"a"]`)
-- Lists have special syntax in Haskell
-- `[]` is the empty list
-- `:` is the type constructor used to create lists `1 : [] => [1]`
-- `[1,2,3]` is syntactic sugar for `1 : (2 : (3 : []) )`
-
-# Let's write some list functions
-- Need to think recursively! 
-- What's the base case?
-- What's the recursive case?
-
-# Length
-
-~~~~
-   -- base case, an empty list
-   length [] = 0
-
-   -- recursive case is a list of at least one element
-   length (_:xs) = 1 + length xs
-~~~~
-
-# Adding one to each element
-
-~~~~
-   addOne :: [Int] -> [Int]
-   addOne [] = []
-   addOne (x:xs) = (x + 1) : (addOne xs)
-~~~~
-
-# Higher Order Functions
-
-- As you might expect functions are first class citizens
-- You can pass them to methods, partially apply them
-
-~~~~
-   map :: (a -> b) -> [a] -> [b]
-   map f []     = []
-   map f (x:xs) = f x : map xs 
-
-   -- more succinct definition
-   -- point free (no args), partial application (+ 1)
-   addOne = map (+ 1)
-~~~~
-
-# Writing List functions
-- Can you write the following functions?
-    - `myContains :: Eq a => a -> [a] -> Bool`
-    - `myFilter :: (a -> Bool) -> [a] -> [a]`
-    - `myAppend :: [a] -> [a] -> [a]`
-    - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
-    - `myReverse :: [a] -> [a]` 
 
 # Making the most of higher order functions
 
