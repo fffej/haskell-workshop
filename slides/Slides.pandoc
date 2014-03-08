@@ -32,12 +32,12 @@
 
 # Haskell types
 >- Given the type signature below, what happens?
+>- What can happen?
 
 ~~~~
    add :: Int -> Int -> Int
 ~~~~
 
->- Exactly what you expect.
 
 # Hello, World!
 
@@ -78,7 +78,7 @@
   => ("Banana", 345)
 ~~~~
 
-# Let's write some functions and explore some syntax
+# Let's write some simple functions and explore some syntax
 
 ~~~~
   add x y = x + y
@@ -129,7 +129,6 @@
 - What does the type `a -> a -> a` tell you?
 - The more general the type signature, the *more* it tells you!
 
-
 # Type Classes
 - Think of a type class as an interface
 - Common type classes are `Eq` and `Show` which define equality and printability
@@ -147,8 +146,8 @@
 
 # Defining new types
 
-- Data types are constructed via type constructors
-- Data types are pattern matched via type constructors
+- Data types are constructed via *type constructors*
+- Data types are pattern matched via *type constructors*
 
 ~~~~
   -- Point is the type
@@ -156,13 +155,7 @@
   data Point = PointC Int Int deriving (Show,Eq)
 
   -- creating points
-  let origin = PointC 0 0 
-  let point = PointC 123 123
-
-  -- Use the type constructor to take things apart
-  isOrigin :: Point -> Bool
-  isOrigin (PointC 0 0) = True
-  isOrigin _            = False
+  let point = PointC 456 123
 
   -- Use the type constructor to take things apart
   manhattanDistance :: Point -> Int
@@ -182,6 +175,8 @@
 
 >- How would you write a function `area :: Shape -> Double`?
 >- Remember, use the type constructor to take things apart!
+>- Shape is the *type*, Square, Circle and Rectangle are type constructors
+
 
 # Recursive Types
 
