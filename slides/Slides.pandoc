@@ -162,6 +162,13 @@
   manhattanDistance (PointC x y) = x + y
 ~~~~
 
+# Writing type signatures
+
+- Start with the type of the functions
+- Make the compiler check it makes sense
+- Fill in the blanks
+- Bottom up programming
+
 # Sum Types
 
 - A sum type can be one of many possibilities
@@ -176,7 +183,6 @@
 >- How would you write a function `area :: Shape -> Double`?
 >- Remember, use the type constructor to take things apart!
 >- Shape is the *type*, Square, Circle and Rectangle are type constructors
-
 
 # Recursive Types
 
