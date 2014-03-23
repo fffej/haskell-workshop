@@ -104,8 +104,8 @@
 >- Can you write factorial and fibonacci functions?
 
 <!-- 
-     TODO define Factorial and Fibonacci functions 
-     10 minutes??
+     TODO define Factorial and Fibonacci functions 10 minutes??
+     More scope?
 -->
 
 # Types 
@@ -206,7 +206,7 @@
 
 # Higher Order Functions
 
-- As you might expect functions are first class citizens
+- Functions are first class citizens
 - You can pass them to methods, partially apply them
 
 ~~~~
@@ -286,7 +286,7 @@
    => "Bloggs" 
 ~~~~
 
-# Enough Talking
+# Enough Talking (sorry)
 - Write some data types for a Premier League football match
     - e.g. Everton 1 - Man United 0 (first team is the home team)
 
@@ -344,7 +344,7 @@
 - Use "Hoogle" to search for functionality based on type signatures
 - fpcomplete.com provides some great introductions
 
-<!-- Supplemental material, won't get here? -->
+<!-- Supplemental material, (definitely) won't get here? -->
 
 # Property Based Testing
 - The type system can encode lots of properties about your data
