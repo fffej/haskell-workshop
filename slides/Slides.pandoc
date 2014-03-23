@@ -10,16 +10,22 @@
 # Why Haskell?
 - Purely functional, statically typed, lazy
 - Different is good!
-- A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)
+
+> A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)
 
 # What do you need today?
 - A text editor
-- A version of the Haskell Platform (http://www.haskell.org/platform/)
+- A version of the Haskell Platform <http://www.haskell.org/platform/>
 
 # What are you going to do today?
 >- You'll the basics of Haskell
 >- You'll learn to read Haskell
 >- You'll write a combinator library for analysing Premier League football matches
+
+. . .
+
+>![](img/escalated_quickly.jpg "That escalated quickly")
+
 
 <!-- that escalated quickly -->
 
