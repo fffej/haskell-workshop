@@ -60,8 +60,6 @@ Jeff Foster
 <img src="img/escalated_quickly.jpg" title="That escalated quickly" />
 </div>
 </blockquote>
-<!-- that escalated quickly -->
-
 </div>
 </div>
 <div id="javacc-types" class="slide section level1">
@@ -69,11 +67,15 @@ Jeff Foster
 <ul class="incremental">
 <li>Given the type signature below, what happens?</li>
 </ul>
+<div class="incremental">
 <pre><code>   int add(int x,int y);</code></pre>
 <ul class="incremental">
 <li>Add two integers? Maybe... Or maybe</li>
 </ul>
+</div>
+<div class="incremental">
 <pre><code>   int add(int x,int y) { launchNukes(); return 53; };</code></pre>
+</div>
 </div>
 <div id="haskell-types" class="slide section level1">
 <h1>Haskell types</h1>
@@ -85,8 +87,8 @@ Jeff Foster
 <li>What can happen?</li>
 </ul>
 </div>
-<div id="hello-world" class="slide section level1">
-<h1>Hello, World!</h1>
+<div id="lets-check-everything-is-working." class="slide section level1">
+<h1>Let's check everything is working.</h1>
 <pre><code>   module Main where
    main = putStrLn &quot;Hello, World!&quot;</code></pre>
 <ul>
@@ -96,7 +98,7 @@ Jeff Foster
 </ul>
 <!-- 
      Quick stop to let everyone find out that Haskell works for them 
-     5 minutes?
+     5 minutes?  Hopefully enough people have working machines
 -->
 
 </div>
@@ -107,41 +109,44 @@ Jeff Foster
 <li>Provides a REPL and a way to explore the code</li>
 <li>Expressions entered are evaluated and returned, for example:</li>
 </ul>
-<pre><code>  &gt; 1 -- Int, Integer, Double, Char, Float
-  =&gt; 1
+</div>
+<div id="quick-guide-to-ghci" class="slide section level1">
+<h1>Quick guide to GHCI</h1>
+<ul>
+<li>:l Foo.hs</li>
+<li>:t <expr></li>
+</ul>
+<!-- 
+  TODO 
+    * Need to explain enough syntax to get going
+    * and also explain desired workflow of working from files
+-->
 
-  &gt; 1 + 1 -- standard arithmetic operators (*, /, +, -, ==, /=)
-  =&gt; 2
-
-  &gt; &quot;hello&quot; -- strings are lists of characters
-  =&gt; &quot;hello&quot;
-
-  &gt; [&#39;h&#39;,&#39;e&#39;,&#39;l&#39;,&#39;l&#39;,&#39;o&#39;] -- lists are homogenous collections
-  =&gt; &quot;hello&quot;
-
-  &gt; (&quot;Banana&quot;, 345) -- tuples provide hetereogenous collections
-  =&gt; (&quot;Banana&quot;, 345)</code></pre>
 </div>
 <div id="lets-write-some-simple-functions-and-explore-some-syntax" class="slide section level1">
 <h1>Let's write some simple functions and explore some syntax</h1>
-<pre><code>  add x y = x + y
+<pre><code>
+  module Example where
+
+  add x y = x + y
 
   -- Pattern matching
-  add3 0 y = y
-  add3 x 0 = x
-  add3 x y = 1 + add3 (x - 1) y
+  add2 0 y = y
+  add2 x 0 = x
+  add2 x y = 1 + add2 (x - 1) y
 
   -- Guards 
-  add2 x y 
+  add3 x y 
     | x == 0    = y
     | y == 0    = x
-    | otherwise = 1 + add2 (x - 1) y
+    | otherwise = 1 + add3 (x - 1) y
 </code></pre>
 <ul class="incremental">
 <li>Can you write factorial and fibonacci functions?</li>
 </ul>
 <!-- 
      TODO define Factorial and Fibonacci functions 10 minutes??
+     TODO Cover enough syntax 
      More scope?
 -->
 
@@ -202,16 +207,7 @@ Jeff Foster
 <li>Data types are constructed via <em>type constructors</em></li>
 <li>Data types are pattern matched via <em>type constructors</em></li>
 </ul>
-<pre><code>  -- Point is the type
-  -- PointC is the type constructor
-  data Point = PointC Int Int deriving (Show,Eq)
-
-  -- creating points
-  let point = PointC 456 123
-
-  -- Use the type constructor to take things apart
-  manhattanDistance :: Point -&gt; Int
-  manhattanDistance (PointC x y) = x + y</code></pre>
+<pre><code>   -- TODO theme this around football matches</code></pre>
 </div>
 <div id="writing-type-signatures" class="slide section level1">
 <h1>Writing type signatures</h1>
@@ -283,6 +279,7 @@ Jeff Foster
 </div>
 <div id="sum-types" class="slide section level1">
 <h1>Sum Types</h1>
+<p>TODO - Be harsh; do I absolutely need to include this for football matches?</p>
 <ul>
 <li>A sum type can be one of many possibilities</li>
 </ul>
@@ -298,6 +295,7 @@ Jeff Foster
 </div>
 <div id="recursive-types" class="slide section level1">
 <h1>Recursive Types</h1>
+<p>TODO - Be harsh; do I absolutely need to include this for football matches?</p>
 <ul>
 <li>A data type can also refer to itself (e.g. a List or a Tree)</li>
 </ul>
@@ -320,6 +318,7 @@ Jeff Foster
 </div>
 <div id="record-syntax" class="slide section level1">
 <h1>Record syntax</h1>
+<p>-- TODO theme around football matches.</p>
 <ul>
 <li>Allows you to generate names for parts of a type</li>
 </ul>

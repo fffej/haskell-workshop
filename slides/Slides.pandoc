@@ -26,17 +26,18 @@
 
 >![](img/escalated_quickly.jpg "That escalated quickly")
 
-
-<!-- that escalated quickly -->
-
 # Java/C#/C++ Types
 >- Given the type signature below, what happens?
+
+. . .
 
 ~~~~
    int add(int x,int y);
 ~~~~
 
 >- Add two integers?  Maybe...  Or maybe
+
+. . .
 
 ~~~~
    int add(int x,int y) { launchNukes(); return 53; };
@@ -51,7 +52,7 @@
 
 >- What can happen?
 
-# Hello, World!
+# Let's check everything is working.
 
 ~~~~
    module Main where
@@ -64,7 +65,7 @@
 
 <!-- 
      Quick stop to let everyone find out that Haskell works for them 
-     5 minutes?
+     5 minutes?  Hopefully enough people have working machines
 -->
 
 # GHCI
@@ -72,38 +73,34 @@
 - Provides a REPL and a way to explore the code
 - Expressions entered are evaluated and returned, for example:
 
-~~~~
-  > 1 -- Int, Integer, Double, Char, Float
-  => 1
+# Quick guide to GHCI
+- :l Foo.hs
+- :t <expr>
 
-  > 1 + 1 -- standard arithmetic operators (*, /, +, -, ==, /=)
-  => 2
-
-  > "hello" -- strings are lists of characters
-  => "hello"
-
-  > ['h','e','l','l','o'] -- lists are homogenous collections
-  => "hello"
-
-  > ("Banana", 345) -- tuples provide hetereogenous collections
-  => ("Banana", 345)
-~~~~
+<!-- 
+  TODO 
+    * Need to explain enough syntax to get going
+    * and also explain desired workflow of working from files
+-->
 
 # Let's write some simple functions and explore some syntax
 
 ~~~~
+
+  module Example where
+
   add x y = x + y
 
   -- Pattern matching
-  add3 0 y = y
-  add3 x 0 = x
-  add3 x y = 1 + add3 (x - 1) y
+  add2 0 y = y
+  add2 x 0 = x
+  add2 x y = 1 + add2 (x - 1) y
 
   -- Guards 
-  add2 x y 
+  add3 x y 
     | x == 0    = y
     | y == 0    = x
-    | otherwise = 1 + add2 (x - 1) y
+    | otherwise = 1 + add3 (x - 1) y
 
 ~~~~
 
@@ -111,6 +108,7 @@
 
 <!-- 
      TODO define Factorial and Fibonacci functions 10 minutes??
+     TODO Cover enough syntax 
      More scope?
 -->
 
@@ -161,16 +159,7 @@
 - Data types are pattern matched via *type constructors*
 
 ~~~~
-  -- Point is the type
-  -- PointC is the type constructor
-  data Point = PointC Int Int deriving (Show,Eq)
-
-  -- creating points
-  let point = PointC 456 123
-
-  -- Use the type constructor to take things apart
-  manhattanDistance :: Point -> Int
-  manhattanDistance (PointC x y) = x + y
+   -- TODO theme this around football matches
 ~~~~
 
 # Writing type signatures
@@ -235,6 +224,8 @@
 
 # Sum Types
 
+TODO - Be harsh; do I absolutely need to include this for football matches?
+
 - A sum type can be one of many possibilities
 
 ~~~~
@@ -249,6 +240,8 @@
 >- Shape is the *type*, Square, Circle and Rectangle are type constructors
 
 # Recursive Types
+
+TODO - Be harsh; do I absolutely need to include this for football matches?
 
 - A data type can also refer to itself (e.g. a List or a Tree) 
 
@@ -272,6 +265,9 @@
 ~~~~
 
 # Record syntax
+
+-- TODO theme around football matches.
+
 
 - Allows you to generate names for parts of a type
 
