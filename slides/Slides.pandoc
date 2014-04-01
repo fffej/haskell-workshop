@@ -160,7 +160,10 @@
 - Data types are pattern matched via *type constructors*
 
 ~~~~
-   -- TODO theme this around football matches
+    data Rectangle = RectangleConstructor Int Int
+
+    area :: Rectangle -> Int
+    area (RectangleConstructor a b) = a * b
 ~~~~
 
 # Writing type signatures
@@ -169,6 +172,9 @@
 - Make the compiler check it makes sense
 - Fill in the blanks
 - Bottom up programming
+
+<!-- TODO mention undefined -->
+
 
 # Lists in a bit more detail
 - All items in a list have to be the same type (no `[1,"a"]`)
@@ -240,35 +246,7 @@ TODO - Be harsh; do I absolutely need to include this for football matches?
 >- Remember, use the type constructor to take things apart!
 >- Shape is the *type*, Square, Circle and Rectangle are type constructors
 
-# Recursive Types
-
-TODO - Be harsh; do I absolutely need to include this for football matches?
-
-- A data type can also refer to itself (e.g. a List or a Tree) 
-
-~~~~
-   -- imagine Haskell didn't have lists, how would you write it?
-   data List a = Cons a (List a)
-               | Empty
-
-   list123 = Cons 1 (Cons 2 (Cons 3 Empty))
-   
-   myLength :: List a -> Int
-   myLength Empty = 0
-   myLength (Cons x xs) = 1 + myLength xs 
-
-   myLength list123
-   > 1 + myLength (Cons 2 (Cons 3 Empty))
-   > 1 + 1 + myLength (Cons 3 Empty)
-   > 1 + 1 + 1 + myLength Empty
-   > 1 + 1 + 1 + 0
-   => 3
-~~~~
-
 # Record syntax
-
--- TODO theme around football matches.
-
 
 - Allows you to generate names for parts of a type
 
