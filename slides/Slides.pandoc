@@ -107,19 +107,18 @@
 - We haven't written type signatures yet
 - Haskell has inferred types for us
 - In ghci, `:t <expression>` tells us the type
-- `:t (+)` says `(+) :: Num a => a -> a -> a`
-- What does this mean? 
+- `:t add` says `add :: Num a => a -> a -> a`
 
 # Types are everything
 
-- Often a type signature says everything about a function.
+- Often a type signature says *everything* about a function.
 - Types are denoted with an initial Capital letter
-- Type parameters are written with a lower case parameter
+- Type parameters (generics) are written with a lower case parameter
 - What do these functions do? (hint, remember they must work for all types)
 - `fooHicky :: (a,b) -> a`
 - `banana   :: a -> a`
-    - In C#, these might look like this:
-    - `public static A FooHickey<A,B>(A a, B b)`
+    - In C#/Java, these would look like this:
+    - `public static A fooHickey<A,B>(A a, B b)`
     - `public static A banana<A>(A a)`
 
 # Types or type variables?
@@ -141,28 +140,62 @@
     --etc
 ~~~~
 
-- You can automatically derive `Show` and `Eq` to get printable and equality support
-
-# Defining new types
+# Building your own types
 
 - Data types are constructed via *type constructors*
 - Data types are pattern matched via *type constructors*
 
 ~~~~
+    -- Rectangle is the type
+    -- RectangeConstructor is the type signature
     data Rectangle = RectangleConstructor Int Int
 
+    -- Function definitions use the type
     area :: Rectangle -> Int
+
+    -- "Deconstruct" values with the type constructor
     area (RectangleConstructor a b) = a * b
+
+    width :: Rectangle -> Int
+    width (RectangleConstructor a _) = a
 ~~~~
 
-# Writing type signatures
+# Record Syntax
 
-- Start with the type of the functions
-- Make the compiler check it makes sense
-- Fill in the blanks
-- Bottom up programming
+- Provides a way of naming parts of a type
+- Automatically generates "getter" style functions
 
-<!-- TODO mention undefined -->
+~~~~
+    data Rectangle = RectangleConstructor {
+        width :: Int
+      , height :: Int
+    }
+
+    area :: Rectangle -> Int 
+    area r = (width r) * (height r)
+~~~~
+
+# Sum Types
+- A sum type can be one of many possibilities
+
+~~~~
+  data Shape = Square Double
+             | Circle Double 
+             | Rectangle Double Double
+             deriving (Show, Eq)
+~~~~
+
+
+# Let's define our own data types
+
+- Our domain is football matches.
+- Spend some time defining types such as:
+-- A basic result (Win, Lose or Draw)
+-- Team statistics (Team name, goals for, current points etc.)
+
+<!--
+  Let's say 15 minutes for defining a few types
+-->
 
 
 # Lists in a bit more detail
@@ -219,8 +252,6 @@
     - `myReverse :: [a] -> [a]` 
 
 # Sum Types
-
-TODO - Be harsh; do I absolutely need to include this for football matches?
 
 - A sum type can be one of many possibilities
 
