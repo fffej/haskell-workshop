@@ -26,7 +26,7 @@
 
 >![](img/escalated_quickly.jpg "That escalated quickly")
 
-# Java/C#/C++ Types
+# Why Statically Typed?
 >- Given the type signature below, what happens?
 
 . . .
@@ -59,9 +59,9 @@
    main = putStrLn "Hello, World!"
 ~~~~
 
-- Every Haskell program needs a "Main" module
+- Each Haskell function is within a module
 - `main` is the entry point
-- Run with `runghc HelloWorld.hs` or compile with `ghc`
+- Load this into ghci with `:l Main.hs` and run with `main`
 
 <!-- 
      Quick stop to let everyone find out that Haskell works for them 
@@ -72,16 +72,7 @@
 - GHCI is the de-facto Haskell interpreter
 - Provides a REPL and a way to explore the code
 - Expressions entered are evaluated and returned
-
-# Quick guide to GHCI
-- :l Foo.hs
-- :t <expr>
-
-<!-- 
-  TODO 
-    * Need to explain enough syntax to get going
-    * and also explain desired workflow of working from files
--->
+- For this workshop, work in a file and use `:l <file>` to reload
 
 # Let's write some simple functions and explore some syntax
 
@@ -99,19 +90,17 @@
 
   -- Guards 
   add3 x y 
-    | x == 0    = y
+    | x == 0    = y -- read | as "where"
     | y == 0    = x
     | otherwise = 1 + add3 (x - 1) y
 
 ~~~~
 
->- Can you write factorial and fibonacci functions?
-
-<!-- 
-     TODO define Factorial and Fibonacci functions 10 minutes??
-     TODO Cover enough syntax 
-     More scope?
--->
+# Curried Functions
+- In Haskell all functions are of a single argument
+- `add 3 4` is interpreted as ((add 3) 4)
+- `add 3` returns a function needing one more argument
+- This is known as partial application
 
 # Types 
 
