@@ -197,7 +197,6 @@
   Let's say 15 minutes for defining a few types
 -->
 
-
 # Lists in a bit more detail
 - All items in a list have to be the same type (no `[1,"a"]`)
 - Lists have special syntax in Haskell
@@ -210,17 +209,20 @@
 - What's the base case?
 - What's the recursive case?
 
-# Length
+# List Examples (1) - Length
 
 ~~~~
-   -- base case, an empty list
-   length [] = 0
 
-   -- recursive case is a list of at least one element
-   length (_:xs) = 1 + length xs
+   myLength :: [a] -> Int
+
+   -- base case, an empty list is of length 0
+   myLength [] = 0
+
+   -- recursive case works towards the base case
+   myLength (_:xs) = 1 + length xs
 ~~~~
 
-# Adding one to each element
+# List Examples (2) - Building new lists
 
 ~~~~
    addOne :: [Int] -> [Int]
@@ -228,10 +230,20 @@
    addOne (x:xs) = (x + 1) : (addOne xs)
 ~~~~
 
+# List Examples (3) - Including only some elements
+
+~~~~
+   greaterThan5 :: [Int] -> [Int]
+   greaterThan5 [] = []
+   greaterThan5 (x:xs)
+     | x > 5     = x : greaterThan5 xs
+     | otherwise = greaterThan5 xs
+~~~~
+
 # Higher Order Functions
 
 - Functions are first class citizens
-- You can pass them to methods, partially apply them
+- You can pass them to methods.
 
 ~~~~
    map :: (a -> b) -> [a] -> [b]
@@ -251,46 +263,10 @@
     - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
     - `myReverse :: [a] -> [a]` 
 
-# Sum Types
+<!-- This'll take a bit of a while, say 30 minutes -->
 
-- A sum type can be one of many possibilities
-
-~~~~
-  data Shape = Square Double
-             | Circle Double 
-             | Rectangle Double Double
-             deriving (Show, Eq)
-~~~~
-
->- How would you write a function `area :: Shape -> Double`?
->- Remember, use the type constructor to take things apart!
->- Shape is the *type*, Square, Circle and Rectangle are type constructors
-
-# Record syntax
-
-- Allows you to generate names for parts of a type
-
-~~~~
-
-   data Person = PersonC
-      {
-        firstName :: String,
-        lastName  :: String
-      }
-
-   -- Automatically generates accessor methods
-   -- lastName :: Person -> String
-   -- firstName :: Person -> String
-   aPerson = PersonC { firstName = "Joe", lastName = "Bloggs" }
-
-   > lastName aPerson
-   => "Bloggs" 
-~~~~
-
-# Enough Talking (sorry)
-- Write some data types for a Premier League football match
-    - e.g. Everton 1 - Man United 0 (first team is the home team)
-
+# Building a combinator library
+- Load up `HistoricalStats.hs` 
 - Write some simple functions to give information such as: 
     - homeWin :: Game -> Bool
     - awayWin :: Game -> Bool
@@ -316,14 +292,11 @@
 
 # Returning functions with partial application
 
-- By combining functions together you can succinctly
+- By combining functions together you can succinctly combine functions
 
 ~~~~
-  moreThanNGoals :: Int -> Match -> Bool
-  moreThanNGoals n match = totalGoals match > n
-
   excitingGame :: Match -> Bool
-  excitingGame = moreThanNGoals 10
+  excitingGame = totalGoals match > 10
 
   -- Find all exciting games
   excitingGames :: [Match] -> [Match]
@@ -345,40 +318,3 @@
 - Use "Hoogle" to search for functionality based on type signatures
 - fpcomplete.com provides some great introductions
 
-<!-- Supplemental material, (definitely) won't get here? -->
-
-# Property Based Testing
-- The type system can encode lots of properties about your data
-- Property based tested can help you assert more about your data
-- Instead of existential tests (`assert 1 + 1 == 2`) write universal tests (`a + b == b + a`)
-
-# Asserting Invariants
-
-~~~~
-  reverse :: [a] -> [a]
-  
-  prop_LenPreserving :: [a] -> Bool
-  prop_LenPreserving xs = length xs == length (reverse xs)
-
-  > quickCheck prop_LenPreserving
-  +++ OK, passed 100 tests
-
-~~~~ 
-
-# Finding errors
-
-~~~~
-  badSort :: Ord a => [a] -> [a]
-  badSort [] = []
-  badSort xs = minimum xs : tail xs
-
-  > badSort [1,2,3,4] 
-  [1,2,3,4]
-
-  model_test :: [Int] -> Bool
-  model_test xs = sort xs == badSort xs
-
-  > quickCheck model_test
-  *** Failed! Falsifiable (after 4 tests):
-  [0, -1]
-~~~~
