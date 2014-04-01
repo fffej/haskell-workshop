@@ -71,7 +71,7 @@
 # GHCI
 - GHCI is the de-facto Haskell interpreter
 - Provides a REPL and a way to explore the code
-- Expressions entered are evaluated and returned, for example:
+- Expressions entered are evaluated and returned
 
 # Quick guide to GHCI
 - :l Foo.hs
@@ -89,6 +89,7 @@
 
   module Example where
 
+  -- function definition
   add x y = x + y
 
   -- Pattern matching
