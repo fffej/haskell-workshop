@@ -190,10 +190,20 @@
 - A sum type can be one of many possibilities
 
 ~~~~
-  data Shape = Square Double
-             | Circle Double 
-             | Rectangle Double Double
-             deriving (Show, Eq)
+    module SumTypes where
+
+    data Result = Win | Lose | Draw deriving (Show)
+
+    homeTeamResult :: Game -> Result
+    homeTeamResult game
+      | homeScore game > awayScore game = Win
+      | awayScore game > homeScore game = Lose
+      | otherwise                       = Draw
+    
+    flipResult :: Result -> Result
+    flipResult Win  = Lose
+    flipResult Lose = Win
+    flipResult Draw = Draw
 ~~~~
 
 
