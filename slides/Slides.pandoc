@@ -169,13 +169,21 @@
 - Automatically generates "getter" style functions
 
 ~~~~
-    data Rectangle = RectangleConstructor {
-        width :: Int
-      , height :: Int
+    module RecordSyntax where
+
+    data Game = GameC {
+    	homeTeam :: String
+      , homeScore :: Int
+      , awayTeam :: String
+      , awayScore :: Int
     }
 
-    area :: Rectangle -> Int 
-    area r = (width r) * (height r)
+    result :: Game -> String 
+    result game
+      | homeScore game > awayScore game = (homeTeam game) ++ " wins"
+      | awayScore game > homeScore game = (awayTeam game) ++ " wins"
+      | otherwise                       = "Draw"          	   
+
 ~~~~
 
 # Sum Types
