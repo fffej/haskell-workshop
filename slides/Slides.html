@@ -45,6 +45,7 @@ Jeff Foster
 <ul>
 <li>A text editor</li>
 <li>A version of the Haskell Platform <a href="http://www.haskell.org/platform/">http://www.haskell.org/platform/</a></li>
+<li>A git clone of https://github.com/fffej/haskell-workshop</li>
 </ul>
 </div>
 <div id="what-are-you-going-to-do-today" class="slide section level1">
@@ -62,8 +63,8 @@ Jeff Foster
 </blockquote>
 </div>
 </div>
-<div id="javacc-types" class="slide section level1">
-<h1>Java/C#/C++ Types</h1>
+<div id="why-statically-typed" class="slide section level1">
+<h1>Why Statically Typed?</h1>
 <ul class="incremental">
 <li>Given the type signature below, what happens?</li>
 </ul>
@@ -82,19 +83,24 @@ Jeff Foster
 <ul class="incremental">
 <li>Given the type signature below, what happens?</li>
 </ul>
+<div class="incremental">
 <pre><code>   add :: Int -&gt; Int -&gt; Int</code></pre>
 <ul class="incremental">
 <li>What can happen?</li>
 </ul>
 </div>
+</div>
 <div id="lets-check-everything-is-working." class="slide section level1">
 <h1>Let's check everything is working.</h1>
+<ul>
+<li>Put the following in <code>Main.hs</code></li>
+</ul>
 <pre><code>   module Main where
    main = putStrLn &quot;Hello, World!&quot;</code></pre>
 <ul>
-<li>Every Haskell program needs a &quot;Main&quot; module</li>
+<li>Each Haskell function is within a module</li>
 <li><code>main</code> is the entry point</li>
-<li>Run with <code>runghc HelloWorld.hs</code> or compile with <code>ghc</code></li>
+<li>Load this into ghci with <code>:l Main.hs</code> and run with <code>main</code></li>
 </ul>
 <!-- 
      Quick stop to let everyone find out that Haskell works for them 
@@ -107,27 +113,16 @@ Jeff Foster
 <ul>
 <li>GHCI is the de-facto Haskell interpreter</li>
 <li>Provides a REPL and a way to explore the code</li>
-<li>Expressions entered are evaluated and returned, for example:</li>
+<li>Expressions entered are evaluated and returned</li>
+<li>For this workshop, work in a file and use <code>:l &lt;file&gt;</code> to reload</li>
 </ul>
-</div>
-<div id="quick-guide-to-ghci" class="slide section level1">
-<h1>Quick guide to GHCI</h1>
-<ul>
-<li>:l Foo.hs</li>
-<li>:t <expr></li>
-</ul>
-<!-- 
-  TODO 
-    * Need to explain enough syntax to get going
-    * and also explain desired workflow of working from files
--->
-
 </div>
 <div id="lets-write-some-simple-functions-and-explore-some-syntax" class="slide section level1">
 <h1>Let's write some simple functions and explore some syntax</h1>
 <pre><code>
-  module Example where
+  module Add where
 
+  -- function definition
   add x y = x + y
 
   -- Pattern matching
@@ -137,19 +132,10 @@ Jeff Foster
 
   -- Guards 
   add3 x y 
-    | x == 0    = y
+    | x == 0    = y -- read | as &quot;where&quot;
     | y == 0    = x
     | otherwise = 1 + add3 (x - 1) y
 </code></pre>
-<ul class="incremental">
-<li>Can you write factorial and fibonacci functions?</li>
-</ul>
-<!-- 
-     TODO define Factorial and Fibonacci functions 10 minutes??
-     TODO Cover enough syntax 
-     More scope?
--->
-
 </div>
 <div id="types" class="slide section level1">
 <h1>Types</h1>
@@ -157,22 +143,21 @@ Jeff Foster
 <li>We haven't written type signatures yet</li>
 <li>Haskell has inferred types for us</li>
 <li>In ghci, <code>:t &lt;expression&gt;</code> tells us the type</li>
-<li><code>:t (+)</code> says <code>(+) :: Num a =&gt; a -&gt; a -&gt; a</code></li>
-<li>What does this mean?</li>
+<li><code>:t add</code> says <code>add :: Num a =&gt; a -&gt; a -&gt; a</code></li>
 </ul>
 </div>
 <div id="types-are-everything" class="slide section level1">
 <h1>Types are everything</h1>
 <ul>
-<li>Often a type signature says everything about a function.</li>
+<li>Often a type signature says <em>everything</em> about a function.</li>
 <li>Types are denoted with an initial Capital letter</li>
-<li>Type parameters are written with a lower case parameter</li>
+<li>Type parameters (generics) are written with a lower case parameter</li>
 <li>What do these functions do? (hint, remember they must work for all types)</li>
 <li><code>fooHicky :: (a,b) -&gt; a</code></li>
 <li><code>banana   :: a -&gt; a</code>
 <ul>
-<li>In C#, these might look like this:</li>
-<li><code>public static A FooHickey&lt;A,B&gt;(A a, B b)</code></li>
+<li>In C#/Java, these would look like this:</li>
+<li><code>public static A fooHickey&lt;A,B&gt;(A a, B b)</code></li>
 <li><code>public static A banana&lt;A&gt;(A a)</code></li>
 </ul></li>
 </ul>
@@ -184,6 +169,8 @@ Jeff Foster
 <li>What does the type <code>a -&gt; a -&gt; a</code> tell you?</li>
 <li>The more general the type signature, the <em>more</em> it tells you!</li>
 </ul>
+<!-- I think I can skip the section on Type classes? -->
+
 </div>
 <div id="type-classes" class="slide section level1">
 <h1>Type Classes</h1>
@@ -197,26 +184,80 @@ Jeff Foster
     (+) :: a -&gt; a -&gt; a
     (*) :: a -&gt; a -&gt; a
     --etc</code></pre>
-<ul>
-<li>You can automatically derive <code>Show</code> and <code>Eq</code> to get printable and equality support</li>
-</ul>
 </div>
-<div id="defining-new-types" class="slide section level1">
-<h1>Defining new types</h1>
+<div id="building-your-own-types" class="slide section level1">
+<h1>Building your own types</h1>
 <ul>
 <li>Data types are constructed via <em>type constructors</em></li>
 <li>Data types are pattern matched via <em>type constructors</em></li>
 </ul>
-<pre><code>   -- TODO theme this around football matches</code></pre>
+<pre><code>    module YourOwnTypes where
+
+    -- Game is the type
+    -- GameC is the type signature
+    data Game = GameC String Int String Int
+
+    -- Function type signatures use the type
+    result :: Game -&gt; String
+
+    -- Function definitions &quot;Deconstruct&quot; values with the type constructor
+    result (GameC t1 s1 t2 s2)
+      | s1 &gt; s2   = t1 ++ &quot; wins&quot;
+      | s2 &gt; s1   = t2 ++ &quot; wins&quot;
+      | otherwise = &quot;Draw&quot;</code></pre>
 </div>
-<div id="writing-type-signatures" class="slide section level1">
-<h1>Writing type signatures</h1>
+<div id="record-syntax" class="slide section level1">
+<h1>Record Syntax</h1>
 <ul>
-<li>Start with the type of the functions</li>
-<li>Make the compiler check it makes sense</li>
-<li>Fill in the blanks</li>
-<li>Bottom up programming</li>
+<li>Provides a way of naming parts of a type</li>
+<li>Automatically generates &quot;getter&quot; style functions</li>
 </ul>
+<pre><code>    module RecordSyntax where
+
+    data Game = GameC {
+        homeTeam :: String
+      , homeScore :: Int
+      , awayTeam :: String
+      , awayScore :: Int
+    }
+
+    result :: Game -&gt; String 
+    result game
+      | homeScore game &gt; awayScore game = (homeTeam game) ++ &quot; wins&quot;
+      | awayScore game &gt; homeScore game = (awayTeam game) ++ &quot; wins&quot;
+      | otherwise                       = &quot;Draw&quot;               
+</code></pre>
+</div>
+<div id="sum-types" class="slide section level1">
+<h1>Sum Types</h1>
+<ul>
+<li>A sum type can be one of many possibilities</li>
+</ul>
+<pre><code>    module SumTypes where
+
+    data Result = Win | Lose | Draw deriving (Show)
+
+    homeTeamResult :: Game -&gt; Result
+    homeTeamResult game
+      | homeScore game &gt; awayScore game = Win
+      | awayScore game &gt; homeScore game = Lose
+      | otherwise                       = Draw
+    
+    flipResult :: Result -&gt; Result
+    flipResult Win  = Lose
+    flipResult Lose = Win
+    flipResult Draw = Draw</code></pre>
+</div>
+<div id="lets-define-our-own-data-types" class="slide section level1">
+<h1>Let's define our own data types</h1>
+<ul>
+<li>Our domain is football matches.</li>
+<li>Spend some time defining types such as: -- A basic result (Win, Lose or Draw) -- Team statistics (Team name, goals for, current points etc.)</li>
+</ul>
+<!--
+  Let's say 15 minutes for defining a few types
+-->
+
 </div>
 <div id="lists-in-a-bit-more-detail" class="slide section level1">
 <h1>Lists in a bit more detail</h1>
@@ -236,25 +277,36 @@ Jeff Foster
 <li>What's the recursive case?</li>
 </ul>
 </div>
-<div id="length" class="slide section level1">
-<h1>Length</h1>
-<pre><code>   -- base case, an empty list
-   length [] = 0
+<div id="list-examples-1---length" class="slide section level1">
+<h1>List Examples (1) - Length</h1>
+<pre><code>
+   myLength :: [a] -&gt; Int
 
-   -- recursive case is a list of at least one element
-   length (_:xs) = 1 + length xs</code></pre>
+   -- base case, an empty list is of length 0
+   myLength [] = 0
+
+   -- recursive case works towards the base case
+   myLength (_:xs) = 1 + length xs</code></pre>
 </div>
-<div id="adding-one-to-each-element" class="slide section level1">
-<h1>Adding one to each element</h1>
+<div id="list-examples-2---building-new-lists" class="slide section level1">
+<h1>List Examples (2) - Building new lists</h1>
 <pre><code>   addOne :: [Int] -&gt; [Int]
    addOne [] = []
    addOne (x:xs) = (x + 1) : (addOne xs)</code></pre>
+</div>
+<div id="list-examples-3---including-only-some-elements" class="slide section level1">
+<h1>List Examples (3) - Including only some elements</h1>
+<pre><code>   greaterThan5 :: [Int] -&gt; [Int]
+   greaterThan5 [] = []
+   greaterThan5 (x:xs)
+     | x &gt; 5     = x : greaterThan5 xs
+     | otherwise = greaterThan5 xs</code></pre>
 </div>
 <div id="higher-order-functions" class="slide section level1">
 <h1>Higher Order Functions</h1>
 <ul>
 <li>Functions are first class citizens</li>
-<li>You can pass them to methods, partially apply them</li>
+<li>You can pass them to methods.</li>
 </ul>
 <pre><code>   map :: (a -&gt; b) -&gt; [a] -&gt; [b]
    map f []     = []
@@ -276,74 +328,13 @@ Jeff Foster
 <li><code>myReverse :: [a] -&gt; [a]</code></li>
 </ul></li>
 </ul>
-</div>
-<div id="sum-types" class="slide section level1">
-<h1>Sum Types</h1>
-<p>TODO - Be harsh; do I absolutely need to include this for football matches?</p>
-<ul>
-<li>A sum type can be one of many possibilities</li>
-</ul>
-<pre><code>  data Shape = Square Double
-             | Circle Double 
-             | Rectangle Double Double
-             deriving (Show, Eq)</code></pre>
-<ul class="incremental">
-<li>How would you write a function <code>area :: Shape -&gt; Double</code>?</li>
-<li>Remember, use the type constructor to take things apart!</li>
-<li>Shape is the <em>type</em>, Square, Circle and Rectangle are type constructors</li>
-</ul>
-</div>
-<div id="recursive-types" class="slide section level1">
-<h1>Recursive Types</h1>
-<p>TODO - Be harsh; do I absolutely need to include this for football matches?</p>
-<ul>
-<li>A data type can also refer to itself (e.g. a List or a Tree)</li>
-</ul>
-<pre><code>   -- imagine Haskell didn&#39;t have lists, how would you write it?
-   data List a = Cons a (List a)
-               | Empty
+<!-- This'll take a bit of a while, say 30 minutes -->
 
-   list123 = Cons 1 (Cons 2 (Cons 3 Empty))
-   
-   myLength :: List a -&gt; Int
-   myLength Empty = 0
-   myLength (Cons x xs) = 1 + myLength xs 
-
-   myLength list123
-   &gt; 1 + myLength (Cons 2 (Cons 3 Empty))
-   &gt; 1 + 1 + myLength (Cons 3 Empty)
-   &gt; 1 + 1 + 1 + myLength Empty
-   &gt; 1 + 1 + 1 + 0
-   =&gt; 3</code></pre>
 </div>
-<div id="record-syntax" class="slide section level1">
-<h1>Record syntax</h1>
-<p>-- TODO theme around football matches.</p>
+<div id="building-a-combinator-library" class="slide section level1">
+<h1>Building a combinator library</h1>
 <ul>
-<li>Allows you to generate names for parts of a type</li>
-</ul>
-<pre><code>
-   data Person = PersonC
-      {
-        firstName :: String,
-        lastName  :: String
-      }
-
-   -- Automatically generates accessor methods
-   -- lastName :: Person -&gt; String
-   -- firstName :: Person -&gt; String
-   aPerson = PersonC { firstName = &quot;Joe&quot;, lastName = &quot;Bloggs&quot; }
-
-   &gt; lastName aPerson
-   =&gt; &quot;Bloggs&quot; </code></pre>
-</div>
-<div id="enough-talking-sorry" class="slide section level1">
-<h1>Enough Talking (sorry)</h1>
-<ul>
-<li>Write some data types for a Premier League football match
-<ul>
-<li>e.g. Everton 1 - Man United 0 (first team is the home team)</li>
-</ul></li>
+<li>Load up <code>HistoricalStats.hs</code></li>
 <li>Write some simple functions to give information such as:
 <ul>
 <li>homeWin :: Game -&gt; Bool</li>
@@ -351,6 +342,17 @@ Jeff Foster
 <li>scoreDraw :: Game -&gt; Bool</li>
 <li>totalGoals :: Game -&gt; Int</li>
 </ul></li>
+</ul>
+<!-- this shouldn't take long -->
+
+</div>
+<div id="curried-functions" class="slide section level1">
+<h1>Curried Functions</h1>
+<ul>
+<li>In Haskell all functions are of a single argument</li>
+<li><code>add 3 4</code> is interpreted as ((add 3) 4)</li>
+<li><code>add 3</code> returns a function needing one more argument</li>
+<li>This is known as partial application</li>
 </ul>
 </div>
 <div id="making-the-most-of-higher-order-functions" class="slide section level1">
@@ -372,13 +374,10 @@ Jeff Foster
 <div id="returning-functions-with-partial-application" class="slide section level1">
 <h1>Returning functions with partial application</h1>
 <ul>
-<li>By combining functions together you can succinctly</li>
+<li>By combining functions together you can succinctly combine functions</li>
 </ul>
-<pre><code>  moreThanNGoals :: Int -&gt; Match -&gt; Bool
-  moreThanNGoals n match = totalGoals match &gt; n
-
-  excitingGame :: Match -&gt; Bool
-  excitingGame = moreThanNGoals 10
+<pre><code>  excitingGame :: Match -&gt; Bool
+  excitingGame = totalGoals match &gt; 10
 
   -- Find all exciting games
   excitingGames :: [Match] -&gt; [Match]
@@ -406,43 +405,6 @@ Jeff Foster
 <li>Use &quot;Hoogle&quot; to search for functionality based on type signatures</li>
 <li>fpcomplete.com provides some great introductions</li>
 </ul>
-<!-- Supplemental material, (definitely) won't get here? -->
-
-</div>
-<div id="property-based-testing" class="slide section level1">
-<h1>Property Based Testing</h1>
-<ul>
-<li>The type system can encode lots of properties about your data</li>
-<li>Property based tested can help you assert more about your data</li>
-<li>Instead of existential tests (<code>assert 1 + 1 == 2</code>) write universal tests (<code>a + b == b + a</code>)</li>
-</ul>
-</div>
-<div id="asserting-invariants" class="slide section level1">
-<h1>Asserting Invariants</h1>
-<pre><code>  reverse :: [a] -&gt; [a]
-  
-  prop_LenPreserving :: [a] -&gt; Bool
-  prop_LenPreserving xs = length xs == length (reverse xs)
-
-  &gt; quickCheck prop_LenPreserving
-  +++ OK, passed 100 tests
-</code></pre>
-</div>
-<div id="finding-errors" class="slide section level1">
-<h1>Finding errors</h1>
-<pre><code>  badSort :: Ord a =&gt; [a] -&gt; [a]
-  badSort [] = []
-  badSort xs = minimum xs : tail xs
-
-  &gt; badSort [1,2,3,4] 
-  [1,2,3,4]
-
-  model_test :: [Int] -&gt; Bool
-  model_test xs = sort xs == badSort xs
-
-  &gt; quickCheck model_test
-  *** Failed! Falsifiable (after 4 tests):
-  [0, -1]</code></pre>
 </div>
 </body>
 </html>
