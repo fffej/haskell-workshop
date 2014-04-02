@@ -16,6 +16,7 @@
 # What do you need today?
 - A text editor
 - A version of the Haskell Platform <http://www.haskell.org/platform/>
+- A git clone of https://github.com/fffej/haskell-workshop
 
 # What are you going to do today?
 >- You'll the basics of Haskell
@@ -46,6 +47,8 @@
 # Haskell types
 >- Given the type signature below, what happens?
 
+. . . 
+
 ~~~~
    add :: Int -> Int -> Int
 ~~~~
@@ -53,6 +56,8 @@
 >- What can happen?
 
 # Let's check everything is working.
+
+- Put the following in `Main.hs`
 
 ~~~~
    module Main where
@@ -78,7 +83,7 @@
 
 ~~~~
 
-  module Example where
+  module Add where
 
   -- function definition
   add x y = x + y
@@ -95,12 +100,6 @@
     | otherwise = 1 + add3 (x - 1) y
 
 ~~~~
-
-# Curried Functions
-- In Haskell all functions are of a single argument
-- `add 3 4` is interpreted as ((add 3) 4)
-- `add 3` returns a function needing one more argument
-- This is known as partial application
 
 # Types 
 
@@ -127,6 +126,8 @@
 - What does the type `a -> a -> a` tell you?
 - The more general the type signature, the *more* it tells you!
 
+<!-- I think I can skip the section on Type classes? -->
+
 # Type Classes
 - Think of a type class as an interface
 - Common type classes are `Eq` and `Show` which define equality and printability
@@ -146,18 +147,20 @@
 - Data types are pattern matched via *type constructors*
 
 ~~~~
-    -- Rectangle is the type
-    -- RectangeConstructor is the type signature
-    data Rectangle = RectangleConstructor Int Int
+    module YourOwnTypes where
 
-    -- Function definitions use the type
-    area :: Rectangle -> Int
+    -- Game is the type
+    -- GameC is the type signature
+    data Game = GameC String Int String Int
 
-    -- "Deconstruct" values with the type constructor
-    area (RectangleConstructor a b) = a * b
+    -- Function type signatures use the type
+    result :: Game -> String
 
-    width :: Rectangle -> Int
-    width (RectangleConstructor a _) = a
+    -- Function definitions "Deconstruct" values with the type constructor
+    result (GameC t1 s1 t2 s2)
+      | s1 > s2   = t1 ++ " wins"
+      | s2 > s1   = t2 ++ " wins"
+      | otherwise = "Draw"
 ~~~~
 
 # Record Syntax
@@ -272,6 +275,15 @@
     - awayWin :: Game -> Bool
     - scoreDraw :: Game -> Bool
     - totalGoals :: Game -> Int
+
+
+<!-- this shouldn't take long -->
+
+# Curried Functions
+- In Haskell all functions are of a single argument
+- `add 3 4` is interpreted as ((add 3) 4)
+- `add 3` returns a function needing one more argument
+- This is known as partial application
 
 # Making the most of higher order functions
 
