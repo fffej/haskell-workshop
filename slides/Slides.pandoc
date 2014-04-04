@@ -196,28 +196,54 @@
     flipResult Draw = Draw
 ~~~~
 
-# Let's define our own data types
+# Let's define our own data types and functions
 
 - Our domain is football matches.
-- Spend some time defining types such as:
--- A football result
--- Team statistics (Team name, goals for, current points etc.)
+- `data/FootballStats.hs` contains some example types.
+- What simple functions can you write?
+
+~~~~
+    data FootballResult = FootballResult 
+      {
+        homeTeam :: String
+      , awayTeam :: String
+      , homeGoals :: Int
+      , awayGoals :: Int
+      -- and so on!
+     } deriving (Show,Eq)
+
+   totalGoals :: FootballResult -> Int
+   homeScore :: FootballResult -> Int
+   netGoals :: FootballResult -> Int
+   violenceLevel :: FootballResult -> Int
+~~~~
 
 <!--
   Let's say 15 minutes for defining a few types
+
+  And now since we've written some simple functions, we should
+  focus on how to combine them across many items
 -->
 
-# Lists in a bit more detail
+# Working with more than one type
+- We now know how to create our own types
+- Next is learning to work with lists of types
+
+# Haskell Lists
 - All items in a list have to be the same type (no `[1,"a"]`)
 - Lists have special syntax in Haskell
 - `[]` is the empty list
 - `:` is the type constructor used to create lists `1 : [] => [1]`
 - `[1,2,3]` is syntactic sugar for `1 : (2 : (3 : []) )`
 
-# Let's write some list functions
-- Need to think recursively! 
-- What's the base case?
-- What's the recursive case?
+<!--
+  Should mention that `:` is a magic infix operator
+--> 
+
+# Thinking Recursively
+- Recursive thinking consists of two steps:
+>- What's the base case?
+>- What's the recursive case that brings us nearer the base case
 
 # List Examples (1) - Length
 
@@ -233,6 +259,8 @@
 
 # List Examples (2) - Building new lists
 
+- Lists are immutable; build new ones with shared elements
+
 ~~~~
    addOne :: [Int] -> [Int]
    addOne [] = []
@@ -240,6 +268,8 @@
 ~~~~
 
 # List Examples (3) - Including only some elements
+
+- Build a new list with only the elements we want
 
 ~~~~
    greaterThan5 :: [Int] -> [Int]
@@ -252,7 +282,6 @@
 # Higher Order Functions
 
 - Functions are first class citizens
-- You can pass them to methods.
 
 ~~~~
    mymap :: (a -> b) -> [a] -> [b]
@@ -271,17 +300,14 @@
     - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
     - `myReverse :: [a] -> [a]` 
 
-<!-- This'll take a bit of a while, say 30 minutes -->
+<!-- 
+     This'll take a bit of a while, say 30 minutes 
+-->
 
 # Building up some tools
 - Load up `FootballStats.hs`
-- `results2011` and `results2012` are lists of `FootballResult`
-- Write a simple function
-   
-~~~~
-  totalGoals :: FootballResult -> Int
-  totalGoals = undefined
-~~~~
+- `results2011` and `results2012` are of type `[FootballResult]`
+
 
 # Using Type Signatures
 - Given the following types, how can we find out the highest
