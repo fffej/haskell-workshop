@@ -19,6 +19,7 @@ update team delta (x:xs)
   | fst x == team = (fst x, snd x + delta) : update team delta xs
   | otherwise = x : update team delta xs
 
+-- Inflexible - home and away team points disgusting
 updateLeagueTable :: LeagueTable -> FootballResult -> LeagueTable
 updateLeagueTable lt fr = update at atp $ update ht htp lt
   where
