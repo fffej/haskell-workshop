@@ -112,9 +112,6 @@
 - What do these functions do? (hint, remember they must work for all types)
 - `fooHicky :: (a,b) -> a`
 - `banana   :: a -> a`
-    - In C#/Java, these would look like this:
-    - `public static A fooHickey<A,B>(A a, B b)`
-    - `public static A banana<A>(A a)`
 
 # Types or type variables?
 
@@ -143,10 +140,10 @@
 - Data types are pattern matched via *type constructors*
 
 ~~~~
-    module YourOwnTypes where
+    module SimpleTypes where
 
     -- Game is the type
-    -- GameC is the type signature
+    -- GameC is the type constructor
     data Game = GameC String Int String Int
 
     -- Function type signatures use the type

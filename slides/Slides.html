@@ -147,12 +147,7 @@ Jeff Foster
 <li>Type parameters (generics) are written with a lower case parameter</li>
 <li>What do these functions do? (hint, remember they must work for all types)</li>
 <li><code>fooHicky :: (a,b) -&gt; a</code></li>
-<li><code>banana   :: a -&gt; a</code>
-<ul>
-<li>In C#/Java, these would look like this:</li>
-<li><code>public static A fooHickey&lt;A,B&gt;(A a, B b)</code></li>
-<li><code>public static A banana&lt;A&gt;(A a)</code></li>
-</ul></li>
+<li><code>banana   :: a -&gt; a</code></li>
 </ul>
 </div>
 <div id="types-or-type-variables" class="slide section level1">
@@ -172,10 +167,10 @@ Jeff Foster
 <li>Common type classes are <code>Eq</code> and <code>Show</code> which define equality and printability</li>
 <li>Use <code>:i &lt;TypeClass&gt;</code> to inspect a type class in ghci e.g.</li>
 </ul>
-<pre><code>  &gt; :i Num
-  class Num a where
-    (+) :: a -&gt; a -&gt; a
-    (*) :: a -&gt; a -&gt; a
+<pre><code>  &gt; :i Eq
+  class Eq a where
+    (==) :: a -&gt; a -&gt; Bool
+    (/=) :: a -&gt; a -&gt; Bool
     --etc</code></pre>
 </div>
 <div id="building-your-own-types" class="slide section level1">
@@ -184,10 +179,10 @@ Jeff Foster
 <li>Data types are constructed via <em>type constructors</em></li>
 <li>Data types are pattern matched via <em>type constructors</em></li>
 </ul>
-<pre><code>    module YourOwnTypes where
+<pre><code>    module SimpleTypes where
 
     -- Game is the type
-    -- GameC is the type signature
+    -- GameC is the type constructor
     data Game = GameC String Int String Int
 
     -- Function type signatures use the type

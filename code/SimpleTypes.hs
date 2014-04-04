@@ -1,4 +1,4 @@
-module YourOwnTypes where
+module SimpleTypes where
 
 -- Game is the type
 -- GameC is the type signature
