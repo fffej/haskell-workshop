@@ -23,10 +23,6 @@
 >- You'll learn to read Haskell
 >- You'll write a combinator library for analysing Premier League football matches
 
-. . .
-
->![](img/escalated_quickly.jpg "That escalated quickly")
-
 # Why Statically Typed?
 >- Given the type signature below, what happens?
 
