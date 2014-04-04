@@ -55,13 +55,6 @@ Jeff Foster
 <li>You'll learn to read Haskell</li>
 <li>You'll write a combinator library for analysing Premier League football matches</li>
 </ul>
-<div class="incremental">
-<blockquote>
-<div class="figure">
-<img src="img/escalated_quickly.jpg" title="That escalated quickly" />
-</div>
-</blockquote>
-</div>
 </div>
 <div id="why-statically-typed" class="slide section level1">
 <h1>Why Statically Typed?</h1>
@@ -75,7 +68,7 @@ Jeff Foster
 </ul>
 </div>
 <div class="incremental">
-<pre><code>   int add(int x,int y) { launchNukes(); return 53; };</code></pre>
+<pre><code>   int add(int x,int y) { launchNukes(); return x+y; };</code></pre>
 </div>
 </div>
 <div id="haskell-types" class="slide section level1">
@@ -95,7 +88,7 @@ Jeff Foster
 <ul>
 <li>Put the following in <code>Main.hs</code></li>
 </ul>
-<pre><code>   module Main where
+<pre><code>   module HelloWorld where
    main = putStrLn &quot;Hello, World!&quot;</code></pre>
 <ul>
 <li>Each Haskell function is within a module</li>

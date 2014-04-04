@@ -1,4 +1,2 @@
-module Main where
-
-main :: IO ()
+module HelloWorld where
 main = putStrLn "Hello, World"

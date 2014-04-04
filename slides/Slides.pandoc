@@ -37,7 +37,7 @@
 . . .
 
 ~~~~
-   int add(int x,int y) { launchNukes(); return 53; };
+   int add(int x,int y) { launchNukes(); return x+y; };
 ~~~~
 
 # Haskell types
@@ -56,7 +56,7 @@
 - Put the following in `Main.hs`
 
 ~~~~
-   module Main where
+   module HelloWorld where
    main = putStrLn "Hello, World!"
 ~~~~
 
