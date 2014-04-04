@@ -5,17 +5,28 @@ import HistoricalStats
 import Data.Maybe (fromJust)
 import Data.List.Split (splitOn)
 
-import Data.List
-import Data.Ord
-
 data FootballResult = FootballResult 
   {
     homeTeam :: String
   , awayTeam :: String
   , homeGoals :: Int
   , awayGoals :: Int
+  , halfTimeHomeGoals :: Int
+  , halfTimeAwayGoals :: Int
+  , referee :: String
+  , homeShots :: Int
+  , awayShots :: Int
+  , homeShotsOnTarget :: Int
+  , awayShotsOnTarget :: Int
+  , homeTeamFouls :: Int
+  , awayTeamFouls :: Int
+  , homeCorners :: Int
+  , awayCorners :: Int
+  , homeYellows :: Int
+  , awayYellows :: Int
+  , homeReds :: Int
+  , awayReds :: Int
   } deriving (Show,Eq)
-
 
 results2011 :: [FootballResult]
 results2011 = parse season2011
@@ -35,10 +46,25 @@ toResult xs = FootballResult
               , awayTeam = get "AwayTeam"
               , homeGoals = getInt "FTHG"
               , awayGoals = getInt "FTAG"
+              , halfTimeHomeGoals = getInt "HTHG"
+              , halfTimeAwayGoals = getInt "HTAG"
+              , referee = get "Referee"
+              , homeShots = getInt "HS"
+              , awayShots = getInt "AS"
+              , homeShotsOnTarget = getInt "HST"
+              , awayShotsOnTarget = getInt "AST"
+              , homeTeamFouls = getInt "HF"
+              , awayTeamFouls = getInt "AF"
+              , homeCorners = getInt "HC"
+              , awayCorners = getInt "AC"
+              , homeYellows = getInt "HY"
+              , awayYellows = getInt "AY"
+              , homeReds = getInt "HR"
+              , awayReds = getInt "AR"
               }
     where
       columns = splitOn "," xs
-      get name = columns !! (statIndex name)
+      get name = columns !! statIndex name
       getInt name = read (get name) :: Int 
 
 statIndex :: String -> Int
