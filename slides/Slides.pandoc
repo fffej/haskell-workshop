@@ -130,10 +130,10 @@
 - Use `:i <TypeClass>` to inspect a type class in ghci e.g.
 
 ~~~~
-  > :i Num
-  class Num a where
-    (+) :: a -> a -> a
-    (*) :: a -> a -> a
+  > :i Eq
+  class Eq a where
+    (==) :: a -> a -> Bool
+    (/=) :: a -> a -> Bool
     --etc
 ~~~~
 
