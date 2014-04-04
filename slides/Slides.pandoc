@@ -327,10 +327,11 @@
   excitingGame = totalGoals match > 10
 
   -- Find all exciting games
-  excitingGames :: [FootBallResult] -> [FootballResult]
+  excitingGames :: [FootballResult] -> [FootballResult]
   excitingGames = filter excitingGame
 ~~~~
 
+<!-- TODO; this section is weak! --> 
 # Putting it all together
 - We're going to work with Premier League Data for this season
 - We're going to write some code to allow us to quiz the data
