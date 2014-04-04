@@ -233,19 +233,43 @@ Jeff Foster
     flipResult Lose = Win
     flipResult Draw = Draw</code></pre>
 </div>
-<div id="lets-define-our-own-data-types" class="slide section level1">
-<h1>Let's define our own data types</h1>
+<div id="lets-define-our-own-data-types-and-functions" class="slide section level1">
+<h1>Let's define our own data types and functions</h1>
 <ul>
 <li>Our domain is football matches.</li>
-<li>Spend some time defining types such as: -- A football result -- Team statistics (Team name, goals for, current points etc.)</li>
+<li><code>data/FootballStats.hs</code> contains some example types.</li>
+<li>What simple functions can you write?</li>
 </ul>
+<pre><code>    data FootballResult = FootballResult 
+      {
+        homeTeam :: String
+      , awayTeam :: String
+      , homeGoals :: Int
+      , awayGoals :: Int
+      -- and so on!
+     } deriving (Show,Eq)
+
+   totalGoals :: FootballResult -&gt; Int
+   homeScore :: FootballResult -&gt; Int
+   netGoals :: FootballResult -&gt; Int
+   violenceLevel :: FootballResult -&gt; Int</code></pre>
 <!--
   Let's say 15 minutes for defining a few types
+
+  And now since we've written some simple functions, we should
+  focus on how to combine them across many items
 -->
 
 </div>
-<div id="lists-in-a-bit-more-detail" class="slide section level1">
-<h1>Lists in a bit more detail</h1>
+<div id="working-with-more-than-one-type" class="slide section level1">
+<h1>Working with more than one type</h1>
+<ul>
+<li>We now know how to create our own types</li>
+<li>Next is learning to work with lists of types</li>
+</ul>
+</div>
+<div id="haskell-lists" class="slide section level1">
+<h1>Haskell Lists</h1>
 <ul>
 <li>All items in a list have to be the same type (no <code>[1,&quot;a&quot;]</code>)</li>
 <li>Lists have special syntax in Haskell</li>
@@ -253,13 +277,15 @@ Jeff Foster
 <li><code>:</code> is the type constructor used to create lists <code>1 : [] =&gt; [1]</code></li>
 <li><code>[1,2,3]</code> is syntactic sugar for <code>1 : (2 : (3 : []) )</code></li>
 </ul>
+<!--
+  Should mention that `:` is a magic infix operator
+--> 
+
 </div>
-<div id="lets-write-some-list-functions" class="slide section level1">
-<h1>Let's write some list functions</h1>
+<div id="thinking-recursively" class="slide section level1">
+<h1>Thinking Recursively</h1>
 <ul>
-<li>Need to think recursively!</li>
-<li>What's the base case?</li>
-<li>What's the recursive case?</li>
+<li>Recursive thinking consists of two steps: &gt;- What's the base case? &gt;- What's the recursive case that brings us nearer the base case</li>
 </ul>
 </div>
 <div id="list-examples-1---length" class="slide section level1">
@@ -274,12 +300,18 @@ Jeff Foster
 </div>
 <div id="list-examples-2---building-new-lists" class="slide section level1">
 <h1>List Examples (2) - Building new lists</h1>
+<ul>
+<li>Lists are immutable; build new ones with shared elements</li>
+</ul>
 <pre><code>   addOne :: [Int] -&gt; [Int]
    addOne [] = []
    addOne (x:xs) = (x + 1) : (addOne xs)</code></pre>
 </div>
 <div id="list-examples-3---including-only-some-elements" class="slide section level1">
 <h1>List Examples (3) - Including only some elements</h1>
+<ul>
+<li>Build a new list with only the elements we want</li>
+</ul>
 <pre><code>   greaterThan5 :: [Int] -&gt; [Int]
    greaterThan5 [] = []
    greaterThan5 (x:xs)
@@ -290,7 +322,6 @@ Jeff Foster
 <h1>Higher Order Functions</h1>
 <ul>
 <li>Functions are first class citizens</li>
-<li>You can pass them to methods.</li>
 </ul>
 <pre><code>   mymap :: (a -&gt; b) -&gt; [a] -&gt; [b]
    mymap f []     = []
@@ -311,31 +342,44 @@ Jeff Foster
 <li><code>myReverse :: [a] -&gt; [a]</code></li>
 </ul></li>
 </ul>
-<!-- This'll take a bit of a while, say 30 minutes -->
+<!-- 
+     This'll take a bit of a while, say 30 minutes 
+
+     Maybe consider cutting out reduce? 
+-->
 
 </div>
 <div id="building-up-some-tools" class="slide section level1">
 <h1>Building up some tools</h1>
 <ul>
 <li>Load up <code>FootballStats.hs</code></li>
-<li><code>results2011</code> and <code>results2012</code> are lists of <code>FootballResult</code></li>
-<li>Write a simple function</li>
+<li><code>results2011</code> and <code>results2012</code> are of type <code>[FootballResult]</code></li>
 </ul>
-<pre><code>  totalGoals :: FootballResult -&gt; Int
-  totalGoals = undefined</code></pre>
 </div>
 <div id="using-type-signatures" class="slide section level1">
 <h1>Using Type Signatures</h1>
 <ul>
-<li>Given the following types, how can we find out the highest</li>
-<li>scoring game?</li>
+<li>Given the following types, how can we find out the highest scoring game?</li>
 </ul>
 <pre><code>   -- From Data.List
    maximumBy :: (a -&gt; a -&gt; Ordering) -&gt; [a] -&gt; a
    
    -- From Data.Ord
    comparing :: Ord a =&gt; (b -&gt; a) -&gt; b -&gt; b -&gt; Ordering</code></pre>
-<p>-- TODO some example giving total points for the season using reduce</p>
+</div>
+<div id="walk-through" class="slide section level1">
+<h1>Walk through</h1>
+<ul>
+<li>I'm going to attempt this live, brace yourself</li>
+</ul>
+</div>
+<div id="over-to-you" class="slide section level1">
+<h1>Over to you</h1>
+<ul>
+<li>Who won the league?</li>
+<li>If scores were counted at half-time, who would win the league?</li>
+<li>If yellow and red cards were counted as goals, who'd win?</li>
+</ul>
 </div>
 <div id="combining-functions-effortlessly" class="slide section level1">
 <h1>Combining Functions Effortlessly</h1>

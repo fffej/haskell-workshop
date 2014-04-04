@@ -302,6 +302,8 @@
 
 <!-- 
      This'll take a bit of a while, say 30 minutes 
+
+     Maybe consider cutting out reduce? 
 -->
 
 # Building up some tools
@@ -310,8 +312,7 @@
 
 
 # Using Type Signatures
-- Given the following types, how can we find out the highest
-- scoring game?
+- Given the following types, how can we find out the highest scoring game?
 
 ~~~~
    -- From Data.List
@@ -321,7 +322,13 @@
    comparing :: Ord a => (b -> a) -> b -> b -> Ordering
 ~~~~
 
--- TODO some example giving total points for the season using reduce
+# Walk through
+- I'm going to attempt this live, brace yourself
+
+# Over to you
+- Who won the league?
+- If scores were counted at half-time, who would win the league?
+- If yellow and red cards were counted as goals, who'd win?
 
 # Combining Functions Effortlessly
 - In Haskell all functions are of a single argument
