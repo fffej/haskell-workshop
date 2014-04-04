@@ -273,18 +273,31 @@
 
 <!-- This'll take a bit of a while, say 30 minutes -->
 
-# Building a combinator library
-- Load up `HistoricalStats.hs` 
-- Write some simple functions to give information such as: 
-    - homeWin :: Game -> Bool
-    - awayWin :: Game -> Bool
-    - scoreDraw :: Game -> Bool
-    - totalGoals :: Game -> Int
+# Building up some tools
+- Load up `FootballStats.hs`
+- `results2011` and `results2012` are lists of `FootballResult`
+- Write a simple function
+   
+~~~~
+  totalGoals :: FootballResult -> Int
+  totalGoals = undefined
+~~~~
 
+# Using Type Signatures
+- Given the following types, how can we find out the highest
+- scoring game?
 
-<!-- this shouldn't take long -->
+~~~~
+   -- From Data.List
+   maximumBy :: (a -> a -> Ordering) -> [a] -> a
+   
+   -- From Data.Ord
+   comparing :: Ord a => (b -> a) -> b -> b -> Ordering
+~~~~
 
-# Curried Functions
+-- TODO some example giving total points for the season using reduce
+
+# Combining Functions Effortlessly
 - In Haskell all functions are of a single argument
 - `add 3 4` is interpreted as ((add 3) 4)
 - `add 3` returns a function needing one more argument
@@ -295,7 +308,6 @@
 - Function composition f . g => f g (x)
     
 ~~~~
-
     sort :: Ord a => [a] -> [a]
     reverse :: [a] -> [a]
 
@@ -304,7 +316,6 @@
 
     -- using function composition
     reverseSort = reverse . sort
-
 ~~~~ 
 
 # Returning functions with partial application
@@ -316,7 +327,7 @@
   excitingGame = totalGoals match > 10
 
   -- Find all exciting games
-  excitingGames :: [Match] -> [Match]
+  excitingGames :: [FootBallResult] -> [FootballResult]
   excitingGames = filter excitingGame
 ~~~~
 

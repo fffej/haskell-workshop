@@ -157,8 +157,6 @@ Jeff Foster
 <li>What does the type <code>a -&gt; a -&gt; a</code> tell you?</li>
 <li>The more general the type signature, the <em>more</em> it tells you!</li>
 </ul>
-<!-- I think I can skip the section on Type classes? -->
-
 </div>
 <div id="type-classes" class="slide section level1">
 <h1>Type Classes</h1>
@@ -176,8 +174,7 @@ Jeff Foster
 <div id="building-your-own-types" class="slide section level1">
 <h1>Building your own types</h1>
 <ul>
-<li>Data types are constructed via <em>type constructors</em></li>
-<li>Data types are pattern matched via <em>type constructors</em></li>
+<li>Data types are constructed and deconstructed via <em>type constructors</em></li>
 </ul>
 <pre><code>    module SimpleTypes where
 
@@ -240,7 +237,7 @@ Jeff Foster
 <h1>Let's define our own data types</h1>
 <ul>
 <li>Our domain is football matches.</li>
-<li>Spend some time defining types such as: -- A basic result (Win, Lose or Draw) -- Team statistics (Team name, goals for, current points etc.)</li>
+<li>Spend some time defining types such as: -- A football result -- Team statistics (Team name, goals for, current points etc.)</li>
 </ul>
 <!--
   Let's say 15 minutes for defining a few types
@@ -267,8 +264,7 @@ Jeff Foster
 </div>
 <div id="list-examples-1---length" class="slide section level1">
 <h1>List Examples (1) - Length</h1>
-<pre><code>
-   myLength :: [a] -&gt; Int
+<pre><code>   myLength :: [a] -&gt; Int
 
    -- base case, an empty list is of length 0
    myLength [] = 0
@@ -296,13 +292,13 @@ Jeff Foster
 <li>Functions are first class citizens</li>
 <li>You can pass them to methods.</li>
 </ul>
-<pre><code>   map :: (a -&gt; b) -&gt; [a] -&gt; [b]
-   map f []     = []
-   map f (x:xs) = f x : map xs 
+<pre><code>   mymap :: (a -&gt; b) -&gt; [a] -&gt; [b]
+   mymap f []     = []
+   mymap f (x:xs) = f x : map f xs 
 
    -- more succinct definition
    -- point free (no args), partial application (+ 1)
-   addOne = map (+ 1)</code></pre>
+   addOne&#39; = map (+ 1)</code></pre>
 </div>
 <div id="writing-list-functions" class="slide section level1">
 <h1>Writing List functions</h1>
@@ -311,7 +307,6 @@ Jeff Foster
 <ul>
 <li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 <li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
-<li><code>myAppend :: [a] -&gt; [a] -&gt; [a]</code></li>
 <li><code>myReduce :: (a -&gt; b -&gt; a) -&gt; a -&gt; [b] -&gt; a</code></li>
 <li><code>myReverse :: [a] -&gt; [a]</code></li>
 </ul></li>
@@ -319,23 +314,31 @@ Jeff Foster
 <!-- This'll take a bit of a while, say 30 minutes -->
 
 </div>
-<div id="building-a-combinator-library" class="slide section level1">
-<h1>Building a combinator library</h1>
+<div id="building-up-some-tools" class="slide section level1">
+<h1>Building up some tools</h1>
 <ul>
-<li>Load up <code>HistoricalStats.hs</code></li>
-<li>Write some simple functions to give information such as:
-<ul>
-<li>homeWin :: Game -&gt; Bool</li>
-<li>awayWin :: Game -&gt; Bool</li>
-<li>scoreDraw :: Game -&gt; Bool</li>
-<li>totalGoals :: Game -&gt; Int</li>
-</ul></li>
+<li>Load up <code>FootballStats.hs</code></li>
+<li><code>results2011</code> and <code>results2012</code> are lists of <code>FootballResult</code></li>
+<li>Write a simple function</li>
 </ul>
-<!-- this shouldn't take long -->
-
+<pre><code>  totalGoals :: FootballResult -&gt; Int
+  totalGoals = undefined</code></pre>
 </div>
-<div id="curried-functions" class="slide section level1">
-<h1>Curried Functions</h1>
+<div id="using-type-signatures" class="slide section level1">
+<h1>Using Type Signatures</h1>
+<ul>
+<li>Given the following types, how can we find out the highest</li>
+<li>scoring game?</li>
+</ul>
+<pre><code>   -- From Data.List
+   maximumBy :: (a -&gt; a -&gt; Ordering) -&gt; [a] -&gt; a
+   
+   -- From Data.Ord
+   comparing :: Ord a =&gt; (b -&gt; a) -&gt; b -&gt; b -&gt; Ordering</code></pre>
+<p>-- TODO some example giving total points for the season using reduce</p>
+</div>
+<div id="combining-functions-effortlessly" class="slide section level1">
+<h1>Combining Functions Effortlessly</h1>
 <ul>
 <li>In Haskell all functions are of a single argument</li>
 <li><code>add 3 4</code> is interpreted as ((add 3) 4)</li>
@@ -348,16 +351,14 @@ Jeff Foster
 <ul>
 <li>Function composition f . g =&gt; f g (x)</li>
 </ul>
-<pre><code>
-    sort :: Ord a =&gt; [a] -&gt; [a]
+<pre><code>    sort :: Ord a =&gt; [a] -&gt; [a]
     reverse :: [a] -&gt; [a]
 
     -- writing a definition
     reverseSort xs = reverse (sort xs)
 
     -- using function composition
-    reverseSort = reverse . sort
-</code></pre>
+    reverseSort = reverse . sort</code></pre>
 </div>
 <div id="returning-functions-with-partial-application" class="slide section level1">
 <h1>Returning functions with partial application</h1>
@@ -368,7 +369,7 @@ Jeff Foster
   excitingGame = totalGoals match &gt; 10
 
   -- Find all exciting games
-  excitingGames :: [Match] -&gt; [Match]
+  excitingGames :: [FootBallResult] -&gt; [FootballResult]
   excitingGames = filter excitingGame</code></pre>
 </div>
 <div id="putting-it-all-together" class="slide section level1">

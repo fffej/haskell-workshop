@@ -16,6 +16,13 @@ data FootballResult = FootballResult
   , awayGoals :: Int
   } deriving (Show,Eq)
 
+
+results2011 :: [FootballResult]
+results2011 = parse season2011
+
+results2012 :: [FootballResult]
+results2012 = parse season2012
+
 -- Take the entire content, strip the header and turn into a list of football results
 parse :: String -> [FootballResult]
 parse xs = map toResult (tail $ lines xs)
