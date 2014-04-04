@@ -196,12 +196,11 @@
     flipResult Draw = Draw
 ~~~~
 
-
 # Let's define our own data types
 
 - Our domain is football matches.
 - Spend some time defining types such as:
--- A basic result (Win, Lose or Draw)
+-- A football result
 -- Team statistics (Team name, goals for, current points etc.)
 
 <!--
@@ -223,7 +222,6 @@
 # List Examples (1) - Length
 
 ~~~~
-
    myLength :: [a] -> Int
 
    -- base case, an empty list is of length 0
@@ -257,20 +255,19 @@
 - You can pass them to methods.
 
 ~~~~
-   map :: (a -> b) -> [a] -> [b]
-   map f []     = []
-   map f (x:xs) = f x : map xs 
+   mymap :: (a -> b) -> [a] -> [b]
+   mymap f []     = []
+   mymap f (x:xs) = f x : map f xs 
 
    -- more succinct definition
    -- point free (no args), partial application (+ 1)
-   addOne = map (+ 1)
+   addOne' = map (+ 1)
 ~~~~
 
 # Writing List functions
 - Can you write the following functions?
     - `myContains :: Eq a => a -> [a] -> Bool`
     - `myFilter :: (a -> Bool) -> [a] -> [a]`
-    - `myAppend :: [a] -> [a] -> [a]`
     - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
     - `myReverse :: [a] -> [a]` 
 
