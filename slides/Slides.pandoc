@@ -134,8 +134,7 @@
 
 # Building your own types
 
-- Data types are constructed via *type constructors*
-- Data types are pattern matched via *type constructors*
+- Data types are constructed and deconstructed via *type constructors*
 
 ~~~~
     module SimpleTypes where
