@@ -119,8 +119,6 @@
 - What does the type `a -> a -> a` tell you?
 - The more general the type signature, the *more* it tells you!
 
-<!-- I think I can skip the section on Type classes? -->
-
 # Type Classes
 - Think of a type class as an interface
 - Common type classes are `Eq` and `Show` which define equality and printability
