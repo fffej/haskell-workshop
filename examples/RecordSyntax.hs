@@ -6,7 +6,7 @@ data Game = GameC
             , homeScore :: Int
             , awayTeam :: String
             , awayScore :: Int
-            }
+            } deriving (Show)
 
 result :: Game -> String 
 result game
@@ -17,3 +17,5 @@ result game
 example :: Game
 example = GameC "Everton" 4 "Manchester United" 0
           
+homeTeamScores :: Game -> Game
+homeTeamScores g = g { homeScore = homeScore g + 1 }

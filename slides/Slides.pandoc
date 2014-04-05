@@ -176,6 +176,15 @@
 
 ~~~~
 
+# Updating Records
+
+- Haskell types are immutable
+
+~~~~
+   homeTeamScores :: Game -> Game
+   homeTeamScores game = game { 
+~~~~
+
 # Sum Types
 - A sum type can be one of many possibilities
 
@@ -200,7 +209,8 @@
 
 - Our domain is football matches.
 - `data/FootballStats.hs` contains some example types.
-- What simple functions can you write?
+- Define a type to represent a league table entry 
+- Define some functions such as those shown below
 
 ~~~~
     data FootballResult = FootballResult 
@@ -226,7 +236,7 @@
 -->
 
 # Working with more than one type
-- We now know how to create our own types
+- We now know how to create our own types and write simple functions
 - Next is learning to work with lists of types
 
 # Haskell Lists
