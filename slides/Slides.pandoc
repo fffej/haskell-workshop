@@ -302,20 +302,6 @@
      | otherwise = greaterThan5 xs
 ~~~~
 
-# Common List Patterns
-
-- List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
-
-~~~~
-   mymap :: (a -> b) -> [a] -> [b]
-   mymap f []     = []
-   mymap f (x:xs) = f x : map f xs 
-
-   -- more succinct definition
-   -- point free (no args), partial application (+ 1)
-   addOne' = map (+ 1)
-~~~~
-
 # Writing List functions
 - Can you write the following functions?
     - `myContains :: Eq a => a -> [a] -> Bool`
@@ -327,6 +313,14 @@
 <!-- 
      This'll take a bit of a while, say 30 minutes 
 -->
+
+# Common List Patterns
+
+- List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
+- `map :: (a -> b) -> [a] -> [b]`          -- Convert a list from one type to another
+- `filter :: (a -> Bool) -> [a] -> [a]`    -- Select only some from a list
+- `foldr :: (a -> b -> b) -> b -> [a] -> b -- Reduce a list to a single value
+
 
 # Building up some tools
 - Load up `FootballStats.hs`
@@ -346,38 +340,17 @@
 # Walk through
 - I'm going to attempt this live, brace yourself.
 
-# Combining Functions Effortlessly
-- In Haskell all functions are of a single argument
-- `add 3 4` is interpreted as ((add 3) 4)
-- `add 3` returns a function needing one more argument
-- This is known as partial application
-
-# Making the most of higher order functions
-
-- Function composition f . g => f g (x)
-    
-~~~~
-    sort :: Ord a => [a] -> [a]
-    reverse :: [a] -> [a]
-
-    -- writing a definition
-    reverseSort xs = reverse (sort xs)
-
-    -- using function composition
-    reverseSort = reverse . sort
-~~~~ 
+# Friction Free function gluing
+- In Haskell all functions are of a single argument, so easily fit together
+- `(.)` composes functions (e.g. `reverse . sort`) creates a new function
+- `flip` alters returns a new function with the arguments flipped
 
 # Returning functions with partial application
 
 - By combining functions together you can succinctly combine functions
 
 ~~~~
-  excitingGame :: Match -> Bool
-  excitingGame = totalGoals match > 10
 
-  -- Find all exciting games
-  excitingGames :: [FootballResult] -> [FootballResult]
-  excitingGames = filter excitingGame
 ~~~~
 
 # Over to you
@@ -398,7 +371,7 @@
 - Which referee produced most red cards?
 
 # What next?
-- Real World Haskell is an excellent book
-- Use "Hoogle" to search for functionality based on type signatures
-- fpcomplete.com provides some great introductions
+- <http://book.realworldhaskell.org/> is an excellent book
+- Use <http://www.haskell.org/hoogle/>  to search for functionality based on type signatures
+- <fpcomplete.com> provides some great introductions
 
