@@ -303,17 +303,9 @@ Jeff Foster
 -->
 
 </div>
-<div id="working-with-more-than-one-type" class="slide section level1">
-<h1>Working with more than one type</h1>
-<ul>
-<li>We now know how to create our own types and write simple functions</li>
-<li>Next is learning to work with lists of types</li>
-</ul>
-</div>
 <div id="haskell-lists" class="slide section level1">
 <h1>Haskell Lists</h1>
 <ul>
-<li>All items in a list are of the same type</li>
 <li>Lists have special syntax in Haskell</li>
 <li><code>[]</code> is the empty list</li>
 <li><code>:</code> is the infix type constructor used to create lists <code>1 : [] =&gt; [1]</code></li>
@@ -370,7 +362,7 @@ Jeff Foster
 <ul>
 <li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 <li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
-<li><code>myReverse :: [a] -&gt; [a]</code></li>
+<li><code>myReverse :: [a] -&gt; [a]</code> (suprisingly hard!)</li>
 </ul></li>
 <li>Remember to work in terms of base case and recursive step</li>
 </ul>
@@ -393,6 +385,7 @@ Jeff Foster
 <ul>
 <li>Load up <code>FootballStats.hs</code></li>
 <li><code>results2011</code> and <code>results2012</code> are of type <code>[GameResult]</code></li>
+<li>By using standard library functions, we'll combine simple functions and work across a list</li>
 </ul>
 </div>
 <div id="using-type-signatures" class="slide section level1">
@@ -411,21 +404,21 @@ Jeff Foster
 <ul>
 <li>I'm going to attempt this live, brace yourself.</li>
 </ul>
+<!--
+  -- To save the day
+  let totalGoals x = homeGoals x + awayGoals x
+  maximumBy (comparing totalGoals) results2012
+--> 
+
 </div>
 <div id="friction-free-function-gluing" class="slide section level1">
 <h1>Friction Free function gluing</h1>
 <ul>
-<li>In Haskell all functions are of a single argument, so easily fit together</li>
-<li><code>(.)</code> composes functions (e.g. <code>reverse . sort</code>) creates a new function</li>
+<li>Lambdas - <code>(\x -&gt; x + 1)</code> introduces a lambda of a single argument</li>
+<li>Partial Application <code>(+ 1) returns a new functions awaiting only one more argument</code></li>
+<li><code>(.)</code> composes functions (e.g. <code>not . excitingGame</code>) creates a new function</li>
 <li><code>flip</code> alters returns a new function with the arguments flipped</li>
 </ul>
-</div>
-<div id="returning-functions-with-partial-application" class="slide section level1">
-<h1>Returning functions with partial application</h1>
-<ul>
-<li>By combining functions together you can succinctly combine functions</li>
-</ul>
-<pre><code></code></pre>
 </div>
 <div id="over-to-you" class="slide section level1">
 <h1>Over to you</h1>

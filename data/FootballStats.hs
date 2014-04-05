@@ -5,6 +5,9 @@ import HistoricalStats
 import Data.Maybe (fromJust)
 import Data.List.Split (splitOn)
 
+import Data.Ord
+import Data.List
+
 data GameResult = GameResult 
   {
     homeTeam :: String
