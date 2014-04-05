@@ -15,7 +15,7 @@
 # What do you need today?
 - A text editor
 - A version of the Haskell Platform <http://www.haskell.org/platform/>
-- A git clone of <https://github.com/fffej/haskell-workshop>
+- A git clone of <https://github.com/fffej/haskell-workshop> (or the USB stick I've hopefully remembered)
 
 # What are you going to do today?
 >- You'll the basics of Haskell
@@ -71,11 +71,10 @@
 # GHCI
 - GHCI is the de-facto Haskell interpreter
 - Provides a REPL and a way to explore the code
-- Expressions entered are evaluated and returned
 - For this workshop, work in a file and use `:l <file>` to reload
 - All examples can be found in the `examples` folder of the git-repo
 
-# Let's write some simple functions and explore some syntax
+# Exploring Syntax
 
 ~~~~
 
@@ -97,27 +96,39 @@
 
 ~~~~
 
-# Types 
+# Haskell Type Signatures
+- A type signature defines the shape of data a function accepts
+- All functions in Haskell are really of one argument
+- `reverse :: String -> String`
+- `reverse` is of type `String` yielding a `String`
 
-- We haven't written type signatures yet
-- Haskell has inferred types for us
-- In ghci, `:t <expression>` tells us the type
-- `:t add` says `add :: Num a => a -> a -> a`
+# But what about multiple arguments?
+- Let's consider a function like `add`
+- `add :: Int -> Int -> Int`
+- `add` is a function that takes a `Int` yielding `Int -> Int` 
 
-# Types are everything
+~~~~
+    > add 3 4 
+     7
+    
+    > (add 3) 4
+     7
+~~~~
 
-- Often a type signature says *everything* about a function.
-- Types are denoted with an initial Capital letter
-- Type parameters (generics) are written with a lower case parameter
+# Type Variables
+- Lower case indicates a type variable for polymorphic functions
+- `a -> a` is defined for any type
+- `Foo a => a -> a` is defined for any type `a` that is a member of the `Foo` type class
+
+# Interpreting Type Signatures
 - What do these functions do? (hint, remember they must work for all types)
 - `fooHicky :: (a,b) -> a`
 - `banana   :: a -> a`
 
 # Types or type variables?
-
 - What does the type `Int -> Int -> Int` tell you?
 - What does the type `a -> a -> a` tell you?
-- The more general the type signature, the *more* it tells you!
+- The more general the type signature, the *more* it can tell you!
 
 # Type Classes
 - Think of a type class as an interface
@@ -249,8 +260,8 @@
 
 # Thinking Recursively
 - Recursive thinking consists of two steps:
->- What's the base case?
->- What's the recursive case that brings us nearer the base case
+- What's the base case?
+- What's the recursive case that brings us nearer the base case
 
 # List Examples (1) - Length
 
@@ -291,9 +302,8 @@
      | otherwise = greaterThan5 xs
 ~~~~
 
-# Higher Order Functions
+# Common List Patterns
 
-- Functions are first class citizens
 - List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
 
 ~~~~
