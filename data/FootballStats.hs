@@ -25,22 +25,8 @@ data GameResult = GameResult
     homeTeam :: String
   , awayTeam :: String
   , referee :: String
-  , homeGoals :: Int
-  , awayGoals :: Int
-  , halfTimeHomeGoals :: Int
-  , halfTimeAwayGoals :: Int
-  , homeShots :: Int
-  , awayShots :: Int
-  , homeShotsOnTarget :: Int
-  , awayShotsOnTarget :: Int
-  , homeFouls :: Int
-  , awayFouls :: Int
-  , homeCorners :: Int
-  , awayCorners :: Int
-  , homeYellows :: Int
-  , awayYellows :: Int
-  , homeReds :: Int
-  , awayReds :: Int
+  , homeStatistics :: Statistics
+  , awayStatistics :: Statistics
   } deriving (Show,Eq)
 
 results2011 :: [GameResult]
@@ -60,22 +46,28 @@ toResult xs = GameResult
                 homeTeam = get "HomeTeam"
               , awayTeam = get "AwayTeam"
               , referee = get "Referee"
-              , homeGoals = getInt "FTHG"
-              , awayGoals = getInt "FTAG"
-              , halfTimeHomeGoals = getInt "HTHG"
-              , halfTimeAwayGoals = getInt "HTAG"
-              , homeShots = getInt "HS"
-              , awayShots = getInt "AS"
-              , homeShotsOnTarget = getInt "HST"
-              , awayShotsOnTarget = getInt "AST"
-              , homeFouls = getInt "HF"
-              , awayFouls = getInt "AF"
-              , homeCorners = getInt "HC"
-              , awayCorners = getInt "AC"
-              , homeYellows = getInt "HY"
-              , awayYellows = getInt "AY"
-              , homeReds = getInt "HR"
-              , awayReds = getInt "AR"
+              , homeStatistics = Statistics 
+                                 {
+                                   goals = getInt "FTHG"
+                                 , halfTimeGoals = getInt "HTHG"
+                                 , shots = getInt "HS"
+                                 , shotsOnTarget = getInt "HST"
+                                 , fouls = getInt "HF"
+                                 , corners = getInt "HC"
+                                 , yellows = getInt "HY"
+                                 , reds = getInt "HR"
+                                 }
+              , awayStatistics = Statistics 
+                                 {
+                                   goals = getInt "FTAG"
+                                 , halfTimeGoals = getInt "HTAG"
+                                 , shots = getInt "AS"
+                                 , shotsOnTarget = getInt "AST"
+                                 , fouls = getInt "AF"
+                                 , corners = getInt "AC"
+                                 , yellows = getInt "AY"
+                                 , reds = getInt "AR"
+                                 }
               }
     where
       columns = splitOn "," xs
