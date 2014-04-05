@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
   <meta name="author" content="Jeff Foster" />
-  <title>% Haskell Workshop</title>
+  <title>Haskell Workshop</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" type="text/css" media="screen, projection, print"
     href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="slide titlepage">
-  <h1 class="title">% Haskell Workshop</h1>
+  <h1 class="title">Haskell Workshop</h1>
   <p class="author">
 Jeff Foster
   </p>
@@ -27,13 +27,16 @@ Jeff Foster
 <ul>
 <li>I'm Head of Software Engineering at Red Gate</li>
 <li>Love learning new languages, tools and techniques</li>
+<li>You can find me on Twitter as <span class="citation">@fffej</span></li>
+<li>Some Haskell related stuff on <a href="http://www.fatvat.co.uk">http://www.fatvat.co.uk</a></li>
 </ul>
 </div>
 <div id="why-haskell" class="slide section level1">
 <h1>Why Haskell?</h1>
 <ul>
-<li>Purely functional, statically typed, lazy</li>
-<li>Different is good!</li>
+<li>Change is coming; Are the {} languages going to go the same way as COBOL?</li>
+<li>Purely functional, statically typed, lazy language</li>
+<li>A completely new paradigm coming from the {} background</li>
 </ul>
 <blockquote>
 <p>A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)</p>
@@ -52,7 +55,7 @@ Jeff Foster
 <ul class="incremental">
 <li>You'll the basics of Haskell</li>
 <li>You'll learn to read Haskell</li>
-<li>You'll write a combinator library for analysing Premier League football matches</li>
+<li>You'll learn how to combine simple functions into a neat library for analysing Premier League results</li>
 </ul>
 </div>
 <div id="why-statically-typed" class="slide section level1">
@@ -116,28 +119,37 @@ Jeff Foster
   -- function definition
   add x y = x + y
 
+  -- local values
+  add2 x y = z
+    where z = x + y
+
   -- Pattern matching
-  add2 0 y = y
-  add2 x 0 = x
-  add2 x y = 1 + add2 (x - 1) y
+  add3 0 y = y
+  add3 x 0 = x
+  add3 x y = 1 + add3 (x - 1) y
 
   -- Guards 
-  add3 x y 
+  add4 x y 
     | x == 0    = y -- read | as &quot;where&quot;
     | y == 0    = x
-    | otherwise = 1 + add3 (x - 1) y</code></pre>
+    | otherwise = 1 + add4 (x - 1) y</code></pre>
 </div>
 <div id="haskell-type-signatures" class="slide section level1">
 <h1>Haskell Type Signatures</h1>
 <ul>
 <li>A type signature defines the shape of data a function accepts and the output it produces</li>
 <li>All functions in Haskell are really of one argument</li>
-<li><code>reverse :: String -&gt; String</code></li>
-<li><code>reverse</code> is of type <code>String</code> yielding a <code>String</code></li>
+<li>We can use ghci to inspect types</li>
+<li><code>:t &lt;expression&gt;</code> tells you the type of an expression</li>
+</ul>
+<pre><code>  &gt; :t not
+  not :: Bool -&gt; Bool</code></pre>
+<ul>
+<li><code>not</code> is of type <code>Bool</code> yielding a <code>Bool</code></li>
 </ul>
 </div>
-<div id="but-what-about-multiple-arguments" class="slide section level1">
-<h1>But what about multiple arguments?</h1>
+<div id="functions-with-multiple-arguments" class="slide section level1">
+<h1>Functions with Multiple Arguments</h1>
 <ul>
 <li>Let's consider a function like <code>add</code></li>
 <li><code>add :: Int -&gt; Int -&gt; Int</code></li>

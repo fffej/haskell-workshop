@@ -1,14 +1,17 @@
-%% Haskell Workshop
+% Haskell Workshop
 % Jeff Foster
 % ACCU 2014
 
 # About me!
 - I'm Head of Software Engineering at Red Gate
 - Love learning new languages, tools and techniques
+- You can find me on Twitter as @fffej
+- Some Haskell related stuff on <http://www.fatvat.co.uk>
 
 # Why Haskell?
-- Purely functional, statically typed, lazy
-- Different is good!
+- Change is coming; Are the {} languages going to go the same way as COBOL?
+- Purely functional, statically typed, lazy language
+- A completely new paradigm coming from the {} background
 
 > A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)
 
@@ -20,7 +23,7 @@
 # What are you going to do today?
 >- You'll the basics of Haskell
 >- You'll learn to read Haskell
->- You'll write a combinator library for analysing Premier League football matches
+>- You'll learn how to combine simple functions into a neat library for analysing Premier League results
 
 # Why Statically Typed?
 >- Given the type signature below, what happens?
@@ -101,10 +104,17 @@
 # Haskell Type Signatures
 - A type signature defines the shape of data a function accepts and the output it produces
 - All functions in Haskell are really of one argument
-- `reverse :: String -> String`
-- `reverse` is of type `String` yielding a `String`
+- We can use ghci to inspect types 
+- `:t <expression>` tells you the type of an expression
 
-# But what about multiple arguments?
+~~~~
+  > :t not
+  not :: Bool -> Bool
+~~~~
+
+- `not` is of type `Bool` yielding a `Bool`
+
+# Functions with Multiple Arguments
 - Let's consider a function like `add`
 - `add :: Int -> Int -> Int`
 - `add` is a function that takes a `Int` yielding `Int -> Int` 
