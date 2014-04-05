@@ -118,6 +118,7 @@
 - Let's consider a function like `add`
 - `add :: Int -> Int -> Int`
 - `add` is a function that takes a `Int` yielding `Int -> Int` 
+- Haskell functions are all of a single argument
 
 ~~~~
     > add 3 4 
@@ -132,29 +133,38 @@
 - `a -> a` is defined for any type (no constraint)
 - `Foo a => a -> a` is defined for any type `a` that is a member of the `Foo` type class
 
+~~~~
+  > :t reverse
+  reverse :: [a] -> [a]
+
+  > t: (+)
+  (+) :: Num a => a -> a -> a
+~~~~
+
+
 # Type Classes
-- Think of a type class as an interface
+- As a first approximation, think of a type class as an interface
 - Common type classes are `Eq` and `Show` which define equality and printability
-- Use `:i <TypeClass>` to inspect a type class in ghci e.g.
+- Use `:i <Type/TypeClass>` to inspect a type class in ghci
 
 ~~~~
   > :i Eq
   class Eq a where
     (==) :: a -> a -> Bool
     (/=) :: a -> a -> Bool
-    --etc
+    -- etc
 ~~~~
 
 
 # Interpreting Type Signatures
-- What do these functions do? (hint, remember they must work for all types)
-- `fooHicky :: (a,b) -> a`
-- `banana   :: a -> a`
+- What do these functions do?
+- `foo :: (a,b) -> a`
+- `bar :: a -> a`
+- `baz :: Eq a => a -> [a] -> Bool`
 
-# Types or type variables?
-- What does the type `Int -> Int -> Int` tell you?
-- What does the type `a -> a -> a` tell you?
+<!--
 - The more general the type signature, the *more* it can tell you!
+-->
 
 # Building your own types
 
@@ -164,7 +174,7 @@
     module SimpleTypes where
 
     -- Game is the type
-    -- GameC is the type constructor
+    -- GameC is the type constructor   
     data Game = GameC String Int String Int
 
     -- Function type signatures use the type
@@ -172,7 +182,7 @@
 
     -- Function definitions "Deconstruct" values with the type constructor
     result (GameC t1 s1 t2 s2)
-      | s1 > s2   = t1 ++ " wins"
+      | s1 > s2   = t1 ++ " wins" -- what type is (++)?  What does it do?
       | s2 > s1   = t2 ++ " wins"
       | otherwise = "Draw"
 ~~~~
@@ -232,12 +242,10 @@
 # Let's define our own data types and functions
 
 - Our domain is football matches.
-- `data/FootballStats.hs` contains some example types.
-- Define a type to represent a league table entry 
-- Define some functions such as those shown below
+- `data/FootballStats.hs` contains a giant messy type
 
 ~~~~
-    data FootballResult = FootballResult 
+    data GameResult = GameResult 
       {
         homeTeam :: String
       , awayTeam :: String
@@ -246,10 +254,14 @@
       -- and so on!
      } deriving (Show,Eq)
 
-   totalGoals :: FootballResult -> Int
-   homeScore :: FootballResult -> Int
-   netGoals :: FootballResult -> Int
-   violenceLevel :: FootballResult -> Int
+   -- Define a few simple functions such as
+   totalGoals :: GameResult -> Int
+   homeScore :: GameResult -> Int
+   netGoals :: GameResult -> Int
+   violenceLevel :: GameResult -> Int
+
+   -- Define a data type to represent a league table entry
+   -- including team name, won, draw, lost and goal difference
 ~~~~
 
 <!--

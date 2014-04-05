@@ -154,6 +154,7 @@ Jeff Foster
 <li>Let's consider a function like <code>add</code></li>
 <li><code>add :: Int -&gt; Int -&gt; Int</code></li>
 <li><code>add</code> is a function that takes a <code>Int</code> yielding <code>Int -&gt; Int</code></li>
+<li>Haskell functions are all of a single argument</li>
 </ul>
 <pre><code>    &gt; add 3 4 
      7
@@ -168,35 +169,37 @@ Jeff Foster
 <li><code>a -&gt; a</code> is defined for any type (no constraint)</li>
 <li><code>Foo a =&gt; a -&gt; a</code> is defined for any type <code>a</code> that is a member of the <code>Foo</code> type class</li>
 </ul>
+<pre><code>  &gt; :t reverse
+  reverse :: [a] -&gt; [a]
+
+  &gt; t: (+)
+  (+) :: Num a =&gt; a -&gt; a -&gt; a</code></pre>
 </div>
 <div id="type-classes" class="slide section level1">
 <h1>Type Classes</h1>
 <ul>
-<li>Think of a type class as an interface</li>
+<li>As a first approximation, think of a type class as an interface</li>
 <li>Common type classes are <code>Eq</code> and <code>Show</code> which define equality and printability</li>
-<li>Use <code>:i &lt;TypeClass&gt;</code> to inspect a type class in ghci e.g.</li>
+<li>Use <code>:i &lt;Type/TypeClass&gt;</code> to inspect a type class in ghci</li>
 </ul>
 <pre><code>  &gt; :i Eq
   class Eq a where
     (==) :: a -&gt; a -&gt; Bool
     (/=) :: a -&gt; a -&gt; Bool
-    --etc</code></pre>
+    -- etc</code></pre>
 </div>
 <div id="interpreting-type-signatures" class="slide section level1">
 <h1>Interpreting Type Signatures</h1>
 <ul>
-<li>What do these functions do? (hint, remember they must work for all types)</li>
-<li><code>fooHicky :: (a,b) -&gt; a</code></li>
-<li><code>banana   :: a -&gt; a</code></li>
+<li>What do these functions do?</li>
+<li><code>foo :: (a,b) -&gt; a</code></li>
+<li><code>bar :: a -&gt; a</code></li>
+<li><code>baz :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 </ul>
-</div>
-<div id="types-or-type-variables" class="slide section level1">
-<h1>Types or type variables?</h1>
-<ul>
-<li>What does the type <code>Int -&gt; Int -&gt; Int</code> tell you?</li>
-<li>What does the type <code>a -&gt; a -&gt; a</code> tell you?</li>
-<li>The more general the type signature, the <em>more</em> it can tell you!</li>
-</ul>
+<!--
+- The more general the type signature, the *more* it can tell you!
+-->
+
 </div>
 <div id="building-your-own-types" class="slide section level1">
 <h1>Building your own types</h1>
@@ -206,7 +209,7 @@ Jeff Foster
 <pre><code>    module SimpleTypes where
 
     -- Game is the type
-    -- GameC is the type constructor
+    -- GameC is the type constructor   
     data Game = GameC String Int String Int
 
     -- Function type signatures use the type
@@ -214,7 +217,7 @@ Jeff Foster
 
     -- Function definitions &quot;Deconstruct&quot; values with the type constructor
     result (GameC t1 s1 t2 s2)
-      | s1 &gt; s2   = t1 ++ &quot; wins&quot;
+      | s1 &gt; s2   = t1 ++ &quot; wins&quot; -- what type is (++)?  What does it do?
       | s2 &gt; s1   = t2 ++ &quot; wins&quot;
       | otherwise = &quot;Draw&quot;</code></pre>
 </div>
@@ -273,11 +276,9 @@ Jeff Foster
 <h1>Let's define our own data types and functions</h1>
 <ul>
 <li>Our domain is football matches.</li>
-<li><code>data/FootballStats.hs</code> contains some example types.</li>
-<li>Define a type to represent a league table entry</li>
-<li>Define some functions such as those shown below</li>
+<li><code>data/FootballStats.hs</code> contains a giant messy type</li>
 </ul>
-<pre><code>    data FootballResult = FootballResult 
+<pre><code>    data GameResult = GameResult 
       {
         homeTeam :: String
       , awayTeam :: String
@@ -286,10 +287,14 @@ Jeff Foster
       -- and so on!
      } deriving (Show,Eq)
 
-   totalGoals :: FootballResult -&gt; Int
-   homeScore :: FootballResult -&gt; Int
-   netGoals :: FootballResult -&gt; Int
-   violenceLevel :: FootballResult -&gt; Int</code></pre>
+   -- Define a few simple functions such as
+   totalGoals :: GameResult -&gt; Int
+   homeScore :: GameResult -&gt; Int
+   netGoals :: GameResult -&gt; Int
+   violenceLevel :: GameResult -&gt; Int
+
+   -- Define a data type to represent a league table entry
+   -- including team name, won, draw, lost and goal difference</code></pre>
 <!--
   Let's say 15 minutes for defining a few types
 
