@@ -21,8 +21,8 @@ data GameResult = GameResult
   , awayShots :: Int
   , homeShotsOnTarget :: Int
   , awayShotsOnTarget :: Int
-  , homeTeamFouls :: Int
-  , awayTeamFouls :: Int
+  , homeFouls :: Int
+  , awayFouls :: Int
   , homeCorners :: Int
   , awayCorners :: Int
   , homeYellows :: Int
@@ -56,8 +56,8 @@ toResult xs = GameResult
               , awayShots = getInt "AS"
               , homeShotsOnTarget = getInt "HST"
               , awayShotsOnTarget = getInt "AST"
-              , homeTeamFouls = getInt "HF"
-              , awayTeamFouls = getInt "AF"
+              , homeFouls = getInt "HF"
+              , awayFouls = getInt "AF"
               , homeCorners = getInt "HC"
               , awayCorners = getInt "AC"
               , homeYellows = getInt "HY"
