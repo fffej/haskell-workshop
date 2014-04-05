@@ -8,7 +8,7 @@ import Data.Ord
 -- Team and points
 type LeagueTable = [(String,Int)]
 
-leagueTable :: [FootballResult] -> LeagueTable
+leagueTable :: [GameResult] -> LeagueTable
 leagueTable xs = foldl' updateLeagueTable initialTable xs
   where
     initialTable = zip (nub (map homeTeam xs)) [0..]
@@ -20,7 +20,7 @@ update team delta (x:xs)
   | otherwise = x : update team delta xs
 
 -- Inflexible - home and away team points disgusting
-updateLeagueTable :: LeagueTable -> FootballResult -> LeagueTable
+updateLeagueTable :: LeagueTable -> GameResult -> LeagueTable
 updateLeagueTable lt fr = update at atp $ update ht htp lt
   where
     ht = homeTeam fr
@@ -28,7 +28,7 @@ updateLeagueTable lt fr = update at atp $ update ht htp lt
     htp = homeTeamPoints fr
     atp = awayTeamPoints fr
 
-homeTeamPoints :: FootballResult -> Int
+homeTeamPoints :: GameResult -> Int
 homeTeamPoints fr
   | halfTimeHomeGoals fr >  halfTimeAwayGoals fr = 3
   | halfTimeHomeGoals fr == halfTimeAwayGoals fr = 1

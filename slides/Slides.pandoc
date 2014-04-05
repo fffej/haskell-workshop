@@ -1,4 +1,4 @@
-% Haskell Workshop
+%% Haskell Workshop
 % Jeff Foster
 % ACCU 2014
 
@@ -65,7 +65,7 @@
 
 <!-- 
      Quick stop to let everyone find out that Haskell works for them 
-     5 minutes?  Hopefully enough people have working machines
+     5 minutes?  Hopefully enough people have working machines!
 -->
 
 # GHCI
@@ -77,27 +77,29 @@
 # Exploring Syntax
 
 ~~~~
-
   module Add where
 
   -- function definition
   add x y = x + y
 
+  -- local values
+  add2 x y = z
+    where z = x + y
+
   -- Pattern matching
-  add2 0 y = y
-  add2 x 0 = x
-  add2 x y = 1 + add2 (x - 1) y
+  add3 0 y = y
+  add3 x 0 = x
+  add3 x y = 1 + add3 (x - 1) y
 
   -- Guards 
-  add3 x y 
+  add4 x y 
     | x == 0    = y -- read | as "where"
     | y == 0    = x
-    | otherwise = 1 + add3 (x - 1) y
-
+    | otherwise = 1 + add4 (x - 1) y
 ~~~~
 
 # Haskell Type Signatures
-- A type signature defines the shape of data a function accepts
+- A type signature defines the shape of data a function accepts and the output it produces
 - All functions in Haskell are really of one argument
 - `reverse :: String -> String`
 - `reverse` is of type `String` yielding a `String`
@@ -116,19 +118,9 @@
 ~~~~
 
 # Type Variables
-- Lower case indicates a type variable for polymorphic functions
-- `a -> a` is defined for any type
+- Lower case indicates a type variable for polymorphic functions (like generics in C#/Java)
+- `a -> a` is defined for any type (no constraint)
 - `Foo a => a -> a` is defined for any type `a` that is a member of the `Foo` type class
-
-# Interpreting Type Signatures
-- What do these functions do? (hint, remember they must work for all types)
-- `fooHicky :: (a,b) -> a`
-- `banana   :: a -> a`
-
-# Types or type variables?
-- What does the type `Int -> Int -> Int` tell you?
-- What does the type `a -> a -> a` tell you?
-- The more general the type signature, the *more* it can tell you!
 
 # Type Classes
 - Think of a type class as an interface
@@ -142,6 +134,17 @@
     (/=) :: a -> a -> Bool
     --etc
 ~~~~
+
+
+# Interpreting Type Signatures
+- What do these functions do? (hint, remember they must work for all types)
+- `fooHicky :: (a,b) -> a`
+- `banana   :: a -> a`
+
+# Types or type variables?
+- What does the type `Int -> Int -> Int` tell you?
+- What does the type `a -> a -> a` tell you?
+- The more general the type signature, the *more* it can tell you!
 
 # Building your own types
 
@@ -167,7 +170,7 @@
 # Record Syntax
 
 - Provides a way of naming parts of a type
-- Automatically generates "getter" style functions
+- Automatically generates "getter" functions
 
 ~~~~
     module RecordSyntax where
@@ -188,13 +191,12 @@
 ~~~~
 
 # Updating Records
-
 - Haskell types are immutable, so to change a data structure we build a new copy
 - Record syntax has neat syntax to update only particular values
 
 ~~~~
     homeTeamScores :: Game -> Game
-    homeTeamScores g = g { homeScore = homeScore g + 1 }
+    homeTeamScores game = game { homeScore = homeScore game + 1 }
 ~~~~
 
 # Sum Types
@@ -324,7 +326,7 @@
 
 # Building up some tools
 - Load up `FootballStats.hs`
-- `results2011` and `results2012` are of type `[FootballResult]`
+- `results2011` and `results2012` are of type `[GameResult]`
 
 # Using Type Signatures
 - Given the following types, how can we find out the highest scoring game?
@@ -357,7 +359,7 @@
 - Given the following types, how can we find out how many points a particular team score?
 
 ~~~~
-  teamPoints :: String -> [FootballResult] -> Int
+  teamPoints :: String -> [GameResult] -> Int
   teamPoints = undefined
 
   -- From the standard library

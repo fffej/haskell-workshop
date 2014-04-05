@@ -5,7 +5,7 @@ import HistoricalStats
 import Data.Maybe (fromJust)
 import Data.List.Split (splitOn)
 
-data FootballResult = FootballResult 
+data GameResult = GameResult 
   {
     homeTeam :: String
   , awayTeam :: String
@@ -28,19 +28,19 @@ data FootballResult = FootballResult
   , awayReds :: Int
   } deriving (Show,Eq)
 
-results2011 :: [FootballResult]
+results2011 :: [GameResult]
 results2011 = parse season2011
 
-results2012 :: [FootballResult]
+results2012 :: [GameResult]
 results2012 = parse season2012
 
 -- Take the entire content, strip the header and turn into a list of football results
-parse :: String -> [FootballResult]
+parse :: String -> [GameResult]
 parse xs = map toResult (tail $ lines xs)
 
 -- take an individual line and turn it into a football result
-toResult :: String -> FootballResult
-toResult xs = FootballResult 
+toResult :: String -> GameResult
+toResult xs = GameResult 
               {
                 homeTeam = get "HomeTeam"
               , awayTeam = get "AwayTeam"
