@@ -8,15 +8,27 @@ import Data.List.Split (splitOn)
 import Data.Ord
 import Data.List
 
+data Statistics = Statistics 
+  {
+    goals :: Int
+  , halfTimeGoals :: Int
+  , shots :: Int
+  , shotsOnTarget :: Int
+  , fouls :: Int
+  , corners :: Int
+  , yellows :: Int
+  , reds :: Int
+  } deriving (Show,Eq)
+
 data GameResult = GameResult 
   {
     homeTeam :: String
   , awayTeam :: String
+  , referee :: String
   , homeGoals :: Int
   , awayGoals :: Int
   , halfTimeHomeGoals :: Int
   , halfTimeAwayGoals :: Int
-  , referee :: String
   , homeShots :: Int
   , awayShots :: Int
   , homeShotsOnTarget :: Int
