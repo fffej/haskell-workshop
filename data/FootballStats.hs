@@ -59,11 +59,11 @@ toResult xs = GameResult
               {
                 homeTeam = get "HomeTeam"
               , awayTeam = get "AwayTeam"
+              , referee = get "Referee"
               , homeGoals = getInt "FTHG"
               , awayGoals = getInt "FTAG"
               , halfTimeHomeGoals = getInt "HTHG"
               , halfTimeAwayGoals = getInt "HTAG"
-              , referee = get "Referee"
               , homeShots = getInt "HS"
               , awayShots = getInt "AS"
               , homeShotsOnTarget = getInt "HST"
