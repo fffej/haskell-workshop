@@ -108,6 +108,7 @@ Jeff Foster
 <li>Provides a REPL and a way to explore the code</li>
 <li>Expressions entered are evaluated and returned</li>
 <li>For this workshop, work in a file and use <code>:l &lt;file&gt;</code> to reload</li>
+<li>All examples can be found in the <code>examples</code> folder of the git-repo</li>
 </ul>
 </div>
 <div id="lets-write-some-simple-functions-and-explore-some-syntax" class="slide section level1">
@@ -213,6 +214,15 @@ Jeff Foster
       | otherwise                       = &quot;Draw&quot;               
 </code></pre>
 </div>
+<div id="updating-records" class="slide section level1">
+<h1>Updating Records</h1>
+<ul>
+<li>Haskell types are immutable, so to change a data structure we build a new copy</li>
+<li>Record syntax has neat syntax to update only particular values</li>
+</ul>
+<pre><code>    homeTeamScores :: Game -&gt; Game
+    homeTeamScores g = g { homeScore = homeScore g + 1 }</code></pre>
+</div>
 <div id="sum-types" class="slide section level1">
 <h1>Sum Types</h1>
 <ul>
@@ -238,7 +248,8 @@ Jeff Foster
 <ul>
 <li>Our domain is football matches.</li>
 <li><code>data/FootballStats.hs</code> contains some example types.</li>
-<li>What simple functions can you write?</li>
+<li>Define a type to represent a league table entry</li>
+<li>Define some functions such as those shown below</li>
 </ul>
 <pre><code>    data FootballResult = FootballResult 
       {
@@ -264,23 +275,19 @@ Jeff Foster
 <div id="working-with-more-than-one-type" class="slide section level1">
 <h1>Working with more than one type</h1>
 <ul>
-<li>We now know how to create our own types</li>
+<li>We now know how to create our own types and write simple functions</li>
 <li>Next is learning to work with lists of types</li>
 </ul>
 </div>
 <div id="haskell-lists" class="slide section level1">
 <h1>Haskell Lists</h1>
 <ul>
-<li>All items in a list have to be the same type (no <code>[1,&quot;a&quot;]</code>)</li>
+<li>All items in a list are of the same type</li>
 <li>Lists have special syntax in Haskell</li>
 <li><code>[]</code> is the empty list</li>
-<li><code>:</code> is the type constructor used to create lists <code>1 : [] =&gt; [1]</code></li>
+<li><code>:</code> is the infix type constructor used to create lists <code>1 : [] =&gt; [1]</code></li>
 <li><code>[1,2,3]</code> is syntactic sugar for <code>1 : (2 : (3 : []) )</code></li>
 </ul>
-<!--
-  Should mention that `:` is a magic infix operator
---> 
-
 </div>
 <div id="thinking-recursively" class="slide section level1">
 <h1>Thinking Recursively</h1>
@@ -296,15 +303,20 @@ Jeff Foster
    myLength [] = 0
 
    -- recursive case works towards the base case
+   -- _ acts as a place holder, indicating a variable is there, but we don&#39;t care what it is
    myLength (_:xs) = 1 + length xs</code></pre>
 </div>
 <div id="list-examples-2---building-new-lists" class="slide section level1">
 <h1>List Examples (2) - Building new lists</h1>
 <ul>
-<li>Lists are immutable; build new ones with shared elements</li>
+<li>Lists are immutable; build new ones to change items</li>
 </ul>
 <pre><code>   addOne :: [Int] -&gt; [Int]
+
+   -- base case
    addOne [] = []
+
+   -- recursive case
    addOne (x:xs) = (x + 1) : (addOne xs)</code></pre>
 </div>
 <div id="list-examples-3---including-only-some-elements" class="slide section level1">
@@ -322,6 +334,7 @@ Jeff Foster
 <h1>Higher Order Functions</h1>
 <ul>
 <li>Functions are first class citizens</li>
+<li>List functions capture patterns of common abstractions such as <code>map</code>, <code>filter</code> and <code>reduce</code> (aka fold)</li>
 </ul>
 <pre><code>   mymap :: (a -&gt; b) -&gt; [a] -&gt; [b]
    mymap f []     = []
@@ -338,14 +351,12 @@ Jeff Foster
 <ul>
 <li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 <li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
-<li><code>myReduce :: (a -&gt; b -&gt; a) -&gt; a -&gt; [b] -&gt; a</code></li>
 <li><code>myReverse :: [a] -&gt; [a]</code></li>
 </ul></li>
+<li>Remember to work in terms of base case and recursive step</li>
 </ul>
 <!-- 
      This'll take a bit of a while, say 30 minutes 
-
-     Maybe consider cutting out reduce? 
 -->
 
 </div>
@@ -370,15 +381,7 @@ Jeff Foster
 <div id="walk-through" class="slide section level1">
 <h1>Walk through</h1>
 <ul>
-<li>I'm going to attempt this live, brace yourself</li>
-</ul>
-</div>
-<div id="over-to-you" class="slide section level1">
-<h1>Over to you</h1>
-<ul>
-<li>Who won the league?</li>
-<li>If scores were counted at half-time, who would win the league?</li>
-<li>If yellow and red cards were counted as goals, who'd win?</li>
+<li>I'm going to attempt this live, brace yourself.</li>
 </ul>
 </div>
 <div id="combining-functions-effortlessly" class="slide section level1">
@@ -415,21 +418,25 @@ Jeff Foster
   -- Find all exciting games
   excitingGames :: [FootballResult] -&gt; [FootballResult]
   excitingGames = filter excitingGame</code></pre>
-<!-- TODO; this section is weak! --> 
 </div>
-<div id="putting-it-all-together" class="slide section level1">
-<h1>Putting it all together</h1>
+<div id="over-to-you" class="slide section level1">
+<h1>Over to you</h1>
 <ul>
-<li>We're going to work with Premier League Data for this season</li>
-<li>We're going to write some code to allow us to quiz the data</li>
-<li>From the REPL, I want to be able to ask questions like:
+<li>Given the following types, how can we find out how many points a particular team score?</li>
+</ul>
+<pre><code>  teamPoints :: String -&gt; [FootballResult] -&gt; Int
+  teamPoints = undefined
+
+  -- From the standard library
+  foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></pre>
+</div>
+<div id="generalizing" class="slide section level1">
+<h1>Generalizing</h1>
 <ul>
-<li>What game had the most goals?</li>
-<li>What was the total number of goals scored?</li>
-<li>Which team got most corners?</li>
-<li>Which team was most entertaining?</li>
-<li>If all games finished at half-time, who'd have won the league?</li>
-</ul></li>
+<li>Who won the league?</li>
+<li>If scores were counted at half-time, who would win the league?</li>
+<li>If yellow and red cards were counted as goals, who'd win?</li>
+<li>Which referee produced most red cards?</li>
 </ul>
 </div>
 <div id="what-next" class="slide section level1">

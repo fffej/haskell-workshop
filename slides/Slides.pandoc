@@ -74,6 +74,7 @@
 - Provides a REPL and a way to explore the code
 - Expressions entered are evaluated and returned
 - For this workshop, work in a file and use `:l <file>` to reload
+- All examples can be found in the `examples` folder of the git-repo
 
 # Let's write some simple functions and explore some syntax
 
@@ -178,11 +179,12 @@
 
 # Updating Records
 
-- Haskell types are immutable
+- Haskell types are immutable, so to change a data structure we build a new copy
+- Record syntax has neat syntax to update only particular values
 
 ~~~~
-   homeTeamScores :: Game -> Game
-   homeTeamScores game = game { 
+    homeTeamScores :: Game -> Game
+    homeTeamScores g = g { homeScore = homeScore g + 1 }
 ~~~~
 
 # Sum Types
@@ -240,15 +242,11 @@
 - Next is learning to work with lists of types
 
 # Haskell Lists
-- All items in a list have to be the same type (no `[1,"a"]`)
+- All items in a list are of the same type
 - Lists have special syntax in Haskell
 - `[]` is the empty list
-- `:` is the type constructor used to create lists `1 : [] => [1]`
+- `:` is the infix type constructor used to create lists `1 : [] => [1]`
 - `[1,2,3]` is syntactic sugar for `1 : (2 : (3 : []) )`
-
-<!--
-  Should mention that `:` is a magic infix operator
---> 
 
 # Thinking Recursively
 - Recursive thinking consists of two steps:
@@ -264,16 +262,21 @@
    myLength [] = 0
 
    -- recursive case works towards the base case
+   -- _ acts as a place holder, indicating a variable is there, but we don't care what it is
    myLength (_:xs) = 1 + length xs
 ~~~~
 
 # List Examples (2) - Building new lists
 
-- Lists are immutable; build new ones with shared elements
+- Lists are immutable; build new ones to change items
 
 ~~~~
    addOne :: [Int] -> [Int]
+
+   -- base case
    addOne [] = []
+
+   -- recursive case
    addOne (x:xs) = (x + 1) : (addOne xs)
 ~~~~
 
@@ -292,6 +295,7 @@
 # Higher Order Functions
 
 - Functions are first class citizens
+- List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
 
 ~~~~
    mymap :: (a -> b) -> [a] -> [b]
@@ -307,19 +311,17 @@
 - Can you write the following functions?
     - `myContains :: Eq a => a -> [a] -> Bool`
     - `myFilter :: (a -> Bool) -> [a] -> [a]`
-    - `myReduce :: (a -> b -> a) -> a -> [b] -> a`
     - `myReverse :: [a] -> [a]` 
+
+- Remember to work in terms of base case and recursive step
 
 <!-- 
      This'll take a bit of a while, say 30 minutes 
-
-     Maybe consider cutting out reduce? 
 -->
 
 # Building up some tools
 - Load up `FootballStats.hs`
 - `results2011` and `results2012` are of type `[FootballResult]`
-
 
 # Using Type Signatures
 - Given the following types, how can we find out the highest scoring game?
@@ -333,12 +335,7 @@
 ~~~~
 
 # Walk through
-- I'm going to attempt this live, brace yourself
-
-# Over to you
-- Who won the league?
-- If scores were counted at half-time, who would win the league?
-- If yellow and red cards were counted as goals, who'd win?
+- I'm going to attempt this live, brace yourself.
 
 # Combining Functions Effortlessly
 - In Haskell all functions are of a single argument
@@ -374,16 +371,22 @@
   excitingGames = filter excitingGame
 ~~~~
 
-<!-- TODO; this section is weak! --> 
-# Putting it all together
-- We're going to work with Premier League Data for this season
-- We're going to write some code to allow us to quiz the data
-- From the REPL, I want to be able to ask questions like:
-    - What game had the most goals?
-    - What was the total number of goals scored?
-    - Which team got most corners?
-    - Which team was most entertaining?
-    - If all games finished at half-time, who'd have won the league?
+# Over to you
+- Given the following types, how can we find out how many points a particular team score?
+
+~~~~
+  teamPoints :: String -> [FootballResult] -> Int
+  teamPoints = undefined
+
+  -- From the standard library
+  foldr :: (a -> b -> b) -> b -> [a] -> b
+~~~~
+
+# Generalizing
+- Who won the league?
+- If scores were counted at half-time, who would win the league?
+- If yellow and red cards were counted as goals, who'd win?
+- Which referee produced most red cards?
 
 # What next?
 - Real World Haskell is an excellent book
