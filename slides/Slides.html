@@ -294,7 +294,7 @@ Jeff Foster
    violenceLevel :: GameResult -&gt; Int
 
    -- Define a data type to represent a league table entry
-   -- including team name, won, draw, lost and goal difference</code></pre>
+   -- including team name, and game history (win, lose, draw)</code></pre>
 <!--
   Let's say 15 minutes for defining a few types
 
@@ -375,9 +375,9 @@ Jeff Foster
 <h1>Common List Patterns</h1>
 <ul>
 <li>List functions capture patterns of common abstractions such as <code>map</code>, <code>filter</code> and <code>reduce</code> (aka fold)</li>
-<li><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code> -- Convert a list from one type to another</li>
-<li><code>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code> -- Select only some from a list</li>
-<li>`foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b -- Reduce a list to a single value</li>
+<li><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code><br /></li>
+<li><code>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code><br /></li>
+<li><code>foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></li>
 </ul>
 </div>
 <div id="building-up-some-tools" class="slide section level1">
@@ -420,16 +420,19 @@ Jeff Foster
 <li><code>flip</code> alters returns a new function with the arguments flipped</li>
 </ul>
 </div>
+<div id="finding-functions" class="slide section level1">
+<h1>Finding Functions</h1>
+<ul>
+<li><a href="http://www.haskell.org/hoogle/">http://www.haskell.org/hoogle/</a> allows you to search by type signature</li>
+<li><code>Data.List</code> contains many common patterns for dealing with lists</li>
+</ul>
+</div>
 <div id="over-to-you" class="slide section level1">
 <h1>Over to you</h1>
 <ul>
 <li>Given the following types, how can we find out how many points a particular team score?</li>
 </ul>
-<pre><code>  teamPoints :: String -&gt; [GameResult] -&gt; Int
-  teamPoints = undefined
-
-  -- From the standard library
-  foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></pre>
+<pre><code>     -- TODO need to work this one out</code></pre>
 </div>
 <div id="generalizing" class="slide section level1">
 <h1>Generalizing</h1>
@@ -439,13 +442,15 @@ Jeff Foster
 <li>If yellow and red cards were counted as goals, who'd win?</li>
 <li>Which referee produced most red cards?</li>
 </ul>
+<!-- use up the rest of the session here -->
+
 </div>
 <div id="what-next" class="slide section level1">
 <h1>What next?</h1>
 <ul>
 <li><a href="http://book.realworldhaskell.org/">http://book.realworldhaskell.org/</a> is an excellent book</li>
 <li>Use <a href="http://www.haskell.org/hoogle/">http://www.haskell.org/hoogle/</a> to search for functionality based on type signatures</li>
-<li><fpcomplete.com> provides some great introductions</li>
+<li><a href="http://www.fpcomplete.com">http://www.fpcomplete.com</a> provides some great introductions</li>
 </ul>
 </div>
 </body>

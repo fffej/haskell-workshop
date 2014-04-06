@@ -261,7 +261,7 @@
    violenceLevel :: GameResult -> Int
 
    -- Define a data type to represent a league table entry
-   -- including team name, won, draw, lost and goal difference
+   -- including team name, and game history (win, lose, draw)
 ~~~~
 
 <!--
@@ -336,9 +336,9 @@
 # Common List Patterns
 
 - List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
-- `map :: (a -> b) -> [a] -> [b]`          -- Convert a list from one type to another
-- `filter :: (a -> Bool) -> [a] -> [a]`    -- Select only some from a list
-- `foldr :: (a -> b -> b) -> b -> [a] -> b -- Reduce a list to a single value
+- `map :: (a -> b) -> [a] -> [b]`           
+- `filter :: (a -> Bool) -> [a] -> [a]`     
+- `foldr :: (a -> b -> b) -> b -> [a] -> b` 
 
 # Building up some tools
 - Load up `FootballStats.hs`
@@ -371,15 +371,15 @@
 - `(.)` composes functions (e.g. `not . excitingGame`) creates a new function
 - `flip` alters returns a new function with the arguments flipped
 
+# Finding Functions
+- <http://www.haskell.org/hoogle/> allows you to search by type signature
+- `Data.List` contains many common patterns for dealing with lists
+
 # Over to you
 - Given the following types, how can we find out how many points a particular team score?
 
 ~~~~
-  teamPoints :: String -> [GameResult] -> Int
-  teamPoints = undefined
-
-  -- From the standard library
-  foldr :: (a -> b -> b) -> b -> [a] -> b
+     -- TODO need to work this one out
 ~~~~
 
 # Generalizing
@@ -388,8 +388,10 @@
 - If yellow and red cards were counted as goals, who'd win?
 - Which referee produced most red cards?
 
+<!-- use up the rest of the session here -->
+
 # What next?
 - <http://book.realworldhaskell.org/> is an excellent book
 - Use <http://www.haskell.org/hoogle/>  to search for functionality based on type signatures
-- <fpcomplete.com> provides some great introductions
+- <http://www.fpcomplete.com> provides some great introductions
 
