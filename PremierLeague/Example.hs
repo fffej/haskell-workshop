@@ -30,8 +30,10 @@ data Result = Win
             | Draw
             | Lose deriving (Show,Eq)
 
-data LeagueEntry = LeagueEntry String [Result]
+data LeagueEntry = LeagueEntry String [Result] deriving (Show)
 
+-- If I carry on in this vein, I'm going to need to write a lot of code
+-- for each and every type of variable
 bad_homeResult :: GameResult -> Result
 bad_homeResult g
   | goals (homeStatistics g) > goals (awayStatistics g) = Win
@@ -39,20 +41,32 @@ bad_homeResult g
   | otherwise                                           = Draw
                                        
 
--- That's tedious and not very flexible.
--- What if I want to score based on half time results?
-compare :: (Statistics -> Int) -> Statistics -> Statistics -> Result
-compare f s1 s2 = fromOrdering (comparing f s1 s2)
-
-homeResult :: GameResult -> Result
-homeResult g = compare goals (homeStatistics g) (awayStatistics g)
-
+-- Generalize key functionality, firstly compare two results
 fromOrdering :: Ordering -> Result
 fromOrdering EQ = Draw
 fromOrdering GT = Win
 fromOrdering LT = Lose
 
-score :: Result -> Int
-score Win = 3
-score Draw = 1
-score Lose = 0
+compare :: (Statistics -> Int) -> Statistics -> Statistics -> Result
+compare f s1 s2 = fromOrdering (comparing f s1 s2)
+
+opposite :: Result -> Result
+opposite Win = Lose
+opposite Draw = Draw
+opposite Lose = Win
+
+homeResult :: GameResult -> Result
+homeResult g = compare goals (homeStatistics g) (awayStatistics g)
+
+-- Use function composition to write simpler code
+awayResult :: GameResult -> Result
+awayResult = opposite . homeResult
+
+resultsForTeam :: [GameResult] -> String -> LeagueEntry
+resultsForTeam xs team = LeagueEntry team results
+  where
+    homeMatches = filter (\x -> homeTeam x == team) xs
+    awayMatches = filter (\x -> awayTeam x == team) xs
+    homeResultsFn g = compare goals (homeStatistics g) (awayStatistics g)
+    awayResultsFn = opposite . homeResultsFn 
+    results = map homeResultsFn homeMatches ++ map awayResultsFn awayMatches
