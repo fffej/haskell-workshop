@@ -52,3 +52,7 @@ fromOrdering EQ = Draw
 fromOrdering GT = Win
 fromOrdering LT = Lose
 
+score :: Result -> Int
+score Win = 3
+score Draw = 1
+score Lose = 0
