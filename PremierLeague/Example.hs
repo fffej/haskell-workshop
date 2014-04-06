@@ -62,6 +62,17 @@ homeResult = compare goals
 awayResult :: GameResult -> Result
 awayResult = opposite . homeResult
 
+-- (a -> b -> b) -> b -> [a] -> b
+resultForTeam :: String -> [GameResult] -> LeagueEntry
+resultForTeam team results = foldr undefined (LeagueEntry team []) results
+  where
+    scoreGame :: GameResult -> LeagueEntry -> LeagueEntry
+    scoreGame game leagueEntry 
+      | homeTeam game == team = leagueEntry
+      | awayTeam game == team = leagueEntry
+      | otherwise             = leagueEntry
+        
+{-
 resultsForTeam :: [GameResult] -> String -> LeagueEntry
 resultsForTeam xs team = LeagueEntry team results
   where
@@ -69,4 +80,4 @@ resultsForTeam xs team = LeagueEntry team results
     awayMatches = filter (\x -> awayTeam x == team) xs
     homeResultsFn = compare goals
     awayResultsFn = opposite . homeResultsFn 
-    results = map homeResultsFn homeMatches ++ map awayResultsFn awayMatches
+    results = map homeResultsFn homeMatches ++ map awayResultsFn awayMatches -}
