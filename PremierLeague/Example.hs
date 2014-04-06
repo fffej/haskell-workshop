@@ -47,8 +47,8 @@ fromOrdering EQ = Draw
 fromOrdering GT = Win
 fromOrdering LT = Lose
 
-compare :: (Statistics -> Int) -> Statistics -> Statistics -> Result
-compare f s1 s2 = fromOrdering (comparing f s1 s2)
+compare :: (Statistics -> Int) -> GameResult -> Result
+compare f g = fromOrdering (comparing f (homeStatistics g) (awayStatistics g))
 
 opposite :: Result -> Result
 opposite Win = Lose
@@ -56,7 +56,7 @@ opposite Draw = Draw
 opposite Lose = Win
 
 homeResult :: GameResult -> Result
-homeResult g = compare goals (homeStatistics g) (awayStatistics g)
+homeResult = compare goals 
 
 -- Use function composition to write simpler code
 awayResult :: GameResult -> Result
@@ -67,6 +67,6 @@ resultsForTeam xs team = LeagueEntry team results
   where
     homeMatches = filter (\x -> homeTeam x == team) xs
     awayMatches = filter (\x -> awayTeam x == team) xs
-    homeResultsFn g = compare goals (homeStatistics g) (awayStatistics g)
+    homeResultsFn = compare goals
     awayResultsFn = opposite . homeResultsFn 
     results = map homeResultsFn homeMatches ++ map awayResultsFn awayMatches
