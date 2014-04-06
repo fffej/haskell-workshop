@@ -64,12 +64,12 @@ awayResult = opposite . homeResult
 
 -- Next up, try to write a league table
 resultForTeam :: String -> [GameResult] -> LeagueEntry
-resultForTeam team results = foldr scoreGame (LeagueEntry team []) results
+resultForTeam team = foldr (scoreGame (compare goals)) (LeagueEntry team [])
 
-scoreGame :: GameResult -> LeagueEntry -> LeagueEntry
-scoreGame game leagueEntry@(LeagueEntry team _) 
-      | homeTeam game == team = appendResult leagueEntry (compare goals game)
-      | awayTeam game == team = appendResult leagueEntry (opposite $ compare goals game)
+scoreGame :: (GameResult -> Result) -> GameResult -> LeagueEntry -> LeagueEntry
+scoreGame f game leagueEntry@(LeagueEntry team _) 
+      | homeTeam game == team = appendResult leagueEntry (f game)
+      | awayTeam game == team = appendResult leagueEntry (opposite $ f game)
       | otherwise             = leagueEntry
         
 appendResult :: LeagueEntry -> Result -> LeagueEntry                                
