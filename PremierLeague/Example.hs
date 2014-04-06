@@ -62,22 +62,16 @@ homeResult = compare goals
 awayResult :: GameResult -> Result
 awayResult = opposite . homeResult
 
--- (a -> b -> b) -> b -> [a] -> b
+-- Next up, try to write a league table
 resultForTeam :: String -> [GameResult] -> LeagueEntry
-resultForTeam team results = foldr undefined (LeagueEntry team []) results
-  where
-    scoreGame :: GameResult -> LeagueEntry -> LeagueEntry
-    scoreGame game leagueEntry 
-      | homeTeam game == team = leagueEntry
-      | awayTeam game == team = leagueEntry
+resultForTeam team results = foldr scoreGame (LeagueEntry team []) results
+
+scoreGame :: GameResult -> LeagueEntry -> LeagueEntry
+scoreGame game leagueEntry@(LeagueEntry team _) 
+      | homeTeam game == team = appendResult leagueEntry (compare goals game)
+      | awayTeam game == team = appendResult leagueEntry (opposite $ compare goals game)
       | otherwise             = leagueEntry
         
-{-
-resultsForTeam :: [GameResult] -> String -> LeagueEntry
-resultsForTeam xs team = LeagueEntry team results
-  where
-    homeMatches = filter (\x -> homeTeam x == team) xs
-    awayMatches = filter (\x -> awayTeam x == team) xs
-    homeResultsFn = compare goals
-    awayResultsFn = opposite . homeResultsFn 
-    results = map homeResultsFn homeMatches ++ map awayResultsFn awayMatches -}
+appendResult :: LeagueEntry -> Result -> LeagueEntry                                
+appendResult (LeagueEntry team rs) r = LeagueEntry team (r:rs)
+                                
