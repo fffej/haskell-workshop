@@ -75,6 +75,7 @@
 # GHCI
 - GHCI is the de-facto Haskell interpreter
 - Provides a read-eval-print loop (REPL) and a way to talk with the compiler
+- Start ghci with `ghci -Wall` (enables all warnings)
 - For this workshop, work in a file and use `:l <file>` to load the file
 - All examples can be found in the `examples` folder of the git-repo
 
@@ -265,7 +266,7 @@
    violenceLevel :: GameResult -> Int
 
    -- Define a data type to represent a league table entry
-   -- including team name, and game history (win, lose, draw)
+   -- including team name, wins, draws and losses
 ~~~~
 
 <!--
