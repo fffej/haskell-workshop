@@ -108,8 +108,8 @@ Jeff Foster
 <h1>GHCI</h1>
 <ul>
 <li>GHCI is the de-facto Haskell interpreter</li>
-<li>Provides a REPL and a way to explore the code</li>
-<li>For this workshop, work in a file and use <code>:l &lt;file&gt;</code> to reload</li>
+<li>Provides a read-eval-print loop (REPL) and a way to talk with the compiler</li>
+<li>For this workshop, work in a file and use <code>:l &lt;file&gt;</code> to load the file</li>
 <li>All examples can be found in the <code>examples</code> folder of the git-repo</li>
 </ul>
 </div>
@@ -122,7 +122,8 @@ Jeff Foster
 
   -- local values
   add2 x y = z
-    where z = x + y
+    where 
+      z = x + y -- local to the function declarations
 
   -- Pattern matching
   add3 0 y = y
@@ -131,7 +132,7 @@ Jeff Foster
 
   -- Guards 
   add4 x y 
-    | x == 0    = y -- read | as &quot;where&quot;
+    | x == 0    = y -- read &quot;|&quot; as &quot;where&quot;
     | y == 0    = x
     | otherwise = 1 + add4 (x - 1) y</code></pre>
 </div>
@@ -139,7 +140,6 @@ Jeff Foster
 <h1>Haskell Type Signatures</h1>
 <ul>
 <li>A type signature defines the shape of data a function accepts and the output it produces</li>
-<li>All functions in Haskell are really of one argument</li>
 <li>We can use ghci to inspect types</li>
 <li><code>:t &lt;expression&gt;</code> tells you the type of an expression</li>
 </ul>
@@ -152,10 +152,10 @@ Jeff Foster
 <div id="functions-with-multiple-arguments" class="slide section level1">
 <h1>Functions with Multiple Arguments</h1>
 <ul>
+<li>All functions in Haskell are really only of one argument</li>
 <li>Let's consider a function like <code>add</code></li>
 <li><code>add :: Int -&gt; Int -&gt; Int</code></li>
 <li><code>add</code> is a function that takes a <code>Int</code> yielding <code>Int -&gt; Int</code></li>
-<li>Haskell functions are all of a single argument</li>
 </ul>
 <pre><code>    &gt; add 3 4 
      7
@@ -198,7 +198,7 @@ Jeff Foster
 <li><code>baz :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 </ul>
 <!--
-- The more general the type signature, the *more* it can tell you!
+  The more general the type signature, the *more* it can tell you!
 -->
 
 </div>
@@ -231,10 +231,10 @@ Jeff Foster
 <pre><code>    module RecordSyntax where
 
     data Game = GameC {
-        homeTeam :: String
-      , homeScore :: Int
-      , awayTeam :: String
-      , awayScore :: Int
+        homeTeam :: String -- homeTeam :: Game -&gt; String
+      , homeScore :: Int   -- homeScore :: Game -&gt; Int
+      , awayTeam :: String -- awayTeam :: Game -&gt; String
+      , awayScore :: Int   -- awayScore :: Game -&gt; Int
     }
 
     result :: Game -&gt; String 
