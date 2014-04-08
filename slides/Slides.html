@@ -260,6 +260,9 @@ Jeff Foster
 </ul>
 <pre><code>    module SumTypes where
 
+    -- &quot;deriving&quot; is a language feature providing default 
+    -- implementation of some type classes (Eq,Ord,Enum,Bounded,Show,Read)
+    -- Inspect these using ghci to get an ieda of what these type classes do
     data Result = Win | Lose | Draw deriving (Show)
 
     homeTeamResult :: Game -&gt; Result
