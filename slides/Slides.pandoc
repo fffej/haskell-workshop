@@ -399,4 +399,4 @@
 - <http://book.realworldhaskell.org/> is an excellent book
 - Use <http://www.haskell.org/hoogle/>  to search for functionality based on type signatures
 - <http://www.fpcomplete.com> provides some great introductions
-
+- Read "A Tutorial on the Universality and Expressiveness of Fold" to see deep patterns of abstraction captured
