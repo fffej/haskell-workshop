@@ -21,7 +21,7 @@
 - A version of the Haskell Platform <http://www.haskell.org/platform/>
 - A git clone of <https://github.com/fffej/haskell-workshop> (or the USB stick I've hopefully remembered)
 
-# What are you going to do today?
+# Goals of today's session
 >- You'll the basics of Haskell
 >- You'll learn to read Haskell
 >- You'll learn how to combine simple functions analysing Premier League results
