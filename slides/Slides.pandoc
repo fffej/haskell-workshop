@@ -261,7 +261,7 @@
 # Let's define our own data types and functions
 
 - Our domain is football matches.
-- `data/FootballStats.hs` contains a giant messy type
+- `PremierLeague/FootballStats.hs` contains a giant messy type
 
 ~~~~
     data GameResult = GameResult 
