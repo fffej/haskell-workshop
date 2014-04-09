@@ -145,7 +145,7 @@ Jeff Foster
 <li><code>:t &lt;expression&gt;</code> tells you the type of an expression</li>
 </ul>
 <pre><code>  &gt; :t not
-  not :: Bool -&gt; Bool</code></pre>
+   not :: Bool -&gt; Bool</code></pre>
 <ul>
 <li><code>not</code> is of type <code>Bool</code> yielding a <code>Bool</code></li>
 </ul>
@@ -392,18 +392,25 @@ Jeff Foster
 <div id="writing-list-functions" class="slide section level1">
 <h1>Writing List functions</h1>
 <ul>
-<li>Can you write the following functions?
+<li>Can you write the following functions?</li>
+</ul>
+<pre><code>    myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool
+    myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+    myReverse :: [a] -&gt; [a] -- (suprisingly hard!)</code></pre>
 <ul>
-<li><code>myContains :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
-<li><code>myFilter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code></li>
-<li><code>myReverse :: [a] -&gt; [a]</code> (suprisingly hard!)</li>
-</ul></li>
 <li>Remember to work in terms of base case and recursive step</li>
 </ul>
 <!-- 
-     This'll take a bit of a while, say 30 minutes 
+     This'll take a bit of a while, say 20 minutes 
 -->
 
+</div>
+<div id="can-we-write-list-functions" class="slide section level1">
+<h1>Can we write list functions?</h1>
+<ul>
+<li>Let's check our work</li>
+<li>Load up <code>code/WritingListFunctions.hs</code> and see how your defitions match up</li>
+</ul>
 </div>
 <div id="common-list-patterns" class="slide section level1">
 <h1>Common List Patterns</h1>

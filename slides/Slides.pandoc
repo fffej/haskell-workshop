@@ -111,7 +111,7 @@
 
 ~~~~
   > :t not
-  not :: Bool -> Bool
+   not :: Bool -> Bool
 ~~~~
 
 - `not` is of type `Bool` yielding a `Bool`
@@ -361,15 +361,22 @@
 
 # Writing List functions
 - Can you write the following functions?
-    - `myContains :: Eq a => a -> [a] -> Bool`
-    - `myFilter :: (a -> Bool) -> [a] -> [a]`
-    - `myReverse :: [a] -> [a]` (suprisingly hard!)
 
+~~~~
+    myContains :: Eq a => a -> [a] -> Bool
+    myFilter :: (a -> Bool) -> [a] -> [a]
+    myReverse :: [a] -> [a] -- (suprisingly hard!)
+~~~~
+    
 - Remember to work in terms of base case and recursive step
 
 <!-- 
-     This'll take a bit of a while, say 30 minutes 
+     This'll take a bit of a while, say 20 minutes 
 -->
+
+# Can we write list functions?
+- Let's check our work
+- Load up `code/WritingListFunctions.hs` and see how your defitions match up
 
 # Common List Patterns
 
