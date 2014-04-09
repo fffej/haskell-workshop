@@ -230,7 +230,7 @@
 
 # Sum Types
 - A sum type can be one of many possibilities
-- The simplest example is `Bool` which is either `True` or `False`
+- The simplest example is probably `Bool` which is either `True` or `False`
 
 ~~~~
     module SumTypes where
