@@ -7,11 +7,11 @@ import Data.List
 import Data.Ord hiding (compare)
 
 -- Basic functions with pattern of duplication
-bad_goalsScored :: GameResult -> Int
-bad_goalsScored g = goals (homeStatistics g) + goals (awayStatistics g)
+badGoalsScored :: GameResult -> Int
+badGoalsScored g = goals (homeStatistics g) + goals (awayStatistics g)
 
-bad_totalFouls :: GameResult -> Int
-bad_totalFouls g = fouls (homeStatistics g) + fouls (awayStatistics g)
+badTotalFouls :: GameResult -> Int
+badTotalFouls g = fouls (homeStatistics g) + fouls (awayStatistics g)
 
 -- Introduce a higher order function capturing the behaviour
 total :: (Statistics -> Int) -> GameResult -> Int
@@ -30,46 +30,57 @@ data Result = Win
             | Draw
             | Lose deriving (Show,Eq)
 
-data LeagueEntry = LeagueEntry String [Result] deriving (Show)
-
--- If I carry on in this vein, I'm going to need to write a lot of code
--- for each and every type of variable
-bad_homeResult :: GameResult -> Result
-bad_homeResult g
-  | goals (homeStatistics g) > goals (awayStatistics g) = Win
-  | goals (homeStatistics g) < goals (awayStatistics g) = Lose
-  | otherwise                                           = Draw
-                                       
-
--- Generalize key functionality, firstly compare two results
 fromOrdering :: Ordering -> Result
 fromOrdering EQ = Draw
 fromOrdering GT = Win
 fromOrdering LT = Lose
-
-compare :: (Statistics -> Int) -> GameResult -> Result
-compare f g = fromOrdering (comparing f (homeStatistics g) (awayStatistics g))
 
 opposite :: Result -> Result
 opposite Win = Lose
 opposite Draw = Draw
 opposite Lose = Win
 
-homeResult :: GameResult -> Result
-homeResult = compare goals 
+compare :: (Statistics -> Int) -> GameResult -> Result
+compare f g = fromOrdering (comparing f (homeStatistics g) (awayStatistics g))
 
--- Use function composition to write simpler code
+homeResult :: GameResult -> Result
+homeResult = compare goals
+
 awayResult :: GameResult -> Result
 awayResult = opposite . homeResult
 
--- Next up, try to write a league table
-resultForTeam :: String -> [GameResult] -> LeagueEntry
-resultForTeam team rs = LeagueEntry team (foldr (scoreGame (compare goals)) [] rs)
+data LeagueEntry = LeagueEntry
+  {
+    team :: String
+  , wins :: Int
+  , losses :: Int
+  , draws :: Int
+  } deriving (Show)
+
+
+recordResult :: LeagueEntry -> Result -> LeagueEntry
+recordResult le Win = le { wins = wins le + 1 }
+recordResult le Lose = le { losses = losses le + 1 }
+recordResult le Draw = le { draws = draws le + 1 }
+
+mkEntry :: String -> LeagueEntry
+mkEntry team = LeagueEntry team 0 0 0
+
+leagueTable :: [GameResult] -> [LeagueEntry]
+leagueTable games = foldr updateTable (emptyLeague games) games
+
+emptyLeague :: [GameResult] -> [LeagueEntry]
+emptyLeague games = map mkEntry $ nub $ map homeTeam games
+
+updateTable :: GameResult -> [LeagueEntry] -> [LeagueEntry]
+updateTable game table = update (awayTeam game) ar $
+                         update (homeTeam game) hr table
   where
-    scoreGame :: (GameResult -> Result) -> GameResult -> [Result] -> [Result]
-    scoreGame f game results 
-      | homeTeam game == team = f game : results
-      | awayTeam game == team = (opposite $ f game) : results
-      | otherwise             = results
-        
-                                
+    hr = homeResult game
+    ar = awayResult game
+
+update :: String -> Result -> [LeagueEntry] -> [LeagueEntry]
+update _ _ [] = []
+update teamName result (x:xs)
+  | team x == teamName  = recordResult x result : update teamName result xs
+  | otherwise           = x : update teamName result xs
