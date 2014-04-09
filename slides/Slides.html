@@ -435,14 +435,16 @@ Jeff Foster
 <div id="over-to-you" class="slide section level1">
 <h1>Over to you</h1>
 <ul>
-<li>Given the following types, how can we find out how many points a particular team score?</li>
+<li>What does the league table look like?</li>
 </ul>
-<pre><code>     -- TODO need to work this one out</code></pre>
+<pre><code>     foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b
+  
+     -- In Data.List
+     sortBy ::  (a -&gt; a -&gt; Ordering) -&gt; [a] -&gt; [a]</code></pre>
 </div>
 <div id="generalizing" class="slide section level1">
 <h1>Generalizing</h1>
 <ul>
-<li>Who won the league?</li>
 <li>If scores were counted at half-time, who would win the league?</li>
 <li>If yellow and red cards were counted as goals, who'd win?</li>
 <li>Which referee produced most red cards?</li>

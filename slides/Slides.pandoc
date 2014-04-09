@@ -381,14 +381,16 @@
 - `Data.List` contains many common patterns for dealing with lists
 
 # Over to you
-- Given the following types, how can we find out how many points a particular team score?
+- What does the league table look like?
 
 ~~~~
-     -- TODO need to work this one out
+     foldr :: (a -> b -> b) -> b -> [a] -> b
+  
+     -- In Data.List
+     sortBy ::  (a -> a -> Ordering) -> [a] -> [a]
 ~~~~
 
 # Generalizing
-- Who won the league?
 - If scores were counted at half-time, who would win the league?
 - If yellow and red cards were counted as goals, who'd win?
 - Which referee produced most red cards?
