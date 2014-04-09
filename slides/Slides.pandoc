@@ -186,6 +186,9 @@
     -- GameC is the type constructor   
     data Game = GameC String Int String Int
 
+    game :: Game
+    game = GameC "Man Utd" 5 "Chelsea" 0
+
     -- Function type signatures use the type, not the type constructor
     result :: Game -> String
 
@@ -210,6 +213,9 @@
       , awayTeam :: String -- awayTeam :: Game -> String
       , awayScore :: Int   -- awayScore :: Game -> Int
     }
+
+    game :: Game
+    game = GameC { homeTeam = "Man Utd", homeScore = 0, awayTeam = "Bayern", awayScore = 5 }
 
     result :: Game -> String 
     result game
@@ -283,6 +289,25 @@
   And now since we've written some simple functions, we should
   focus on how to combine them across many items
 -->
+
+# Data Types and Functions
+
+- Hopefully you came up with something similar to this
+
+~~~~
+  data LeagueEntry = LeagueEntry {
+    team :: String
+  , wins :: Int
+  , losses :: Int
+  , draws :: Int
+  }
+
+  totalGoals g = homeGoals g + awayGoals g -- and so on
+~~~~
+
+- We can write simple functions, great!
+- But how do we combine these functions?
+
 
 # Haskell Lists
 - Lists have special syntax in Haskell

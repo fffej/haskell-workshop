@@ -218,6 +218,9 @@ Jeff Foster
     -- GameC is the type constructor   
     data Game = GameC String Int String Int
 
+    game :: Game
+    game = GameC &quot;Man Utd&quot; 5 &quot;Chelsea&quot; 0
+
     -- Function type signatures use the type, not the type constructor
     result :: Game -&gt; String
 
@@ -241,6 +244,9 @@ Jeff Foster
       , awayTeam :: String -- awayTeam :: Game -&gt; String
       , awayScore :: Int   -- awayScore :: Game -&gt; Int
     }
+
+    game :: Game
+    game = GameC { homeTeam = &quot;Man Utd&quot;, homeScore = 0, awayTeam = &quot;Bayern&quot;, awayScore = 5 }
 
     result :: Game -&gt; String 
     result game
@@ -312,6 +318,24 @@ Jeff Foster
   focus on how to combine them across many items
 -->
 
+</div>
+<div id="data-types-and-functions" class="slide section level1">
+<h1>Data Types and Functions</h1>
+<ul>
+<li>Hopefully you came up with something similar to this</li>
+</ul>
+<pre><code>  data LeagueEntry = LeagueEntry {
+    team :: String
+  , wins :: Int
+  , losses :: Int
+  , draws :: Int
+  }
+
+  totalGoals g = homeGoals g + awayGoals g -- and so on</code></pre>
+<ul>
+<li>We can write simple functions, great!</li>
+<li>But how do we combine these functions?</li>
+</ul>
 </div>
 <div id="haskell-lists" class="slide section level1">
 <h1>Haskell Lists</h1>
