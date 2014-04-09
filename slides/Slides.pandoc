@@ -160,9 +160,16 @@
 
 # Interpreting Type Signatures
 - What do these functions do?
-- `foo :: (a,b) -> a`
-- `bar :: a -> a`
-- `baz :: Eq a => a -> [a] -> Bool`
+
+~~~~
+    quz :: (Int,Int) -> Int
+   
+    foo :: (a,b) -> a
+
+    bar :: a -> a
+    
+    baz :: Eq a => a -> [a] -> Bool
+~~~~
 
 <!--
   The more general the type signature, the *more* it can tell you!

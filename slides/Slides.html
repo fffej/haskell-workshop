@@ -194,10 +194,14 @@ Jeff Foster
 <h1>Interpreting Type Signatures</h1>
 <ul>
 <li>What do these functions do?</li>
-<li><code>foo :: (a,b) -&gt; a</code></li>
-<li><code>bar :: a -&gt; a</code></li>
-<li><code>baz :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></li>
 </ul>
+<pre><code>    quz :: (Int,Int) -&gt; Int
+   
+    foo :: (a,b) -&gt; a
+
+    bar :: a -&gt; a
+    
+    baz :: Eq a =&gt; a -&gt; [a] -&gt; Bool</code></pre>
 <!--
   The more general the type signature, the *more* it can tell you!
 -->
