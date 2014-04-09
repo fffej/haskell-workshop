@@ -16,7 +16,7 @@
 
 > A language that doesn't affect the way you think about programming is not worth knowing. (Alan Perlis)
 
-# What do you need today?
+# Prequisites
 - A text editor
 - A version of the Haskell Platform <http://www.haskell.org/platform/>
 - A git clone of <https://github.com/fffej/haskell-workshop> (or the USB stick I've hopefully remembered)
