@@ -218,7 +218,7 @@ Jeff Foster
     -- GameC is the type constructor   
     data Game = GameC String Int String Int
 
-    -- Function type signatures use the type
+    -- Function type signatures use the type, not the type constructor
     result :: Game -&gt; String
 
     -- Function definitions &quot;Deconstruct&quot; values with the type constructor
@@ -262,6 +262,7 @@ Jeff Foster
 <h1>Sum Types</h1>
 <ul>
 <li>A sum type can be one of many possibilities</li>
+<li>The simplest example is <code>Bool</code> which is either <code>True</code> or <code>False</code></li>
 </ul>
 <pre><code>    module SumTypes where
 
