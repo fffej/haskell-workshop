@@ -415,11 +415,13 @@ Jeff Foster
 <div id="common-list-patterns" class="slide section level1">
 <h1>Common List Patterns</h1>
 <ul>
-<li>List functions capture patterns of common abstractions such as <code>map</code>, <code>filter</code> and <code>reduce</code> (aka fold)</li>
-<li><code>map :: (a -&gt; b) -&gt; [a] -&gt; [b]</code><br /></li>
-<li><code>filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]</code><br /></li>
-<li><code>foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></li>
+<li>List functions capture patterns of common abstractions such as <code>map</code>, <code>filter</code> and <code>fold</code> (aka reduce)</li>
 </ul>
+<pre><code>    map :: (a -&gt; b) -&gt; [a] -&gt; [b]
+    
+    filter :: (a -&gt; Bool) -&gt; [a] -&gt; [a]
+    
+    foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></pre>
 </div>
 <div id="building-up-some-tools" class="slide section level1">
 <h1>Building up some tools</h1>
@@ -466,6 +468,7 @@ Jeff Foster
 <ul>
 <li><a href="http://www.haskell.org/hoogle/">http://www.haskell.org/hoogle/</a> allows you to search by type signature</li>
 <li><code>Data.List</code> contains many common patterns for dealing with lists</li>
+<li>Think in terms of type signatures first and foremost</li>
 </ul>
 </div>
 <div id="over-to-you" class="slide section level1">

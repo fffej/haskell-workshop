@@ -380,10 +380,15 @@
 
 # Common List Patterns
 
-- List functions capture patterns of common abstractions such as `map`, `filter` and `reduce` (aka fold)
-- `map :: (a -> b) -> [a] -> [b]`           
-- `filter :: (a -> Bool) -> [a] -> [a]`     
-- `foldr :: (a -> b -> b) -> b -> [a] -> b` 
+- List functions capture patterns of common abstractions such as `map`, `filter` and `fold` (aka reduce)
+
+~~~~
+    map :: (a -> b) -> [a] -> [b]
+    
+    filter :: (a -> Bool) -> [a] -> [a]
+    
+    foldr :: (a -> b -> b) -> b -> [a] -> b
+~~~~
 
 # Building up some tools
 - Load up `FootballStats.hs`
@@ -419,6 +424,7 @@
 # Finding Functions
 - <http://www.haskell.org/hoogle/> allows you to search by type signature
 - `Data.List` contains many common patterns for dealing with lists
+- Think in terms of type signatures first and foremost
 
 # Over to you
 - What does the league table look like?
