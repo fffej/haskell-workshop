@@ -372,6 +372,7 @@
     myContains :: Eq a => a -> [a] -> Bool
     myFilter :: (a -> Bool) -> [a] -> [a]
     myReverse :: [a] -> [a] -- (suprisingly hard!)
+    myReduce :: (a -> b -> b) -> b -> [a] -> b
 ~~~~
     
 - Remember to work in terms of base case and recursive step

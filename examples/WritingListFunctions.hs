@@ -24,6 +24,10 @@ myReverse xs = myReverse' xs []
     myReverse' []     ys = ys
     myReverse' (x:xs) ys = myReverse' xs (x:ys)
 
+myReduce :: (a -> b -> b) -> b -> [a] -> b
+myReduce f z []     = z 
+myReduce f z (x:xs) = f x (foldr f z xs) 
+
 -- I can test whether these are correct using QuickCheck
 -- A property based testing framework that asserts invariants
 prop_oracle_reverse :: Eq a => [a] -> Bool
