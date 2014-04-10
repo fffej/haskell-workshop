@@ -9,8 +9,8 @@
 - Some Haskell related stuff on <http://www.fatvat.co.uk>
 
 # Why Haskell?
-- Is 20XX the year of FP? (we've been saying this for a while)
 - Purely functional, statically typed, lazy language
+- Is 20XX the year of FP? (we've been saying this for a while)
 - Great support for concurrency and parallelism
 - A completely new paradigm coming from the {} background
 
