@@ -19,9 +19,11 @@ add2 x y = z
     z = x + y
 
 add3 x y 
-  | x == 0 = y
-  | y == 0 = x
+  | isZero x = y
+  | isZero y = x
   | otherwise = 1 + add3 (x - 1) y
+  where
+    isZero z = z == 0
 
 add4 0 y = y
 add4 x 0 = x
