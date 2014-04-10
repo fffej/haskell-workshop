@@ -1,7 +1,6 @@
 module WritingListFunctions where
 
 import Test.QuickCheck
-import Text.Printf
 
 myContains :: Eq a => a -> [a] -> Bool
 myContains e []     = False
