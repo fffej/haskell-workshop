@@ -201,9 +201,9 @@ Jeff Foster
 <ul>
 <li>What do these functions do?</li>
 </ul>
-<pre><code>    quz :: (Int,Int) -&gt; Int
+<pre><code>    quz :: Int -&gt; Int -&gt; Int
    
-    foo :: (a,b) -&gt; a
+    foo :: a -&gt; b -&gt; a
 
     bar :: a -&gt; a
     
@@ -415,7 +415,15 @@ Jeff Foster
 <h1>Can we write list functions?</h1>
 <ul>
 <li>Let's check our work</li>
-<li>Load up <code>code/WritingListFunctions.hs</code> and see how your defitions match up</li>
+<li>Load up <code>code/WritingListFunctions.hs</code> and see how your definitions match up</li>
+</ul>
+</div>
+<div id="side-step---quick-check" class="slide section level1">
+<h1>Side Step - Quick Check</h1>
+<ul>
+<li>QuickCheck is a property-based testing framework</li>
+<li>Allows you to state invariants about your function and challenge Haskell to prove you wrong</li>
+<li>Demo!</li>
 </ul>
 </div>
 <div id="common-list-patterns" class="slide section level1">

@@ -168,9 +168,9 @@
 - What do these functions do?
 
 ~~~~
-    quz :: (Int,Int) -> Int
+    quz :: Int -> Int -> Int
    
-    foo :: (a,b) -> a
+    foo :: a -> b -> a
 
     bar :: a -> a
     
@@ -382,7 +382,12 @@
 
 # Can we write list functions?
 - Let's check our work
-- Load up `code/WritingListFunctions.hs` and see how your defitions match up
+- Load up `code/WritingListFunctions.hs` and see how your definitions match up
+
+# Side Step - Quick Check
+- QuickCheck is a property-based testing framework
+- Allows you to state invariants about your function and challenge Haskell to prove you wrong
+- Demo!
 
 # Common List Patterns
 
