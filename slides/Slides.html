@@ -133,9 +133,12 @@ Jeff Foster
 
   -- Guards 
   add4 x y 
-    | x == 0    = y -- read &quot;|&quot; as &quot;where&quot;
-    | y == 0    = x
-    | otherwise = 1 + add4 (x - 1) y</code></pre>
+    | isZero x  = y -- read &quot;|&quot; as &quot;where&quot;
+    | isZero y  = x
+    | otherwise = 1 + add4 (x - 1) y
+    where
+      isZero z = z == 0
+  </code></pre>
 </div>
 <div id="haskell-type-signatures" class="slide section level1">
 <h1>Haskell Type Signatures</h1>
