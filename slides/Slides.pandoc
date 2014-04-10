@@ -366,15 +366,16 @@
 ~~~~
 
 # Writing List functions
-- Can you write the following functions?
+- What do the following functions do?
 
 ~~~~
     myContains :: Eq a => a -> [a] -> Bool
     myFilter :: (a -> Bool) -> [a] -> [a]
-    myReverse :: [a] -> [a] -- (suprisingly hard!)
+    myReverse :: [a] -> [a] 
     myReduce :: (a -> b -> b) -> b -> [a] -> b
 ~~~~
-    
+
+- Can you write the following functions?    
 - Remember to work in terms of base case and recursive step
 
 <!-- 
