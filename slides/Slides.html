@@ -10,8 +10,8 @@
   <title>Just Enough Haskell to be Dangerous</title>
   <style type="text/css">code{white-space: pre;}</style>
   <link rel="stylesheet" type="text/css" media="screen, projection, print"
-    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
-  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    href="offline/slidy.css" />
+  <script src="offline/slidy.js"
     charset="utf-8" type="text/javascript"></script>
 </head>
 <body>
@@ -493,9 +493,12 @@ Jeff Foster
 <li>Which game had the most fouls?</li>
 <li>Which game had the biggest winning margin?</li>
 <li>Which referee produced most red cards?</li>
-<li><p>What does the league table look like? ~<sub>~</sub> foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</p>
-<p>-- In Data.List sortBy :: (a -&gt; a -&gt; Ordering) -&gt; [a] -&gt; [a] ~<sub>~</sub></p></li>
+<li>What does the league table look like?</li>
 </ul>
+<pre><code>     foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b
+  
+     -- In Data.List
+     sortBy ::  (a -&gt; a -&gt; Ordering) -&gt; [a] -&gt; [a]</code></pre>
 </div>
 <div id="generalizing" class="slide section level1">
 <h1>Generalizing</h1>

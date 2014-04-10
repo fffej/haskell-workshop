@@ -444,6 +444,7 @@
 - Which game had the biggest winning margin?
 - Which referee produced most red cards?
 - What does the league table look like?
+
 ~~~~
      foldr :: (a -> b -> b) -> b -> [a] -> b
   
