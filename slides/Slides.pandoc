@@ -440,8 +440,10 @@
 - Think in terms of type signatures first and foremost
 
 # Over to you
+- Which game had the most fouls?
+- Which game had the biggest winning margin?
+- Which referee produced most red cards?
 - What does the league table look like?
-
 ~~~~
      foldr :: (a -> b -> b) -> b -> [a] -> b
   
